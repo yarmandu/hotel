@@ -1,0 +1,118 @@
+﻿@model Proyecto_Hoteleria.Models.ReservaVM.EditarReservaVM
+@{
+
+    Layout = null;
+}
+
+<div class="page-content">
+    <div class="panel">
+        <div class="panel-body container-fluid">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                    <div class="example-wrap">
+                        @using (@Html.BeginForm("Editar", "ReservaHabitacion", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "frmEditReserva" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => model.Item.idReserva)
+
+                                <div class="form-group form-material">
+                                    @Html.Label("Hotel", "Id Hotel", htmlAttributes: new { @class = "control-label col-sm-2" })
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(model => model.Item.IdHotel, new { htmlAttributes = new { @class = "form-control", @placeholder = "1", disabled="enable", value="1" } })
+                                    </div>
+
+                                    @Html.Label("Estado", "Estado", htmlAttributes: new { @class = "control-label col-sm-2" })
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(model => model.Item.estado, new { htmlAttributes = new { @class = "form-control", @placeholder = "estado", @value="1",@onkeypress = "return soloNumeros(event)", @onpaste = "return false" } })
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-material">
+                                    @Html.Label("IdTipoDocumento", "Tipo Documento", htmlAttributes: new { @class = "control-label col-sm-2" })
+                                    <div class="col-sm-4">
+                                        @Html.DropDownListFor(model => model.Item.IdTipoDocumento, Model.TipoDocumentos, new { @class = "form-control" })
+                                    </div>
+
+                                    @Html.Label("descTipoDoc", "Descripcion Doc.", htmlAttributes: new { @class = "control-label col-sm-2" })
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(model => model.Item.descTipoDoc, new { htmlAttributes = new { @class = "form-control", @placeholder = "Descripcion Doc.", @maxlength = "15", @onkeypress = "return soloNumeros(event)", @onpaste = "return false" } })
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-material">
+                                    @Html.Label("codHabitacion", "TipoHabitacion", htmlAttributes: new { @class = "control-label col-sm-2" })
+                                    <div class="col-sm-4">
+                                        @Html.DropDownListFor(model => model.Item.idTipoHabitacion, Model.TipoHabitacion, new { @class = "form-control" })
+                                    </div>
+
+                                    @Html.Label("CantHabitacion", "CantHabitacion", htmlAttributes: new { @class = "control-label col-sm-2" })
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(model => model.Item.cantHabitacion, new { htmlAttributes = new { @class = "form-control", @placeholder = "Cantidad Habitacion", @onkeypress = "return soloNumeros(event)", @onpaste = "return false" } })
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-material">                       
+                                    @Html.Label("FechaInicio", "FechaInicio", htmlAttributes: new { @class = "control-label col-sm-2" })
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(model => model.Item.fechaInicio, new { htmlAttributes = new { @class = "form-control", @placeholder = "Fecha Inicio", @maxlength = "50", @onkeypress = "return soloNumeros(event)", @onpaste = "return false" } })
+                                        @*@Html.EditorFor(model => model.Item.fechaInicio, new { htmlAttributes = new { @class = "date-picker" } })*@
+                                                                      
+                                    </div>
+                                    @Html.Label("FechaFin", "FechaFin", htmlAttributes: new { @class = "control-label col-sm-2" })
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(model => model.Item.fechaFin, new { htmlAttributes = new { @class = "form-control", @placeholder = "Fecha Fin", @maxlength = "50", @onkeypress = "return soloNumeros(event)", @onpaste = "return false" } })                                                                              
+                                        @*<vaadin-date-picker>@Html.EditorFor(model => model.Item.fechaFin, new { htmlAttributes = new { @class = "form-control" } })</vaadin-date-picker>*@
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group form-material">
+                                    @Html.Label("Precio", "Precio", htmlAttributes: new { @class = "control-label col-sm-2" })
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(model => model.Item.Precio, new { htmlAttributes = new { @class = "form-control", @placeholder = "Precio", @maxlength = "10", @onkeypress = "return soloNumeros(event)", @onpaste = "return false" } })
+                                    </div>
+
+                                    @Html.Label("PrecioTotal", "PrecioTotal", htmlAttributes: new { @class = "control-label col-sm-2" })
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(model => model.Item.precioTotal, new { htmlAttributes = new { @class = "form-control", @placeholder = "Precio Total", @onkeypress = "return soloNumeros(event)", @onpaste = "return false" } })
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group form-material">
+                                    @Html.Label("TipoPago", "TipoPago", htmlAttributes: new { @class = "control-label col-sm-2" })
+                                    <div class="col-sm-4">
+                                        @Html.DropDownListFor(model => model.Item.idtipoPago, Model.TipoPago, new { @class = "form-control" })
+                                    </div>
+
+                                    @Html.Label("Total", "Total", htmlAttributes: new { @class = "control-label col-sm-2" })
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(model => model.Item.total, new { htmlAttributes = new { @class = "form-control", @placeholder = "Total", @onkeypress = "return soloNumeros(event)", @onpaste = "return false" } })
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-material">
+                                    <div class="col-sm-9 col-sm-offset-4">
+                                        <button type="submit" id="btnGrabar" class="btn btn-primary" onclick="return grabar();">Save </button>
+                                        <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                                }
+                            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        debugger;
+                $('#datetimepicker5').datetimepicker({
+                    
+                        format: 'mm/dd/yyyy',
+                        startDate: '-3d'
+                });
+                debugger;
+            });
+</script>

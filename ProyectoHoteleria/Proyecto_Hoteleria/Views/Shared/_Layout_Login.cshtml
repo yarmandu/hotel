@@ -1,0 +1,622 @@
+﻿<!DOCTYPE html>
+<html class="no-js css-menubar" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="bootstrap admin template">
+    <meta name="author" content="">
+       
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href="http://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+ 
+    <title>Proyecto Hotelería</title>  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> 
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap-extend.min.css" rel="stylesheet" />
+    <link href="~/Content/css/site.min.css" rel="stylesheet" />     
+
+        <style>
+            body {
+                font: 400 15px/1.8 Lato, sans-serif;
+                color: #777;
+            }
+
+            h3, h4 {
+                margin: 10px 0 30px 0;
+                letter-spacing: 10px;
+                font-size: 20px;
+                color: #111;
+            }
+
+            .container {
+                padding: 80px 120px;
+            }
+
+            .person {
+                border: 10px solid transparent;
+                margin-bottom: 25px;
+                width: 80%;
+                height: 80%;
+                opacity: 0.7;
+            }
+
+                .person:hover {
+                    border-color: #f1f1f1;
+                }
+
+            .carousel-inner img {               
+                width: 100%; /* Set width to 100% */
+                margin: auto;
+            }
+
+            .carousel-caption h3 {
+                color: #fff !important;
+            }
+            
+            
+            .carousel-caption {
+                display: none; /* Hide the carousel text when the screen is less than 600 pixels wide */
+                max-width: 600px;
+            }
+            
+            .bg-1 {
+                background: #2d2d30;
+                color: #bdbdbd;
+            }
+
+                .bg-1 h3 {
+                    color: #fff;
+                }
+
+                .bg-1 p {
+                    font-style: italic;
+                }
+
+            .list-group-item:first-child {
+                border-top-right-radius: 0;
+                border-top-left-radius: 0;
+            }
+
+            .list-group-item:last-child {
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+
+            .thumbnail {
+                padding: 0 0 15px 0;
+                border: none;
+                border-radius: 0;
+            }
+
+                .thumbnail p {
+                    margin-top: 15px;
+                    color: #555;
+                }
+
+            .btn {
+                padding: 10px 20px;
+                background-color: #333;
+                color: #f1f1f1;
+                border-radius: 0;
+                transition: .2s;
+            }
+
+                .btn:hover, .btn:focus {
+                    border: 1px solid #333;
+                    background-color: #fff;
+                    color: #000;
+                }
+
+            .modal-header, h4, .close {
+                background-color: #333;
+                color: #fff !important;
+                text-align: center;
+                font-size: 30px;
+            }
+
+            .modal-header, .modal-body {
+                padding: 40px 50px;
+            }
+
+            .nav-tabs li a {
+                color: #777;
+            }
+
+            #googleMap {
+                width: 100%;
+                height: 400px;
+                
+                filter: grayscale(100%);
+            }
+
+            .navbar {
+                font-family: Montserrat, sans-serif;
+                margin-bottom: 0;
+                background-color: #2d2d30;
+                border: 0;
+                font-size: 11px !important;
+                letter-spacing: 4px;
+                opacity: 0.9;
+            }
+
+                .navbar li a, .navbar .navbar-brand {
+                    color: #d5d5d5 !important;
+                }
+
+            .navbar-nav li a:hover {
+                color: #fff !important;
+            }
+
+            .navbar-nav li.active a {
+                color: #fff !important;
+                background-color: #29292c !important;
+            }
+
+            .navbar-default .navbar-toggle {
+                border-color: transparent;
+            }
+
+            .open .dropdown-toggle {
+                color: #fff;
+                background-color: #555 !important;
+            }
+
+            .dropdown-menu li a {
+                color: #000 !important;
+            }
+
+                .dropdown-menu li a:hover {
+                    background-color: red !important;
+                }
+
+            footer {
+                background-color: #2d2d30;
+                color: #f5f5f5;
+                padding: 32px;
+            }
+
+                footer a {
+                    color: #f5f5f5;
+                }
+
+                    footer a:hover {
+                        color: #777;
+                        text-decoration: none;
+                    }
+
+            .form-control {
+                border-radius: 0;
+            }
+
+            textarea {
+                resize: none;
+            }
+            
+        </style>
+
+    <script>
+  Breakpoints();
+    </script>
+    <script src="~/Content/vendor/jquery/jquery.js"></script>
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
+  
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#myPage">PARAÍSO</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#myPage">INICIO</a></li>
+                    @*<li>@Html.ActionLink("INICIO", "Index", "Inicio", new { area = "" }, new { @class = "navbar-brand" })</li>*@
+                    <li><a href="#band">NOSOTROS</a></li>
+                    <li><a href="#tour">HABITACIONES</a></li>
+                    <li><a href="#contact">CONTÁCTENOS</a></li>
+                    <li>@Html.ActionLink("Ingresar", "Index", "Login", new { area = "" }, new { @class = "navbar-brand" })</li>
+
+                    <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img src="~/Content/images/Balcon-11.jpg" alt="Hermosa Vista" width="1200" height="700">
+                <div class="carousel-caption">
+                    <h3>Hermosa Vista</h3>
+                    <p>Tiene una hermosa vista, perfecto para despertar y amar la naturaleza.</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="~/Content/images/Habitacion-21.jpg" alt="Habitaciones" width="1200" height="700">
+                <div class="carousel-caption">
+                    <h3>Habitaciones</h3>
+                    <p>Nuestras habitaciones son cómodas y adaptables a cada uno.</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="~/Content/images/DSCF0311-movil.jpg" alt="Bebidas" width="1200" height="700">
+                <div class="carousel-caption">
+                    <h3>Bebidas</h3>
+                    <p>Tenemos una gran variedad de bebidas a escoger!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Antes</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Después</span>
+        </a>
+    </div>
+
+    <!-- Container (The Band Section) -->
+    <div id="band" class="container text-center">
+        <h3>NOSOTROS</h3>
+        <p><em>Hotel Paraíso!</em></p>
+        <p>
+            El Hotel Paraíso es uno de los mejores hoteles de Lima, con mejor ubicación, situado en pleno 
+            centro de Lima y a tan sólo 100 metros del Óvalo - Miraflores,  en la que se 
+            encuentran comercios, restaurantes y centros comerciales. Nuestro hotel 3 estrellas en Lima destaca por sus exclusivas 
+            y espectaculares vistas al mar - Costa Verde.</p>
+
+            <p>El 100% de las habitaciones han sido reformadas y remodeladas en los últimos 4 años para brindar una 
+            excelente calidad y comodidad, acorde a las exigencias de nuestros huéspedes. El desayuno buffet está 
+            incluido y contamos con estacionamiento propio según disponibilidad sin coste alguno para nuestros 
+            huéspedes. Tanto en las zonas comunes como en las habitaciones brindamos Wi-Fi gratuito.</p>
+
+            <p>El Hotel Paraíso es uno de los primeros hoteles de 3 estrellas en Bariloche y, con 40 años de 
+            experiencia, ofrecemos alojamiento a turistas de todas las nacionalidades pudiendo atenderles 
+            en español, inglés y alemán.
+        </p>
+        <br>
+        <div class="row">
+            <div class="col-sm-4">
+                <p class="text-center"><strong>Habitaciones</strong></p><br>
+                <a href="#demo" data-toggle="collapse">
+                    <img src="~/Content/images/Habitac-31.jpg" class="img-circle person" alt="Random Name" width="255" height="255">
+                </a>
+                <div id="demo" class="collapse">
+                    <p>Son cálidos y cómodos</p>
+                    <p>Quedrá volver a nosotros</p>
+                    <p>Tenemos servicios adecuados</p>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <p class="text-center"><strong>Baños</strong></p><br>
+                <a href="#demo2" data-toggle="collapse">
+                    <img src="~/Content/images/Bano11.jpg" class="img-circle person" alt="Random Name" width="255" height="255">
+                </a>
+                <div id="demo2" class="collapse">
+                    <p>Siempre limpios</p>
+                    <p>La limpieza es diariamente</p>
+                    <p>Tenemos terma a gusto</p>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <p class="text-center"><strong>Servicio</strong></p><br>
+                <a href="#demo3" data-toggle="collapse">
+                    <img src="~/Content/images/Terraza.jpg" class="img-circle person" alt="Random Name" width="255" height="255">
+                </a>
+                <div id="demo3" class="collapse">
+                    <p>Si deseas un servicio especial</p>
+                    <p>Estarás en el lugar correcto</p>
+                    <p>Nuestra atención en A1</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container (TOUR Section) -->
+    <div id="tour" class="bg-1">
+        <div class="container">
+            <h3 class="text-center">NUESTRAS HABITACIONES</h3>
+            <p class="text-center">Muestra una gran variedad de tipos de habitaciones<br> Puede elegir de acuerdo a su comodidad!</p>
+
+            <div class="row text-center">
+                <div class="col-sm-4">
+                    <div class="thumbnail">
+                        <img src="~/Content/images/Matrimoniale_1.jpg" alt="Matrimoniales" width="400" height="300">
+                        <p><strong>Matrimoniales</strong></p>
+                        <p>Amplia habitación doble con una cama de tamaño muy comoda, decorada con gusto y atención al 
+                        detalle. El cálido suelo de madera, propicia un ambiente cómodo y acogedor. De ahí que sea 
+                        perfecta para parejas que buscan una vacación relajante y un hotel donde todo està a unos pocos 
+                        pasos. La habitación tiene un baño privado con ducha o bañera, secador de pelo y amenidades.</p>
+                        <p>Es posible solicitar la adición de una cuna para niños de hasta 4 años, mientras que para 
+                        los niños mayores hay una cama extra, con un aumento del 30% en las tarifas. Hotel Medici 
+                        también ofrece habitaciones estructuradas en conformidad con la ley vigente para alojar a 
+                        personas de movilidad reducida, y también se aceptan mascotas pequeñas.</p>
+                        <button class="btn" data-toggle="modal" data-target="#myModal">Elegir</button>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="thumbnail">
+                        <img src="~/Content/images/Double_1.jpg" alt="Dobles" width="400" height="300">
+                        <p><strong>Dobles</strong></p>
+                        <p>Doble espaciosa y luminosa, con dos camas muy cómodas de tamaño y decorada con estilo moderno. 
+                        El cálido suelo de madera crea un ambiente agradable y acogedor. Ideal para parejas y viajeros de 
+                        negocios, la habitación tiene un baño privado con ducha o bañera, secador de pelo y amenidades.</p>
+                        <br />
+                        <p>Es posible solicitar la adición de una cuna para niños de hasta 4 años, mientras que para los 
+                        niños mayores hay una cama extra, con un aumento del 30% en las tarifas. Hotel Medici también ofrece 
+                        habitaciones estructuradas en conformidad con la ley vigente para alojar a personas de movilidad 
+                        reducida, y también se aceptan mascotas pequeñas.</p>
+                        <button class="btn" data-toggle="modal" data-target="#myModal">Elegir</button>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="thumbnail">
+                        <img src="~/Content/images/Quadrupla_1.jpg" alt="Familiares" width="400" height="300">
+                        <p><strong>Familiares</strong></p>
+                        <p>Habitación con dos camas, decoradas con estilo clásico y acogedor gracias a los muebles y al 
+                        cálido suelos de madera. Ideal para familias y pequeños grupos que visitan la ciudad eterna, tiene 
+                        un cómodo sofá y un baño privado con ducha o bañera, secador de pelo y amenidades.</p>
+                        <br />
+                        <p>Es posible solicitar la adición de una cuna para niños de hasta 4 años, mientras que para los 
+                        niños mayores hay una cama extra, con un aumento del 30% en las tarifas. Hotel Medici también 
+                        ofrece habitaciones estructuradas en conformidad con la ley vigente para alojar a personas de 
+                        movilidad reducida, y también se aceptan mascotas pequeñas.</p>
+                        <button class="btn" data-toggle="modal" data-target="#myModal">Elegir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h4><span class="glyphicon glyphicon-lock"></span> Opiniones</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="psw"><span class="glyphicon glyphicon-shopping-cart"></span> Apreciamos su elección!</label>
+                                <input type="number" class="form-control" id="psw" placeholder="How many?">
+                            </div>
+                            <div class="form-group">
+                                <label for="usrname"><span class="glyphicon glyphicon-user"></span> Enviar para</label>
+                                <input type="text" class="form-control" id="usrname" placeholder="Enter email">
+                            </div>
+                            <button type="submit" class="btn btn-block">
+                                Pay
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">
+                            <span class="glyphicon glyphicon-remove"></span> Cancelar
+                        </button>
+                        <p>Necesita <a href="#">Ayuda?</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container (Contact Section) -->
+    <div id="contact" class="container">
+        <h3 class="text-center">CONTÁCTENOS</h3>
+        <p class="text-center"><em>Apreciamos sus opiniones!</em></p>
+
+        <div class="row">
+            <div class="col-md-4">
+                <p>Es cliente? Déjenos sus opiniones.</p>
+                <p><span class="glyphicon glyphicon-map-marker"></span>Perú, Lima</p>
+                <p><span class="glyphicon glyphicon-phone"></span>Teléfono: +51 946 583 192/p>
+                <p><span class="glyphicon glyphicon-envelope"></span>Email: hoteles_sanos@mail.com</p>
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <input class="form-control" id="name" name="name" placeholder="Nombre" type="text" required>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+                    </div>
+                </div>
+                <textarea class="form-control" id="comments" name="comments" placeholder="Opiniones" rows="5"></textarea>
+                <br>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <button class="btn pull-right" type="submit">Enviar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <h3 class="text-center">Hotel Paraíso</h3>
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home">Romario</a></li>
+            <li><a data-toggle="tab" href="#menu1">Juan</a></li>
+            <li><a data-toggle="tab" href="#menu2">Alex</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade in active">
+                <h2>Romario Ross, Jefe</h2>
+                <p>El hombre , que hemos estado en la carretera durante algún tiempo . Mirando hacia adelante a lorem ipsum .</p>
+            </div>
+            <div id="menu1" class="tab-pane fade">
+                <h2>Juan Bing, Administrador</h2>
+                <p>Siempre es un placer la gente ! Espero que hayan disfrutado tanto como yo. Podría estar más contentos .. ?</p>
+            </div>
+            <div id="menu2" class="tab-pane fade">
+                <h2>Alex Griffin, Recepción</h2>
+                <p>Es decir , a veces me gusta el espectáculo, pero otras veces me gusta otras cosas .</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="googleMap"></div>
+
+    <!-- Add Google Maps -->
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
+    <script>
+        var myCenter = new google.maps.LatLng(-12.0896946, -77.0354467);
+
+        function initialize() {
+            var mapProp = {
+                center: myCenter,
+                zoom: 12,
+                scrollwheel: false,
+                draggable: false,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+
+            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+            var marker = new google.maps.Marker({
+                position: myCenter,
+            });
+
+            marker.setMap(map);
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+       <script>
+        $(document).ready(function () {
+            // Initialize Tooltip
+            $('[data-toggle="tooltip"]').tooltip();
+
+            // Add smooth scrolling to all links in navbar + footer link
+            $(".navbar a, footer a[href='#myPage']").on('click', function (event) {
+
+                // Make sure this.hash has a value before overriding default behavior
+                if (this.hash !== "") {
+
+                    // Prevent default anchor click behavior
+                    event.preventDefault();
+
+                    // Store hash
+                    var hash = this.hash;
+
+                    // Using jQuery's animate() method to add smooth page scroll
+                    // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+                    $('html, body').animate({
+                        scrollTop: $(hash).offset().top
+                    }, 900, function () {
+
+                        // Add hash (#) to URL when done scrolling (default click behavior)
+                        window.location.hash = hash;
+                    });
+                } // End if
+            });
+        })
+    </script>
+
+
+    <!-- Page -->
+    @RenderBody()
+    <!-- End Page -->
+    <!-- Footer -->
+    <footer class="site-footer">       
+        <div class="site-footer-right">
+            © Copyright 2016 - Proyecto Hotelería
+        </div>
+    </footer>
+  
+    <script src="~/Scripts/genericos/jquery.numeric.js"></script>
+    @*<script src="~/Content/Base/vendor/bootstrap/bootstrap.js"></script>*@
+    <script src="~/Content/vendor/bootstrap/bootstrap.js"></script>
+    @*<script src="~/Content/Base/vendor/animsition/animsition.js"></script>*@
+    <script src="~/Content/vendor/animsition/animsition.js"></script>
+    @*<script src="~/Content/Base/vendor/asscroll/jquery-asScroll.js"></script>*@
+    <script src="~/Content/vendor/asscroll/jquery-asScroll.js"></script>
+    @*<script src="~/Content/Base/vendor/mousewheel/jquery.mousewheel.js"></script>*@
+    <script src="~/Content/vendor/mousewheel/jquery.mousewheel.js"></script>
+    @*<script src="~/Content/Base/vendor/asscrollable/jquery.asScrollable.all.js"></script>*@
+    <script src="~/Content/vendor/asscrollable/jquery.asScrollable.all.js"></script>
+    @*<script src="~/Content/Base/vendor/ashoverscroll/jquery-asHoverScroll.js"></script>*@
+    <script src="~/Content/vendor/ashoverscroll/jquery-asHoverScroll.js"></script>
+    @*<script src="~/Content/Base/vendor/waves/waves.js"></script>*@
+    <script src="~/Content/vendor/waves/waves.js"></script>
+    <!-- Plugins -->
+    @*<script src="~/Content/Base/vendor/switchery/switchery.min.js"></script>*@
+    <script src="~/Content/vendor/switchery/switchery.min.js"></script>
+    @*<script src="~/Content/Base/vendor/intro-js/intro.js"></script>*@
+    <script src="~/Content/vendor/intro-js/intro.js"></script>
+    @*<script src="~/Content/Base/vendor/screenfull/screenfull.js"></script>*@
+    <script src="~/Content/vendor/screenfull/screenfull.js"></script>
+    @*<script src="~/Content/Base/vendor/slidepanel/jquery-slidePanel.js"></script>*@
+    <script src="~/Content/vendor/slidepanel/jquery-slidePanel.js"></script>
+    @*<script src="~/Content/Base/vendor/chartist-js/chartist.min.js"></script>*@
+    <script src="~/Content/vendor/chartist-js/chartist.min.js"></script>
+    @*<script src="~/Content/Base/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.min.js"></script>*@
+    @*<script src="~/Content/Base/vendor/jvectormap/jquery-jvectormap.min.js"></script>*@
+    <script src="~/Content/vendor/jvectormap/jquery-jvectormap.min.js"></script>
+    @*<script src="~/Content/Base/vendor/jvectormap/maps/jquery-jvectormap-world-mill-en.js"></script>*@
+    <script src="~/Content/vendor/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    @*<script src="~/Content/Base/vendor/matchheight/jquery.matchHeight-min.js"></script>*@
+    <script src="~/Content/vendor/matchheight/jquery.matchHeight-min.js"></script>
+    @*<script src="~/Content/Base/vendor/peity/jquery.peity.min.js"></script>*@
+    <script src="~/Content/vendor/peity/jquery.peity.min.js"></script>
+    <!-- Scripts -->
+    @*<script src="~/Content/Base/js/core.js"></script>*@
+    <script src="~/Content/js/core.js"></script>
+    @*<script src="~/Content/assets/js/site.js"></script>*@
+    <script src="~/Content/js/site.js"></script>
+    @*<script src="~/Content/assets/js/sections/menu.js"></script>*@
+    <script src="~/Content/js/sections/menu.js"></script>
+    @*<script src="~/Content/assets/js/sections/menubar.js"></script>*@
+    <script src="~/Content/js/sections/menubar.js"></script>
+    @*<script src="~/Content/assets/js/sections/sidebar.js"></script>*@
+    <script src="~/Content/js/sections/sidebar.js"></script>
+    @*<script src="~/Content/Base/js/configs/config-colors.js"></script>*@
+    <script src="~/Content/js/configs/config-colors.js"></script>
+    @*<script src="~/Content/assets/js/configs/config-tour.js"></script>*@
+    <script src="~/Content/js/configs/config-tour.js"></script>
+    @*<script src="~/Content/Base/js/components/asscrollable.js"></script>*@
+    <script src="~/Content/js/components/asscrollable.js"></script>
+    @*<script src="~/Content/Base/js/components/animsition.js"></script>*@
+    <script src="~/Content/js/components/animsition.js"></script>
+    @*<script src="~/Content/Base/js/components/slidepanel.js"></script>*@
+    <script src="~/Content/js/components/slidepanel.js"></script>
+    @*<script src="~/Content/Base/js/components/switchery.js"></script>*@
+    <script src="~/Content/js/components/switchery.js"></script>
+    @*<script src="~/Content/Base/js/components/tabs.js"></script>*@
+    <script src="~/Content/js/components/tabs.js"></script>
+    @*<script src="~/Content/Base/js/components/matchheight.js"></script>*@
+    <script src="~/Content/js/components/matchheight.js"></script>
+    @*<script src="~/Content/Base/js/components/jvectormap.js"></script>*@
+    <script src="~/Content/js/components/jvectormap.js"></script>
+    @*<script src="~/Content/Base/js/components/peity.js"></script>*@
+    <script src="~/Content/js/components/peity.js"></script>
+    @*<script src="~/Content/assets/examples/js/dashboard/v1.js"></script>*@
+    <script src="~/Content/js/dashboard/v1.js"></script>
+
+</body>
+</html>
+

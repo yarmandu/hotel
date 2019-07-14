@@ -1,0 +1,113 @@
+﻿@model Proyecto_Hoteleria.Models.ListarHabitacionVM
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <script type="text/javascript" src="~/Scripts/scripts/Habitacion.js"></script>
+    @{
+
+        <script type="text/javascript">
+            var habitacion = habitacion || {};
+            habitacion.Urls = habitacion.Urls || {};
+            habitacion.Urls.baseUrl = '@Url.Action("~")';
+            habitacion.Urls.editarhabitacionUrl = '@Url.Action("Editar", "Habitacion")';
+            habitacion.Urls.searchhabitacionUrl = '@Url.Action("Buscar", "Habitacion")';
+            habitacion.Urls.deletehabitacionUrl = '@Url.Action("Eliminar", "Habitacion")';
+        </script>
+
+    }
+</head>
+
+@if (!string.IsNullOrEmpty(ViewBag.Mensaje))
+{
+    <div class="alert alert-info">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Mensaje:</span>
+        <strong> Mensaje: </strong>@ViewBag.Mensaje
+    </div>
+}
+
+<div class="page animsition">
+    <div class="page-header">
+        <h1 class="page-title">GESTIONAR HABITACIONES</h1>
+    </div>
+    <div class="panel-body">
+        <div class="form-horizontal">
+            <form id="formAusenciaFiltro" role="form">
+                <div class="col-sm-12">
+                    <div class="form-group form-material">
+                        @Html.Label("TipoHabitacion", "TipoHabitacion", htmlAttributes: new { @class = "control-label col-sm-2" })
+                        <div class="col-sm-4">
+                            @Html.DropDownListFor(model => model.Filtro.idTipoHabitacion, Model.TipoHabitacion, new { @class = "form-control" })
+                        </div>
+                        @Html.Label("TipoServicio", "TipoServicio", htmlAttributes: new { @class = "control-label col-sm-2" })
+                        <div class="col-sm-4">
+                            @Html.DropDownListFor(model => model.Filtro.idtipoServicio, Model.TipoServicio, new { @class = "form-control" })
+                        </div>                        
+                    </div>
+                    <div class="form-group form-material">
+                        @Html.Label("Precio", "Precio", htmlAttributes: new { @class = "control-label col-sm-2" })
+                        <div class="col-sm-4">
+                            @Html.EditorFor(model => model.Filtro.precio, new { htmlAttributes = new { @class = "form-control", @placeholder = "Precio" } })
+                        </div>
+                        @Html.Label("CantCama", "CantCama", htmlAttributes: new { @class = "control-label col-sm-2" })
+                        <div class="col-sm-4">
+                            @Html.EditorFor(model => model.Filtro.cantCamas, new { htmlAttributes = new { @class = "form-control", @placeholder = "Cantidad Cama" } })
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="col-sm-12">
+                <div class="text-center">
+                    <button id="btnLimpiar" class="btn btn-default" type="button" onclick="">Limpiar</button>
+                    <button id="btnBuscar" class="btn btn-primary" type="button" onclick="">Buscar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="divGrid" class=" col-sm-12">
+            @Html.Partial("Grid")
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade modal-3d-slit" id="ModalHabitacion" aria-hidden="true"
+     aria-labelledby="exampleModalTitle" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Clientes</h4>
+            </div>
+            <div class="modal-body" id="divModalHabitacion">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    (function () {
+        debugger;
+        iniciarHabitacion();
+    })();
+
+    function eliminar(id) {
+        debugger;
+        var urlEliminarHabitacion = habitacion.Urls.deletehabitacionUrl;
+
+        if (confirm("¿Está seguro de realizar esta acción?")) {
+            if (id > 0)
+                window.location.href = urlEliminarHabitacion + '/' + id;
+        }
+
+    }
+</script>

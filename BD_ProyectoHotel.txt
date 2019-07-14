@@ -1,0 +1,3087 @@
+create database ProyectoHoteleria;
+use ProyectoHoteleria;
+
+use ProyectoHoteleria;
+create table Cliente (
+IdCliente int auto_increment not null primary key,
+IdTipoDocumento int not null,
+descTipoDoc varchar(15),
+Nombres varchar(100),
+ApePaterno varchar(50),
+ApeMaterno varchar(50),
+Direccion varchar(200),
+Telefono varchar(20),
+IdTipoSexo int,
+IdTipoCliente int,
+IdTipoResidencia int,
+estado int
+);
+
+use ProyectoHoteleria;
+CREATE TABLE Habitacion
+(
+nroHabitacion int auto_increment not null primary key,
+idTipoHabitacion int,
+idTipoServicio varchar(50),
+Precio decimal,
+cantCama int,
+estado int
+);
+
+use ProyectoHoteleria;
+CREATE TABLE TipoPago
+(
+idtipoPago int auto_increment not null primary key,
+tipoPago varchar(50),
+estado int(1)
+);
+
+use ProyectoHoteleria;
+INSERT INTO TipoPago VALUES(1,'Crédito',1);
+INSERT INTO TipoPago VALUES(2,'Contado',1);
+
+use ProyectoHoteleria;
+CREATE TABLE ReservaHabitacion
+(
+idReserva int auto_increment not null primary key,
+IdHotel int(1),
+IdTipoDocumento int,
+descTipoDoc varchar(15),
+cantHabitacion int,
+idTipoHabitacion int,
+fechaInicio datetime,
+fechaFin datetime,
+Precio decimal,
+precioTotal decimal,
+idtipoPago INT,
+total decimal,
+estado int
+);
+use ProyectoHoteleria;
+-- select * from 
+INSERT INTO ReservaHabitacion VALUES(1,1,1,'70979758',1,1,'2016-03-02','2016-03-03',100,100,1,100,1);
+INSERT INTO ReservaHabitacion VALUES(2,1,1,'20979758',1,2,'2016-03-04','2016-03-05',200,200,1,200,1);
+
+use ProyectoHoteleria;
+CREATE TABLE TipoHabitacion
+(
+idTipoHabitacion int auto_increment not null primary key,
+tipoHabitacion varchar(50),
+estado int(1)
+);
+
+use ProyectoHoteleria;
+INSERT INTO TipoHabitacion VALUES(1,'Matrimonial',1);
+
+use ProyectoHoteleria;
+INSERT INTO TipoHabitacion VALUES(2,'Presidencial',1);
+
+use ProyectoHoteleria;
+INSERT INTO TipoHabitacion VALUES(3,'Normal',1);
+
+use ProyectoHoteleria;
+CREATE TABLE TipoServicio
+(
+idTipoServicio int auto_increment not null primary key,
+tipoServicio varchar(50),
+estado int(1)
+);
+
+use ProyectoHoteleria;
+INSERT INTO TipoServicio VALUES(1,'Casual',1);
+
+use ProyectoHoteleria;
+INSERT INTO TipoServicio VALUES(2,'Especial',1);
+
+use ProyectoHoteleria;
+select * from tipoServicio;
+
+use ProyectoHoteleria;
+CREATE TABLE `TipoCliente` (
+  `idTipoClientes` int(11) NOT NULL AUTO_INCREMENT,
+  `tipoCliente` varchar(50),
+  `estado` int(1) NOT NULL,
+  PRIMARY KEY (`idTipoClientes`)
+);
+
+use ProyectoHoteleria;
+INSERT INTO `TipoCliente` VALUES(1, 'Habitual', 1);
+INSERT INTO `TipoCliente` VALUES(2, 'VIP', 1);
+INSERT INTO `TipoCliente` VALUES(3, 'Ocasional', 1);
+INSERT INTO `TipoCliente` VALUES(4, 'Potencial', 1);
+
+use ProyectoHoteleria;
+CREATE TABLE `TipoResidencia` (
+  `idTipoResidencia` int(11) NOT NULL AUTO_INCREMENT,
+  `tipoResidencia` varchar(50),
+  `estado` tinyint(1) NOT NULL,
+  PRIMARY KEY (`idTipoResidencia`)
+);
+
+use ProyectoHoteleria;
+-- select * from TipoResidencia;
+INSERT INTO `TipoResidencia` VALUES(1, 'Nacionales', 1);
+INSERT INTO `TipoResidencia` VALUES(2, 'Internacionales', 1);
+
+use ProyectoHoteleria;
+CREATE TABLE `TipoSexo` (
+  `idTipoSexo` int(11) NOT NULL AUTO_INCREMENT,
+  `tipoSexo` varchar(50),
+  `estado` tinyint(1) NOT NULL,
+  PRIMARY KEY (`idTipoSexo`)
+);
+
+use ProyectoHoteleria;
+INSERT INTO `TipoSexo` VALUES(1, 'Masculino', 1);
+INSERT INTO `TipoSexo` VALUES(2, 'Femenino', 1);
+
+use ProyectoHoteleria;
+CREATE TABLE `TipoDocumento` (
+  `idTipoDocumento` int(11) NOT NULL AUTO_INCREMENT,
+  `tipoDocumento` varchar(50),
+  `estado` int(1) NOT NULL,
+  PRIMARY KEY (`IdTipoDocumento`)
+);
+
+use ProyectoHoteleria;
+select * from TipoDocumento;
+INSERT INTO `TipoDocumento` VALUES(1, 'DNI', 1);
+INSERT INTO `TipoDocumento` VALUES(2, 'CARNET DE EXTRANJERIA', 1);
+INSERT INTO `TipoDocumento` VALUES(3, 'REG. UNICO DE CONTROL', 1);
+INSERT INTO `TipoDocumento` VALUES(4, 'PASAPORTE', 1);
+INSERT INTO `TipoDocumento` VALUES(5, 'PART. DE NACIMIENTO-', 1);
+INSERT INTO `TipoDocumento` VALUES(6, 'OTROS', 1);
+
+
+-- STORE PROCEDURES ----
+-- Proc para Insertar, Actualizar CLIENTE
+use ProyectoHoteleria;
+DELIMITER //
+CREATE PROCEDURE uspClienteInsertar	(	IN v_IdCliente INT,
+								IN v_IdTipoDocumento INT,
+								IN v_descTipoDoc VARCHAR(15), 
+								IN v_Nombres VARCHAR(100), 
+                                IN v_ApePaterno VARCHAR(50), 
+                                IN v_ApeMaterno VARCHAR(50), 
+								IN v_Direccion VARCHAR(200), 
+                                IN v_Telefono VARCHAR(20), 
+                                IN v_IdTipoSexo INT, 
+								IN v_IdTipoCliente INT,
+                                IN v_IdTipoResidencia INT)
+BEGIN
+	DECLARE v_salida int;
+	DECLARE v_IdClienteExist INT;
+	SET v_salida = 0;
+	IF v_IdCliente = 0 then
+			SET v_IdClienteExist = (SELECT C.IdCliente
+									FROM Cliente AS C 
+									WHERE C.IdTipoDocumento = v_IdTipoDocumento and C.descTipoDoc = v_descTipoDoc and C.estado = 0);
+			IF (v_IdClienteExist <> 0 or v_IdClienteExist <> null) THEN
+					UPDATE Cliente 
+					SET Nombres				= 	v_Nombres
+						,ApePaterno			=	v_ApePaterno
+						,ApeMaterno			=	v_ApeMaterno
+						,Direccion			=	v_Direccion
+						,Telefono			=	v_Telefono
+						,IdTipoSexo			=	v_IdTipoSexo
+						,IdTipoCliente		=	v_IdTipoCliente
+						,IdTipoResidencia	=	v_IdTipoResidencia
+                        ,estado				=	1
+					WHERE IdCliente 		=	v_IdClienteExist;
+					SET v_salida = 1;
+					SELECT v_salida;
+			ELSE
+					INSERT INTO Cliente(IdTipoDocumento, 
+										descTipoDoc,
+										Nombres,
+										ApePaterno,
+                                        ApeMaterno,
+                                        Direccion,
+                                        Telefono,
+                                        IdTipoSexo,
+                                        IdTipoCliente,
+                                        IdTipoResidencia,
+                                        estado)
+					VALUES (v_IdTipoDocumento,
+							v_descTipoDoc,
+							v_Nombres,
+                            v_ApePaterno,
+							v_ApeMaterno,
+                            v_Direccion,
+                            v_Telefono,
+                            v_IdTipoSexo,
+                            v_IdTipoCliente,
+                            v_IdTipoResidencia,
+                            1);
+					set v_salida = 1;
+					SELECT v_salida;
+			END IF;	
+	ELSE
+		UPDATE Cliente 
+		SET IdTipoDocumento		= 	v_IdTipoDocumento
+			,descTipoDoc		=	v_descTipoDoc
+			,Nombres			= 	v_Nombres
+			,ApePaterno			=	v_ApePaterno
+			,ApeMaterno			=	v_ApeMaterno
+			,Direccion			=	v_Direccion
+			,Telefono			=	v_Telefono
+			,IdTipoSexo			=	v_IdTipoSexo
+			,IdTipoCliente		=	v_IdTipoCliente
+			,IdTipoResidencia	=	v_IdTipoResidencia
+			,estado				=	1
+		WHERE IdCliente 		=	v_IdCliente;
+		SET v_salida = 2;
+		SELECT v_salida;
+	END IF;
+END//
+
+DELIMITER ;
+
+CALL uspClienteInsertar (0,1,'DNI','Almendra','Garro','Ramon','Av. Brazil 899','989898782',2,1,2);
+CALL uspClienteInsertar (0,1,'DNI','Maziel','Alzamora','Juro','Av. Brazil 899','989898782',2,1,1);
+
+use ProyectoHoteleria;
+select * from Cliente;
+
+-- Proc para Listar
+use ProyectoHoteleria;
+-- DROP PROCEDURE uspClienteListar
+DELIMITER //
+CREATE PROCEDURE uspClienteListar 
+(IN v_descTipoDoc varchar(15))
+BEGIN
+	Select C.IdCliente,C.descTipoDoc,C.Nombres,C.ApePaterno,C.ApeMaterno,C.Direccion,C.telefono,
+    C.IdTipoCliente,Tc.tipoCliente,
+    C.IdTipoResidencia,Tr.tipoResidencia, C.estado 
+    from ProyectoHoteleria.Cliente C
+    inner join ProyectoHoteleria.TipoCliente Tc
+    on C.IdTipoCliente = Tc.idTipoClientes
+    inner join ProyectoHoteleria.tiporesidencia Tr
+    on C.IdTipoResidencia= Tr.idTipoResidencia
+    where (C.descTipoDoc like concat('%',v_descTipoDoc,'%') 
+    or v_descTipoDoc='' or v_descTipoDoc=null) and (C.estado = 1);
+
+END//
+
+DELIMITER ;
+
+call uspClienteListar('');
+
+-- Proc para Editar
+use ProyectoHoteleria;
+-- DROP PROCEDURE uspClienteEditar
+DELIMITER //
+CREATE PROCEDURE uspClienteEditar 
+(IN v_IdCliente INT)
+BEGIN
+	Select C.IdCliente,C.idTipoDocumento,td.TipoDocumento,C.descTipoDoc,C.Nombres,C.ApePaterno,C.ApeMaterno,
+    C.Direccion,C.telefono,C.IdTipoSexo,ts.tiposexo,C.IdTipoCliente,tc.tipoCliente,C.IdTipoResidencia,tr.tipoResidencia 
+    from ProyectoHoteleria.Cliente C
+    inner join TipoDocumento td
+    on C.IdTipoDocumento=td.idTipoDocumento
+    inner join TipoSexo ts
+    on C.IdTipoSexo = ts.idTipoSexo
+    inner join TipoCliente tc
+    on C.IdTipoCliente=tc.idTipoClientes
+    inner join TipoResidencia tr
+    on C.IdTipoResidencia = tr.idtipoResidencia
+    where C.IdCliente = v_IdCliente and C.estado=1;
+
+END//
+
+DELIMITER ;
+call uspClienteEditar (1);
+
+-- Proc Eliminar
+use ProyectoHoteleria;
+DELIMITER //
+CREATE PROCEDURE uspClienteEliminar 
+(IN v_IdCliente INT)
+BEGIN
+	Update ProyectoHoteleria.Cliente set estado=0
+    where IdCliente = v_IdCliente;
+
+END//
+
+DELIMITER ;
+-- call uspClienteEliminar (1);
+
+-- uspListarTipoDocumento
+use ProyectoHoteleria;
+DELIMITER //
+CREATE PROCEDURE uspTipoDocumentoListar ()
+BEGIN
+	Select idTipoDocumento, tipoDocumento from ProyectoHoteleria.TipoDocumento
+    where estado=1;
+
+END//
+
+DELIMITER ;
+
+call uspTipoDocumentoListar ();
+
+-- uspListarTipoSexo
+use ProyectoHoteleria;
+DELIMITER //
+CREATE PROCEDURE uspTipoSexoListar ()
+BEGIN
+	Select idTipoSexo, tipoSexo from ProyectoHoteleria.TipoSexo
+    where estado=1;
+
+END//
+
+DELIMITER ;
+
+call uspTipoSexoListar ();
+
+-- uspListarTipoCliente
+use ProyectoHoteleria;
+DELIMITER //
+CREATE PROCEDURE uspTipoClienteListar ()
+BEGIN
+	Select idTipoClientes, tipoCliente from ProyectoHoteleria.TipoCliente
+    where estado=1;
+
+END//
+
+DELIMITER ;
+
+call uspTipoClienteListar ();
+
+-- uspListarTipoResidencia
+use ProyectoHoteleria;
+DELIMITER //
+CREATE PROCEDURE uspTipoResidenciaListar ()
+BEGIN
+	Select idTipoResidencia, tipoResidencia from ProyectoHoteleria.TipoResidencia
+    where estado=1;
+
+END//
+
+DELIMITER ;
+
+call uspTipoResidenciaListar ();
+
+-- Insertar, Actualizar, Eliminar Habitación
+-- Insertar Habitación
+use ProyectoHoteleria;
+-- DROP PROCEDURE insertarHabitacion
+DELIMITER //
+CREATE PROCEDURE uspinsertarHabitacion	(	IN v_NroHabitacion INT,
+										IN v_idTipoHabitacion INT,
+										IN v_idtipoServicio INT, 
+										IN v_precio decimal, 
+										IN v_cantCamas INT)
+BEGIN
+DECLARE v_salida int;
+	SET v_salida = 0;
+	IF exists (SELECT C.nroHabitacion 
+						FROM Habitacion AS C 
+                        WHERE C.nroHabitacion = v_NroHabitacion) then
+		BEGIN										
+						UPDATE Habitacion 
+							SET idTipoHabitacion		= v_idTipoHabitacion
+								,idTipoServicio		=	v_idtipoServicio
+								,Precio				= 	v_precio
+								,cantCama			=	v_cantCamas
+								,estado				=	1
+							WHERE nroHabitacion 	=	v_NroHabitacion;
+							SET v_salida = 2;
+						SELECT v_salida;
+				
+		END;
+	ELSE
+		BEGIN
+				INSERT INTO Habitacion(nroHabitacion,
+										idTipoHabitacion, 
+										idTipoServicio,
+										Precio,
+										cantCama,
+										estado)
+								VALUES (v_NroHabitacion,
+										v_idTipoHabitacion,
+										v_idtipoServicio,
+										v_precio,
+										v_cantCamas,
+										1);
+							set v_salida = 1;
+							SELECT v_salida;
+		END;
+	END IF;
+END//
+
+DELIMITER ;
+
+-- id,tipohabitacion,tiposervicio,precio,cantidadcama
+use ProyectoHoteleria;
+CALL insertarHabitacion(0,1,1,50,1);
+use ProyectoHoteleria;
+select * from Habitacion;
+
+-- EDITAR Habitación
+use ProyectoHoteleria;
+DELIMITER //
+CREATE procedure uspHabitacionEditar
+( IN v_nroHabitacion INT)
+BEGIN
+	select h.nroHabitacion,h.idtipoHabitacion, th.tipoHabitacion, 
+    h.idtiposervicio, ts.tiposervicio, h.precio,h.cantCama
+    from Habitacion h
+    inner join TipoHabitacion th
+    on h.idtipoHabitacion = th.idtipoHabitacion
+    inner join TipoServicio ts
+    on h.idtiposervicio= ts.idtiposervicio
+    where h.nroHabitacion = v_nroHabitacion and h.estado=1;
+
+END//
+DELIMITER ;
+
+use ProyectoHoteleria;
+CALL uspHabitacionEditar(1);
+
+-- Listar Habitacion
+use ProyectoHoteleria;
+ DELIMITER //
+CREATE procedure uspHabitacionListar
+( IN v_idtipohabitacion INT,
+	IN v_idtiposervicio INT,
+    IN v_precio decimal,
+    In v_cantCama int)
+BEGIN
+	select h.nroHabitacion,h.idtipoHabitacion, th.tipoHabitacion, 
+    h.idtiposervicio, ts.tiposervicio, h.precio,h.cantCama
+    from Habitacion h
+    inner join TipoHabitacion th
+    on h.idtipoHabitacion = th.idtipoHabitacion
+    inner join TipoServicio ts
+    on h.idtiposervicio= ts.idtiposervicio
+    where (h.idtipoHabitacion = v_idtipohabitacion or v_idtipohabitacion=0) and 
+    (h.idtiposervicio =v_idtiposervicio or v_idtiposervicio=0) and
+    (h.precio = v_precio or v_precio=0) and
+    (h.cantCama = v_cantCama or v_cantCama=0) and (h.estado = 1);
+END//
+DELIMITER ;
+use ProyectoHoteleria;
+call uspHabitacionListar(1,1,30,1);
+
+-- Eliminar Habitacion
+use ProyectoHoteleria;
+DELIMITER //
+CREATE PROCEDURE uspHabitacionEliminar 
+(IN v_nroHabitacion INT)
+BEGIN
+	Update ProyectoHoteleria.Habitacion set estado=0
+    where nroHabitacion = v_nroHabitacion;
+
+END//
+
+DELIMITER ;
+-- call uspHabitacionEliminar (2);
+
+-- uspListarTipoHabitacion
+use ProyectoHoteleria;
+DELIMITER //
+CREATE PROCEDURE uspTipoHabitacionListar ()
+BEGIN
+	Select idtipoHabitacion, tipoHabitacion from ProyectoHoteleria.TipoHabitacion
+    where estado=1;
+
+END//
+
+DELIMITER ;
+
+call uspTipoHabitacionListar ();
+-- uspListarTipoHabitacion
+use ProyectoHoteleria;
+DELIMITER //
+CREATE PROCEDURE uspTipoServicioListar ()
+BEGIN
+	Select idTipoServicio, tipoServicio from ProyectoHoteleria.TipoServicio
+    where estado=1;
+
+END//
+
+DELIMITER ;
+
+call uspTipoServicioListar();
+-- Insertar, actualizar, eliminar, listar 
+-- Reserva de Habitación 
+
+-- store procedure de insertar
+
+use ProyectoHoteleria;
+-- DROP PROCEDURE uspinsertarReservaHabitacion
+DELIMITER //
+CREATE PROCEDURE uspinsertarReservaHabitacion(	IN v_idReserva INT,
+										IN v_IdHotel INT,
+                                        IN v_IdTipoDocumento INT,
+										IN v_descTipoDoc VARCHAR(15),
+										IN v_cantHabitacion INT, 
+										IN v_idTipoHabitacion INT, 
+										IN v_fechaInicio date,
+										IN v_fechaFin date,
+										IN v_precio decimal,
+										IN v_precioTotal decimal,
+										IN v_idtipoPago INT,
+										IN v_total decimal)
+BEGIN
+DECLARE v_salida int;
+	SET v_salida = 0;
+	IF exists (SELECT C.idReserva 
+						FROM ReservaHabitacion AS C 
+                        WHERE C.idReserva = v_idReserva) then
+				
+				BEGIN										
+								UPDATE ReservaHabitacion 
+									SET IdHotel 		= 1
+										,IdTipoDocumento= 	v_IdTipoDocumento
+										,descTipoDoc	= 	v_descTipoDoc
+										,cantHabitacion	=	v_cantHabitacion
+										,idTipoHabitacion= 	v_idTipoHabitacion
+										,fechaInicio	=	v_fechaInicio
+										,fechaFin		=	v_fechaFin
+										,Precio 		=	v_precio
+										,precioTotal	=	v_precioTotal
+										,idtipoPago 	=	v_idtipoPago
+										,total 			=	v_total
+										,estado			=	1
+									WHERE idReserva 	=	v_idReserva;
+									SET v_salida = 2;
+								SELECT v_salida;
+						
+				END;		
+    
+	ELSE
+		BEGIN
+				INSERT INTO ReservaHabitacion(	idReserva,
+												IdHotel,
+                                                IdTipoDocumento,
+												descTipoDoc,
+												cantHabitacion,
+												idTipoHabitacion,
+												fechaInicio,
+                                                fechaFin,
+                                                Precio, 
+                                                precioTotal,
+                                                idtipoPago, 
+                                                total, 
+                                                estado)
+								VALUES (v_idReserva,
+										1,
+                                        v_IdTipoDocumento,
+										v_descTipoDoc,
+										v_cantHabitacion,
+										v_idTipoHabitacion,
+										v_fechaInicio,
+										v_fechaFin,
+										v_precio,
+										v_precioTotal,
+										v_idtipoPago,
+										v_total,
+										1);
+							set v_salida = 1;
+							SELECT v_salida;
+		END;
+	END IF;
+END//
+
+DELIMITER ;
+
+use ProyectoHoteleria;
+  select * from ReservaHabitacion;
+CALL uspinsertarReservaHabitacion(3,1,1,'98745678',1,3,'2016-04-04','2016-04-05',50,50,1,50);
+
+use ProyectoHoteleria;
+-- DROP PROCEDURE uspinsertarPreReservaHabitacion
+DELIMITER //
+CREATE PROCEDURE uspinsertarPreReservaHabitacion(	IN v_idReserva INT,
+										IN v_IdHotel INT,
+                                        IN v_IdTipoDocumento INT,
+										IN v_descTipoDoc VARCHAR(15),
+										IN v_cantHabitacion INT, 
+										IN v_idTipoHabitacion INT, 
+										IN v_fechaInicio date,
+										IN v_fechaFin date,
+										IN v_precio decimal,
+										IN v_precioTotal decimal,
+										IN v_idtipoPago INT,
+										IN v_total decimal)
+BEGIN
+DECLARE v_salida int;
+	SET v_salida = 0;
+	IF (v_idReserva=0) then
+		     
+		BEGIN
+				INSERT INTO ReservaHabitacion(	idReserva,
+												IdHotel,
+                                                IdTipoDocumento,
+												descTipoDoc,
+												cantHabitacion,
+												idTipoHabitacion,
+												fechaInicio,
+                                                fechaFin,
+                                                Precio, 
+                                                precioTotal,
+                                                idtipoPago, 
+                                                total, 
+                                                estado)
+								VALUES (v_idReserva,
+										1,
+                                        v_IdTipoDocumento,
+										v_descTipoDoc,
+										v_cantHabitacion,
+										v_idTipoHabitacion,
+										v_fechaInicio,
+										v_fechaFin,
+										v_precio,
+										v_precioTotal,
+										v_idtipoPago,
+										v_total,
+										2);
+							set v_salida = 1;
+							SELECT v_salida;
+		END;
+	END IF;
+END//
+
+DELIMITER ;
+use ProyectoHoteleria;
+CALL uspinsertarPreReservaHabitacion(0,1,1,'91745678',1,3,'2016-07-02','2016-07-03',50,50,1,50);
+select * from ReservaHabitacion;
+CALL uspinsertarPreReservaHabitacion(0,1,1,'18745678',1,3,'2016-04-04','2016-04-07',50,50,1,50);
+CALL uspinsertarPreReservaHabitacion(0,1,1,'58745678',1,3,'2016-04-05','2016-04-06',50,50,1,50);
+
+
+-- store procedure listar reserva
+-- Listar Habitacion
+use ProyectoHoteleria;
+ DELIMITER //
+CREATE procedure uspReservaListar
+( IN v_descTipoDoc VARCHAR(8))
+BEGIN
+	select r.idReserva,r.IdHotel, r.descTipoDoc, r.cantHabitacion, 
+    r.idTipoHabitacion, th.tipoHabitacion, 
+    r.fechaInicio, r.fechaFin,r.IdTipoDocumento, td.tipoDocumento,
+    r.idtipoPago, tp.tipoPago, r.Precio,r.precioTotal,r.total,r.estado
+    from ReservaHabitacion r
+    inner join TipoPago tp
+    on r.idtipoPago = tp.idtipoPago
+    inner join TipoHabitacion th
+    on r.idTipoHabitacion = th.idTipoHabitacion
+    inner join TipoDocumento td
+    on r.IdTipoDocumento = td.IdTipoDocumento
+    where (r.descTipoDoc = v_descTipoDoc or v_descTipoDoc='' or v_descTipoDoc = null) and 
+    (r.estado = 1);
+END//
+DELIMITER ;
+use ProyectoHoteleria;
+call uspReservaListar('70979758');
+
+-- store procedure que lista las notificaciones
+use ProyectoHoteleria;
+ DELIMITER //
+CREATE procedure uspNotificacionReservaListar
+( IN v_descTipoDoc VARCHAR(8))
+BEGIN
+	select r.idReserva,r.IdHotel, r.descTipoDoc, r.cantHabitacion, 
+    r.idTipoHabitacion, th.tipoHabitacion, 
+    r.fechaInicio, r.fechaFin,r.IdTipoDocumento, td.tipoDocumento,
+    r.idtipoPago, tp.tipoPago, r.Precio,r.precioTotal,r.total
+    from ReservaHabitacion r
+    inner join TipoPago tp
+    on r.idtipoPago = tp.idtipoPago
+    inner join TipoHabitacion th
+    on r.idTipoHabitacion = th.idTipoHabitacion
+    inner join TipoDocumento td
+    on r.IdTipoDocumento = td.IdTipoDocumento
+    where (r.descTipoDoc = v_descTipoDoc or v_descTipoDoc='' or v_descTipoDoc = null) and 
+    (r.estado = 2);
+END//
+DELIMITER ; 
+
+-- store procedure Editar reserva
+-- Editar Habitacion
+use ProyectoHoteleria;
+ DELIMITER //
+ CREATE procedure uspReservaEditar
+( IN v_idReserva INT)
+BEGIN
+	select r.idReserva,r.IdHotel, r.descTipoDoc, r.cantHabitacion, 
+    r.idTipoHabitacion, th.tipoHabitacion, 
+    r.fechaInicio, r.fechaFin,r.IdTipoDocumento, td.tipoDocumento,
+    r.idtipoPago, tp.tipoPago, r.Precio,r.precioTotal,r.total,r.estado
+    from ReservaHabitacion r
+    inner join TipoPago tp
+    on r.idtipoPago = tp.idtipoPago
+    inner join TipoHabitacion th
+    on r.idTipoHabitacion = th.idTipoHabitacion
+    inner join TipoDocumento td
+    on r.IdTipoDocumento = td.IdTipoDocumento
+    where (r.idReserva = v_idReserva) and 
+    (r.estado = 1);
+END//
+DELIMITER ;
+use ProyectoHoteleria;
+call uspReservaEditar(2);
+
+
+-- store procedure Eliminar reserva
+
+use ProyectoHoteleria;
+ DELIMITER //
+CREATE procedure uspReservaEliminar
+( IN v_idReserva INT)
+BEGIN
+	update ReservaHabitacion  set estado = 0
+    where (idReserva = v_idReserva);
+END//
+DELIMITER ;
+use ProyectoHoteleria;
+call uspReservaEliminar(2);
+
+
+-- store procedure aprobar reserva
+-- store procedure Eliminar reserva
+
+use ProyectoHoteleria;
+ DELIMITER //
+CREATE procedure uspReservaAprobar
+( IN v_idReserva INT)
+BEGIN
+	update ReservaHabitacion  set estado = 1
+    where (idReserva = v_idReserva);
+END//
+DELIMITER ;
+use ProyectoHoteleria;
+call uspReservaAprobar(2);
+-- store procedure Listar tipo pago
+
+use ProyectoHoteleria;
+DELIMITER //
+CREATE PROCEDURE uspTipoPagoListar ()
+BEGIN
+	Select idtipoPago, tipoPago from ProyectoHoteleria.TipoPago
+    where estado=1;
+
+END//
+
+DELIMITER ;
+use ProyectoHoteleria;
+call uspTipoPagoListar ();
+
+
+use ProyectoHoteleria;
+
+CREATE TABLE `tblDepartamento` (
+  `intIdDepartamento` int(11) NOT NULL AUTO_INCREMENT,
+  `varDescripcion` varchar(50) DEFAULT NULL,
+  `intIdPais` int(11) NOT NULL,
+  `bitEstado` tinyint(1) NOT NULL,
+  PRIMARY KEY (`intIdDepartamento`)
+);
+
+--
+-- Dumping data for table `tblDepartamento`
+--
+
+INSERT INTO `tblDepartamento` VALUES(1, 'AMAZONAS', 1, 0);
+INSERT INTO `tblDepartamento` VALUES(2, 'ANCASH', 1, 0);
+INSERT INTO `tblDepartamento` VALUES(3, 'APURIMAC', 1, 0);
+INSERT INTO `tblDepartamento` VALUES(4, 'AREQUIPA', 1, 0);
+INSERT INTO `tblDepartamento` VALUES(5, 'AYACUCHO', 1, 0);
+INSERT INTO `tblDepartamento` VALUES(6, 'CAJAMARCA', 1, 0);
+INSERT INTO `tblDepartamento` VALUES(7, 'CALLAO', 1, 0);
+INSERT INTO `tblDepartamento` VALUES(8, 'CUSCO', 1, 0);
+INSERT INTO `tblDepartamento` VALUES(9, 'HUANCAVELICA', 1, 0);
+INSERT INTO `tblDepartamento` VALUES(10, 'HUANUCO', 1, 0);
+INSERT INTO `tblDepartamento` VALUES(11, 'ICA', 1, 0);
+INSERT INTO `tblDepartamento` VALUES(12, 'JUNIN', 1, 0);
+INSERT INTO `tblDepartamento` VALUES(13, 'LA LIBERTAD', 1, 0);
+INSERT INTO `tblDepartamento` VALUES(14, 'LAMBAYEQUE', 1, 0);
+INSERT INTO `tblDepartamento` VALUES(15, 'LIMA', 1, 1);
+INSERT INTO `tblDepartamento` VALUES(16, 'LORETO', 1, 0);
+INSERT INTO `tblDepartamento` VALUES(17, 'MADRE DE DIOS', 1, 0);
+INSERT INTO `tblDepartamento` VALUES(18, 'MOQUEGUA', 1, 0);
+INSERT INTO `tblDepartamento` VALUES(19, 'PASCO', 1, 0);
+INSERT INTO `tblDepartamento` VALUES(20, 'PIURA', 1, 0);
+INSERT INTO `tblDepartamento` VALUES(21, 'PUNO', 1, 0);
+INSERT INTO `tblDepartamento` VALUES(22, 'SAN MARTIN', 1, 0);
+INSERT INTO `tblDepartamento` VALUES(23, 'TACNA', 1, 0);
+INSERT INTO `tblDepartamento` VALUES(24, 'TUMBES', 1, 0);
+INSERT INTO `tblDepartamento` VALUES(25, 'UCAYALI', 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblDistrito`
+--
+
+CREATE TABLE `tblDistrito` (
+  `intIdDistrito` int(11) NOT NULL AUTO_INCREMENT,
+  `varDescripcion` varchar(50) COLLATE latin1_general_ci DEFAULT NULL,
+  `intIdProvincia` int(11) NOT NULL,
+  `bitEstado` tinyint(1) NOT NULL,
+  PRIMARY KEY (`intIdDistrito`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1832 ;
+
+--
+-- Dumping data for table `tblDistrito`
+--
+
+INSERT INTO `tblDistrito` VALUES(1, 'CHACHAPOYAS', 1, 0);
+INSERT INTO `tblDistrito` VALUES(2, 'ASUNCION', 1, 0);
+INSERT INTO `tblDistrito` VALUES(3, 'BALSAS', 1, 0);
+INSERT INTO `tblDistrito` VALUES(4, 'CHETO', 1, 0);
+INSERT INTO `tblDistrito` VALUES(5, 'CHILIQUIN', 1, 0);
+INSERT INTO `tblDistrito` VALUES(6, 'CHUQUIBAMBA', 1, 0);
+INSERT INTO `tblDistrito` VALUES(7, 'GRANADA', 1, 0);
+INSERT INTO `tblDistrito` VALUES(8, 'HUANCAS', 1, 0);
+INSERT INTO `tblDistrito` VALUES(9, 'LA JALCA', 1, 0);
+INSERT INTO `tblDistrito` VALUES(10, 'LEIMEBAMBA', 1, 0);
+INSERT INTO `tblDistrito` VALUES(11, 'LEVANTO', 1, 0);
+INSERT INTO `tblDistrito` VALUES(12, 'MAGDALENA', 1, 0);
+INSERT INTO `tblDistrito` VALUES(13, 'MARISCAL CASTILLA', 1, 0);
+INSERT INTO `tblDistrito` VALUES(14, 'MOLINOPAMPA', 1, 0);
+INSERT INTO `tblDistrito` VALUES(15, 'MONTEVIDEO', 1, 0);
+INSERT INTO `tblDistrito` VALUES(16, 'OLLEROS', 1, 0);
+INSERT INTO `tblDistrito` VALUES(17, 'QUINJALCA', 1, 0);
+INSERT INTO `tblDistrito` VALUES(18, 'SAN FRANCISCO DE DAGUAS', 1, 0);
+INSERT INTO `tblDistrito` VALUES(19, 'SAN ISIDRO DE MAINO', 1, 0);
+INSERT INTO `tblDistrito` VALUES(20, 'SOLOCO', 1, 0);
+INSERT INTO `tblDistrito` VALUES(21, 'SONCHE', 1, 0);
+INSERT INTO `tblDistrito` VALUES(22, 'LA PECA', 2, 0);
+INSERT INTO `tblDistrito` VALUES(23, 'ARAMANGO', 2, 0);
+INSERT INTO `tblDistrito` VALUES(24, 'COPALLIN', 2, 0);
+INSERT INTO `tblDistrito` VALUES(25, 'EL PARCO', 2, 0);
+INSERT INTO `tblDistrito` VALUES(26, 'IMAZA', 2, 0);
+INSERT INTO `tblDistrito` VALUES(27, 'JUMBILLA', 3, 0);
+INSERT INTO `tblDistrito` VALUES(28, 'CHISQUILLA', 3, 0);
+INSERT INTO `tblDistrito` VALUES(29, 'CHURUJA', 3, 0);
+INSERT INTO `tblDistrito` VALUES(30, 'COROSHA', 3, 0);
+INSERT INTO `tblDistrito` VALUES(31, 'CUISPES', 3, 0);
+INSERT INTO `tblDistrito` VALUES(32, 'FLORIDA', 3, 0);
+INSERT INTO `tblDistrito` VALUES(33, 'JAZAN', 3, 0);
+INSERT INTO `tblDistrito` VALUES(34, 'RECTA', 3, 0);
+INSERT INTO `tblDistrito` VALUES(35, 'SAN CARLOS', 3, 0);
+INSERT INTO `tblDistrito` VALUES(36, 'SHIPASBAMBA', 3, 0);
+INSERT INTO `tblDistrito` VALUES(37, 'VALERA', 3, 0);
+INSERT INTO `tblDistrito` VALUES(38, 'YAMBRASBAMBA', 3, 0);
+INSERT INTO `tblDistrito` VALUES(39, 'NIEVA', 4, 0);
+INSERT INTO `tblDistrito` VALUES(40, 'EL CENEPA', 4, 0);
+INSERT INTO `tblDistrito` VALUES(41, 'RIO SANTIAGO', 4, 0);
+INSERT INTO `tblDistrito` VALUES(42, 'LAMUD', 5, 0);
+INSERT INTO `tblDistrito` VALUES(43, 'CAMPORREDONDO', 5, 0);
+INSERT INTO `tblDistrito` VALUES(44, 'COCABAMBA', 5, 0);
+INSERT INTO `tblDistrito` VALUES(45, 'COLCAMAR', 5, 0);
+INSERT INTO `tblDistrito` VALUES(46, 'CONILA', 5, 0);
+INSERT INTO `tblDistrito` VALUES(47, 'INGUILPATA', 5, 0);
+INSERT INTO `tblDistrito` VALUES(48, 'LONGUITA', 5, 0);
+INSERT INTO `tblDistrito` VALUES(49, 'LONYA CHICO', 5, 0);
+INSERT INTO `tblDistrito` VALUES(50, 'LUYA', 5, 0);
+INSERT INTO `tblDistrito` VALUES(51, 'LUYA VIEJO', 5, 0);
+INSERT INTO `tblDistrito` VALUES(52, 'MARIA', 5, 0);
+INSERT INTO `tblDistrito` VALUES(53, 'OCALLI', 5, 0);
+INSERT INTO `tblDistrito` VALUES(54, 'OCUMAL', 5, 0);
+INSERT INTO `tblDistrito` VALUES(55, 'PISUQUIA', 5, 0);
+INSERT INTO `tblDistrito` VALUES(56, 'PROVIDENCIA', 5, 0);
+INSERT INTO `tblDistrito` VALUES(57, 'SAN CRISTOBAL', 5, 0);
+INSERT INTO `tblDistrito` VALUES(58, 'SAN FRANCISCO DEL YESO', 5, 0);
+INSERT INTO `tblDistrito` VALUES(59, 'SAN JERONIMO', 5, 0);
+INSERT INTO `tblDistrito` VALUES(60, 'SAN JUAN DE LOPECANCHA', 5, 0);
+INSERT INTO `tblDistrito` VALUES(61, 'SANTA CATALINA', 5, 0);
+INSERT INTO `tblDistrito` VALUES(62, 'SANTO TOMAS', 5, 0);
+INSERT INTO `tblDistrito` VALUES(63, 'TINGO', 5, 0);
+INSERT INTO `tblDistrito` VALUES(64, 'TRITA', 5, 0);
+INSERT INTO `tblDistrito` VALUES(65, 'SAN NICOLAS', 6, 0);
+INSERT INTO `tblDistrito` VALUES(66, 'CHIRIMOTO', 6, 0);
+INSERT INTO `tblDistrito` VALUES(67, 'COCHAMAL', 6, 0);
+INSERT INTO `tblDistrito` VALUES(68, 'HUAMBO', 6, 0);
+INSERT INTO `tblDistrito` VALUES(69, 'LIMABAMBA', 6, 0);
+INSERT INTO `tblDistrito` VALUES(70, 'LONGAR', 6, 0);
+INSERT INTO `tblDistrito` VALUES(71, 'MARISCAL BENAVIDES', 6, 0);
+INSERT INTO `tblDistrito` VALUES(72, 'MILPUC', 6, 0);
+INSERT INTO `tblDistrito` VALUES(73, 'OMIA', 6, 0);
+INSERT INTO `tblDistrito` VALUES(74, 'SANTA ROSA', 6, 0);
+INSERT INTO `tblDistrito` VALUES(75, 'TOTORA', 6, 0);
+INSERT INTO `tblDistrito` VALUES(76, 'VISTA ALEGRE', 6, 0);
+INSERT INTO `tblDistrito` VALUES(77, 'BAGUA GRANDE', 7, 0);
+INSERT INTO `tblDistrito` VALUES(78, 'CAJARURO', 7, 0);
+INSERT INTO `tblDistrito` VALUES(79, 'CUMBA', 7, 0);
+INSERT INTO `tblDistrito` VALUES(80, 'EL MILAGRO', 7, 0);
+INSERT INTO `tblDistrito` VALUES(81, 'JAMALCA', 7, 0);
+INSERT INTO `tblDistrito` VALUES(82, 'LONYA GRANDE', 7, 0);
+INSERT INTO `tblDistrito` VALUES(83, 'YAMON', 7, 0);
+INSERT INTO `tblDistrito` VALUES(84, 'HUARAZ', 8, 0);
+INSERT INTO `tblDistrito` VALUES(85, 'COCHABAMBA', 8, 0);
+INSERT INTO `tblDistrito` VALUES(86, 'COLCABAMBA', 8, 0);
+INSERT INTO `tblDistrito` VALUES(87, 'HUANCHAY', 8, 0);
+INSERT INTO `tblDistrito` VALUES(88, 'INDEPENDENCIA', 8, 0);
+INSERT INTO `tblDistrito` VALUES(89, 'JANGAS', 8, 0);
+INSERT INTO `tblDistrito` VALUES(90, 'LA LIBERTAD', 8, 0);
+INSERT INTO `tblDistrito` VALUES(91, 'OLLEROS', 8, 0);
+INSERT INTO `tblDistrito` VALUES(92, 'PAMPAS', 8, 0);
+INSERT INTO `tblDistrito` VALUES(93, 'PARIACOTO', 8, 0);
+INSERT INTO `tblDistrito` VALUES(94, 'PIRA', 8, 0);
+INSERT INTO `tblDistrito` VALUES(95, 'TARICA', 8, 0);
+INSERT INTO `tblDistrito` VALUES(96, 'AIJA', 9, 0);
+INSERT INTO `tblDistrito` VALUES(97, 'CORIS', 9, 0);
+INSERT INTO `tblDistrito` VALUES(98, 'HUACLLAN', 9, 0);
+INSERT INTO `tblDistrito` VALUES(99, 'LA MERCED', 9, 0);
+INSERT INTO `tblDistrito` VALUES(100, 'SUCCHA', 9, 0);
+INSERT INTO `tblDistrito` VALUES(101, 'LLAMELLIN', 10, 0);
+INSERT INTO `tblDistrito` VALUES(102, 'ACZO', 10, 0);
+INSERT INTO `tblDistrito` VALUES(103, 'CHACCHO', 10, 0);
+INSERT INTO `tblDistrito` VALUES(104, 'CHINGAS', 10, 0);
+INSERT INTO `tblDistrito` VALUES(105, 'MIRGAS', 10, 0);
+INSERT INTO `tblDistrito` VALUES(106, 'SAN JUAN DE RONTOY', 10, 0);
+INSERT INTO `tblDistrito` VALUES(107, 'CHACAS', 11, 0);
+INSERT INTO `tblDistrito` VALUES(108, 'ACOCHACA', 11, 0);
+INSERT INTO `tblDistrito` VALUES(109, 'CHIQUIAN', 12, 0);
+INSERT INTO `tblDistrito` VALUES(110, 'ABELARDO PARDO LEZAMETA', 12, 0);
+INSERT INTO `tblDistrito` VALUES(111, 'ANTONIO RAYMONDI', 12, 0);
+INSERT INTO `tblDistrito` VALUES(112, 'AQUIA', 12, 0);
+INSERT INTO `tblDistrito` VALUES(113, 'CAJACAY', 12, 0);
+INSERT INTO `tblDistrito` VALUES(114, 'CANIS', 12, 0);
+INSERT INTO `tblDistrito` VALUES(115, 'COLQUIOC', 12, 0);
+INSERT INTO `tblDistrito` VALUES(116, 'HUALLANCA', 12, 0);
+INSERT INTO `tblDistrito` VALUES(117, 'HUASTA', 12, 0);
+INSERT INTO `tblDistrito` VALUES(118, 'HUAYLLACAYAN', 12, 0);
+INSERT INTO `tblDistrito` VALUES(119, 'LA PRIMAVERA', 12, 0);
+INSERT INTO `tblDistrito` VALUES(120, 'MANGAS', 12, 0);
+INSERT INTO `tblDistrito` VALUES(121, 'PACLLON', 12, 0);
+INSERT INTO `tblDistrito` VALUES(122, 'SAN MIGUEL DE CORPANQUI', 12, 0);
+INSERT INTO `tblDistrito` VALUES(123, 'TICLLOS', 12, 0);
+INSERT INTO `tblDistrito` VALUES(124, 'CARHUAZ', 13, 0);
+INSERT INTO `tblDistrito` VALUES(125, 'ACOPAMPA', 13, 0);
+INSERT INTO `tblDistrito` VALUES(126, 'AMASHCA', 13, 0);
+INSERT INTO `tblDistrito` VALUES(127, 'ANTA', 13, 0);
+INSERT INTO `tblDistrito` VALUES(128, 'ATAQUERO', 13, 0);
+INSERT INTO `tblDistrito` VALUES(129, 'MARCARA', 13, 0);
+INSERT INTO `tblDistrito` VALUES(130, 'PARIAHUANCA', 13, 0);
+INSERT INTO `tblDistrito` VALUES(131, 'SAN MIGUEL DE ACO', 13, 0);
+INSERT INTO `tblDistrito` VALUES(132, 'SHILLA', 13, 0);
+INSERT INTO `tblDistrito` VALUES(133, 'TINCO', 13, 0);
+INSERT INTO `tblDistrito` VALUES(134, 'YUNGAR', 13, 0);
+INSERT INTO `tblDistrito` VALUES(135, 'SAN LUIS', 14, 0);
+INSERT INTO `tblDistrito` VALUES(136, 'SAN NICOLAS', 14, 0);
+INSERT INTO `tblDistrito` VALUES(137, 'YAUYA', 14, 0);
+INSERT INTO `tblDistrito` VALUES(138, 'CASMA', 15, 0);
+INSERT INTO `tblDistrito` VALUES(139, 'BUENA VISTA ALTA', 15, 0);
+INSERT INTO `tblDistrito` VALUES(140, 'COMANDANTE NOEL', 15, 0);
+INSERT INTO `tblDistrito` VALUES(141, 'YAUTAN', 15, 0);
+INSERT INTO `tblDistrito` VALUES(142, 'CORONGO', 16, 0);
+INSERT INTO `tblDistrito` VALUES(143, 'ACO', 16, 0);
+INSERT INTO `tblDistrito` VALUES(144, 'BAMBAS', 16, 0);
+INSERT INTO `tblDistrito` VALUES(145, 'CUSCA', 16, 0);
+INSERT INTO `tblDistrito` VALUES(146, 'LA PAMPA', 16, 0);
+INSERT INTO `tblDistrito` VALUES(147, 'YANAC', 16, 0);
+INSERT INTO `tblDistrito` VALUES(148, 'YUPAN', 16, 0);
+INSERT INTO `tblDistrito` VALUES(149, 'HUARI', 17, 0);
+INSERT INTO `tblDistrito` VALUES(150, 'ANRA', 17, 0);
+INSERT INTO `tblDistrito` VALUES(151, 'CAJAY', 17, 0);
+INSERT INTO `tblDistrito` VALUES(152, 'CHAVIN DE HUANTAR', 17, 0);
+INSERT INTO `tblDistrito` VALUES(153, 'HUACACHI', 17, 0);
+INSERT INTO `tblDistrito` VALUES(154, 'HUACCHIS', 17, 0);
+INSERT INTO `tblDistrito` VALUES(155, 'HUACHIS', 17, 0);
+INSERT INTO `tblDistrito` VALUES(156, 'HUANTAR', 17, 0);
+INSERT INTO `tblDistrito` VALUES(157, 'MASIN', 17, 0);
+INSERT INTO `tblDistrito` VALUES(158, 'PAUCAS', 17, 0);
+INSERT INTO `tblDistrito` VALUES(159, 'PONTO', 17, 0);
+INSERT INTO `tblDistrito` VALUES(160, 'RAHUAPAMPA', 17, 0);
+INSERT INTO `tblDistrito` VALUES(161, 'RAPAYAN', 17, 0);
+INSERT INTO `tblDistrito` VALUES(162, 'SAN MARCOS', 17, 0);
+INSERT INTO `tblDistrito` VALUES(163, 'SAN PEDRO DE CHANA', 17, 0);
+INSERT INTO `tblDistrito` VALUES(164, 'UCO', 17, 0);
+INSERT INTO `tblDistrito` VALUES(165, 'HUARMEY', 18, 0);
+INSERT INTO `tblDistrito` VALUES(166, 'COCHAPETI', 18, 0);
+INSERT INTO `tblDistrito` VALUES(167, 'CULEBRAS', 18, 0);
+INSERT INTO `tblDistrito` VALUES(168, 'HUAYAN', 18, 0);
+INSERT INTO `tblDistrito` VALUES(169, 'MALVAS', 18, 0);
+INSERT INTO `tblDistrito` VALUES(170, 'CARAZ', 26, 0);
+INSERT INTO `tblDistrito` VALUES(171, 'HUALLANCA', 26, 0);
+INSERT INTO `tblDistrito` VALUES(172, 'HUATA', 26, 0);
+INSERT INTO `tblDistrito` VALUES(173, 'HUAYLAS', 26, 0);
+INSERT INTO `tblDistrito` VALUES(174, 'MATO', 26, 0);
+INSERT INTO `tblDistrito` VALUES(175, 'PAMPAROMAS', 26, 0);
+INSERT INTO `tblDistrito` VALUES(176, 'PUEBLO LIBRE', 26, 0);
+INSERT INTO `tblDistrito` VALUES(177, 'SANTA CRUZ', 26, 0);
+INSERT INTO `tblDistrito` VALUES(178, 'SANTO TORIBIO', 26, 0);
+INSERT INTO `tblDistrito` VALUES(179, 'YURACMARCA', 26, 0);
+INSERT INTO `tblDistrito` VALUES(180, 'PISCOBAMBA', 27, 0);
+INSERT INTO `tblDistrito` VALUES(181, 'CASCA', 27, 0);
+INSERT INTO `tblDistrito` VALUES(182, 'ELEAZAR GUZMAN BARRON', 27, 0);
+INSERT INTO `tblDistrito` VALUES(183, 'FIDEL OLIVAS ESCUDERO', 27, 0);
+INSERT INTO `tblDistrito` VALUES(184, 'LLAMA', 27, 0);
+INSERT INTO `tblDistrito` VALUES(185, 'LLUMPA', 27, 0);
+INSERT INTO `tblDistrito` VALUES(186, 'LUCMA', 27, 0);
+INSERT INTO `tblDistrito` VALUES(187, 'MUSGA', 27, 0);
+INSERT INTO `tblDistrito` VALUES(188, 'OCROS', 21, 0);
+INSERT INTO `tblDistrito` VALUES(189, 'ACAS', 21, 0);
+INSERT INTO `tblDistrito` VALUES(190, 'CAJAMARQUILLA', 21, 0);
+INSERT INTO `tblDistrito` VALUES(191, 'CARHUAPAMPA', 21, 0);
+INSERT INTO `tblDistrito` VALUES(192, 'COCHAS', 21, 0);
+INSERT INTO `tblDistrito` VALUES(193, 'CONGAS', 21, 0);
+INSERT INTO `tblDistrito` VALUES(194, 'LLIPA', 21, 0);
+INSERT INTO `tblDistrito` VALUES(195, 'SAN CRISTOBAL DE RAJAN', 21, 0);
+INSERT INTO `tblDistrito` VALUES(196, 'SAN PEDRO', 21, 0);
+INSERT INTO `tblDistrito` VALUES(197, 'SANTIAGO DE CHILCAS', 21, 0);
+INSERT INTO `tblDistrito` VALUES(198, 'CABANA', 22, 0);
+INSERT INTO `tblDistrito` VALUES(199, 'BOLOGNESI', 22, 0);
+INSERT INTO `tblDistrito` VALUES(200, 'CONCHUCOS', 22, 0);
+INSERT INTO `tblDistrito` VALUES(201, 'HUACASCHUQUE', 22, 0);
+INSERT INTO `tblDistrito` VALUES(202, 'HUANDOVAL', 22, 0);
+INSERT INTO `tblDistrito` VALUES(203, 'LACABAMBA', 22, 0);
+INSERT INTO `tblDistrito` VALUES(204, 'LLAPO', 22, 0);
+INSERT INTO `tblDistrito` VALUES(205, 'PALLASCA', 22, 0);
+INSERT INTO `tblDistrito` VALUES(206, 'PAMPAS', 22, 0);
+INSERT INTO `tblDistrito` VALUES(207, 'SANTA ROSA', 22, 0);
+INSERT INTO `tblDistrito` VALUES(208, 'TAUCA', 22, 0);
+INSERT INTO `tblDistrito` VALUES(209, 'POMABAMBA', 23, 0);
+INSERT INTO `tblDistrito` VALUES(210, 'HUAYLLAN', 23, 0);
+INSERT INTO `tblDistrito` VALUES(211, 'PAROBAMBA', 23, 0);
+INSERT INTO `tblDistrito` VALUES(212, 'QUINUABAMBA', 23, 0);
+INSERT INTO `tblDistrito` VALUES(213, 'RECUAY', 24, 0);
+INSERT INTO `tblDistrito` VALUES(214, 'CATAC', 24, 0);
+INSERT INTO `tblDistrito` VALUES(215, 'COTAPARACO', 24, 0);
+INSERT INTO `tblDistrito` VALUES(216, 'HUAYLLAPAMPA', 24, 0);
+INSERT INTO `tblDistrito` VALUES(217, 'LLACLLIN', 24, 0);
+INSERT INTO `tblDistrito` VALUES(218, 'MARCA', 24, 0);
+INSERT INTO `tblDistrito` VALUES(219, 'PAMPAS CHICO', 24, 0);
+INSERT INTO `tblDistrito` VALUES(220, 'PARARIN', 24, 0);
+INSERT INTO `tblDistrito` VALUES(221, 'TAPACOCHA', 24, 0);
+INSERT INTO `tblDistrito` VALUES(222, 'TICAPAMPA', 24, 0);
+INSERT INTO `tblDistrito` VALUES(223, 'CHIMBOTE', 25, 0);
+INSERT INTO `tblDistrito` VALUES(224, 'CACERES DEL PERU', 25, 0);
+INSERT INTO `tblDistrito` VALUES(225, 'COISHCO', 25, 0);
+INSERT INTO `tblDistrito` VALUES(226, 'MACATE', 25, 0);
+INSERT INTO `tblDistrito` VALUES(227, 'MORO', 25, 0);
+INSERT INTO `tblDistrito` VALUES(228, 'NEPEÑA', 25, 0);
+INSERT INTO `tblDistrito` VALUES(229, 'SAMANCO', 25, 0);
+INSERT INTO `tblDistrito` VALUES(230, 'SANTA', 25, 0);
+INSERT INTO `tblDistrito` VALUES(231, 'NUEVO CHIMBOTE', 25, 0);
+INSERT INTO `tblDistrito` VALUES(232, 'SIHUAS', 26, 0);
+INSERT INTO `tblDistrito` VALUES(233, 'ACOBAMBA', 26, 0);
+INSERT INTO `tblDistrito` VALUES(234, 'ALFONSO UGARTE', 26, 0);
+INSERT INTO `tblDistrito` VALUES(235, 'CASHAPAMPA', 26, 0);
+INSERT INTO `tblDistrito` VALUES(236, 'CHINGALPO', 26, 0);
+INSERT INTO `tblDistrito` VALUES(237, 'HUAYLLABAMBA', 26, 0);
+INSERT INTO `tblDistrito` VALUES(238, 'QUICHES', 26, 0);
+INSERT INTO `tblDistrito` VALUES(239, 'RAGASH', 26, 0);
+INSERT INTO `tblDistrito` VALUES(240, 'SAN JUAN', 26, 0);
+INSERT INTO `tblDistrito` VALUES(241, 'SICSIBAMBA', 26, 0);
+INSERT INTO `tblDistrito` VALUES(242, 'YUNGAY', 27, 0);
+INSERT INTO `tblDistrito` VALUES(243, 'CASCAPARA', 27, 0);
+INSERT INTO `tblDistrito` VALUES(244, 'MANCOS', 27, 0);
+INSERT INTO `tblDistrito` VALUES(245, 'MATACOTO', 27, 0);
+INSERT INTO `tblDistrito` VALUES(246, 'QUILLO', 27, 0);
+INSERT INTO `tblDistrito` VALUES(247, 'RANRAHIRCA', 27, 0);
+INSERT INTO `tblDistrito` VALUES(248, 'SHUPLUY', 27, 0);
+INSERT INTO `tblDistrito` VALUES(249, 'YANAMA', 27, 0);
+INSERT INTO `tblDistrito` VALUES(250, 'ABANCAY', 28, 0);
+INSERT INTO `tblDistrito` VALUES(251, 'CHACOCHE', 28, 0);
+INSERT INTO `tblDistrito` VALUES(252, 'CIRCA', 28, 0);
+INSERT INTO `tblDistrito` VALUES(253, 'CURAHUASI', 28, 0);
+INSERT INTO `tblDistrito` VALUES(254, 'HUANIPACA', 28, 0);
+INSERT INTO `tblDistrito` VALUES(255, 'LAMBRAMA', 28, 0);
+INSERT INTO `tblDistrito` VALUES(256, 'PICHIRHUA', 28, 0);
+INSERT INTO `tblDistrito` VALUES(257, 'SAN PEDRO DE CACHORA', 28, 0);
+INSERT INTO `tblDistrito` VALUES(258, 'TAMBURCO', 28, 0);
+INSERT INTO `tblDistrito` VALUES(259, 'ANDAHUAYLAS', 29, 0);
+INSERT INTO `tblDistrito` VALUES(260, 'ANDARAPA', 29, 0);
+INSERT INTO `tblDistrito` VALUES(261, 'CHIARA', 29, 0);
+INSERT INTO `tblDistrito` VALUES(262, 'HUANCARAMA', 29, 0);
+INSERT INTO `tblDistrito` VALUES(263, 'HUANCARAY', 29, 0);
+INSERT INTO `tblDistrito` VALUES(264, 'HUAYANA', 29, 0);
+INSERT INTO `tblDistrito` VALUES(265, 'KISHUARA', 29, 0);
+INSERT INTO `tblDistrito` VALUES(266, 'PACOBAMBA', 29, 0);
+INSERT INTO `tblDistrito` VALUES(267, 'PACUCHA', 29, 0);
+INSERT INTO `tblDistrito` VALUES(268, 'PAMPACHIRI', 29, 0);
+INSERT INTO `tblDistrito` VALUES(269, 'POMACOCHA', 29, 0);
+INSERT INTO `tblDistrito` VALUES(270, 'SAN ANTONIO DE CACHI', 29, 0);
+INSERT INTO `tblDistrito` VALUES(271, 'SAN JERONIMO', 29, 0);
+INSERT INTO `tblDistrito` VALUES(272, 'SAN MIGUEL DE CHACCRAMPA', 29, 0);
+INSERT INTO `tblDistrito` VALUES(273, 'SANTA MARIA DE CHICMO', 29, 0);
+INSERT INTO `tblDistrito` VALUES(274, 'TALAVERA', 29, 0);
+INSERT INTO `tblDistrito` VALUES(275, 'TUMAY HUARACA', 29, 0);
+INSERT INTO `tblDistrito` VALUES(276, 'TURPO', 29, 0);
+INSERT INTO `tblDistrito` VALUES(277, 'KAQUIABAMBA', 29, 0);
+INSERT INTO `tblDistrito` VALUES(278, 'ANTABAMBA', 30, 0);
+INSERT INTO `tblDistrito` VALUES(279, 'EL ORO', 30, 0);
+INSERT INTO `tblDistrito` VALUES(280, 'HUAQUIRCA', 30, 0);
+INSERT INTO `tblDistrito` VALUES(281, 'JUAN ESPINOZA MEDRANO', 30, 0);
+INSERT INTO `tblDistrito` VALUES(282, 'OROPESA', 30, 0);
+INSERT INTO `tblDistrito` VALUES(283, 'PACHACONAS', 30, 0);
+INSERT INTO `tblDistrito` VALUES(284, 'SABAINO', 30, 0);
+INSERT INTO `tblDistrito` VALUES(285, 'CHALHUANCA', 31, 0);
+INSERT INTO `tblDistrito` VALUES(286, 'CAPAYA', 31, 0);
+INSERT INTO `tblDistrito` VALUES(287, 'CARAYBAMBA', 31, 0);
+INSERT INTO `tblDistrito` VALUES(288, 'CHAPIMARCA', 31, 0);
+INSERT INTO `tblDistrito` VALUES(289, 'COLCABAMBA', 31, 0);
+INSERT INTO `tblDistrito` VALUES(290, 'COTARUSE', 31, 0);
+INSERT INTO `tblDistrito` VALUES(291, 'HUAYLLO', 31, 0);
+INSERT INTO `tblDistrito` VALUES(292, 'JUSTO APU SAHUARAURA', 31, 0);
+INSERT INTO `tblDistrito` VALUES(293, 'LUCRE', 31, 0);
+INSERT INTO `tblDistrito` VALUES(294, 'POCOHUANCA', 31, 0);
+INSERT INTO `tblDistrito` VALUES(295, 'SAN JUAN DE CHAC&Ntilde;A', 31, 0);
+INSERT INTO `tblDistrito` VALUES(296, 'SAÑAYCA', 31, 0);
+INSERT INTO `tblDistrito` VALUES(297, 'SORAYA', 31, 0);
+INSERT INTO `tblDistrito` VALUES(298, 'TAPAIRIHUA', 31, 0);
+INSERT INTO `tblDistrito` VALUES(299, 'TINTAY', 31, 0);
+INSERT INTO `tblDistrito` VALUES(300, 'TORAYA', 31, 0);
+INSERT INTO `tblDistrito` VALUES(301, 'YANACA', 31, 0);
+INSERT INTO `tblDistrito` VALUES(302, 'TAMBOBAMBA', 32, 0);
+INSERT INTO `tblDistrito` VALUES(303, 'COTABAMBAS', 32, 0);
+INSERT INTO `tblDistrito` VALUES(304, 'COYLLURQUI', 32, 0);
+INSERT INTO `tblDistrito` VALUES(305, 'HAQUIRA', 32, 0);
+INSERT INTO `tblDistrito` VALUES(306, 'MARA', 32, 0);
+INSERT INTO `tblDistrito` VALUES(307, 'CHALLHUAHUACHO', 32, 0);
+INSERT INTO `tblDistrito` VALUES(308, 'CHINCHEROS', 33, 0);
+INSERT INTO `tblDistrito` VALUES(309, 'ANCO-HUALLO', 33, 0);
+INSERT INTO `tblDistrito` VALUES(310, 'COCHARCAS', 33, 0);
+INSERT INTO `tblDistrito` VALUES(311, 'HUACCANA', 33, 0);
+INSERT INTO `tblDistrito` VALUES(312, 'OCOBAMBA', 33, 0);
+INSERT INTO `tblDistrito` VALUES(313, 'ONGOY', 33, 0);
+INSERT INTO `tblDistrito` VALUES(314, 'URANMARCA', 33, 0);
+INSERT INTO `tblDistrito` VALUES(315, 'RANRACANCHA', 33, 0);
+INSERT INTO `tblDistrito` VALUES(316, 'CHUQUIBAMBILLA', 34, 0);
+INSERT INTO `tblDistrito` VALUES(317, 'CURPAHUASI', 34, 0);
+INSERT INTO `tblDistrito` VALUES(318, 'GAMARRA', 34, 0);
+INSERT INTO `tblDistrito` VALUES(319, 'HUAYLLATI', 34, 0);
+INSERT INTO `tblDistrito` VALUES(320, 'MAMARA', 34, 0);
+INSERT INTO `tblDistrito` VALUES(321, 'MICAELA BASTIDAS', 34, 0);
+INSERT INTO `tblDistrito` VALUES(322, 'PATAYPAMPA', 34, 0);
+INSERT INTO `tblDistrito` VALUES(323, 'PROGRESO', 34, 0);
+INSERT INTO `tblDistrito` VALUES(324, 'SAN ANTONIO', 34, 0);
+INSERT INTO `tblDistrito` VALUES(325, 'SANTA ROSA', 34, 0);
+INSERT INTO `tblDistrito` VALUES(326, 'TURPAY', 34, 0);
+INSERT INTO `tblDistrito` VALUES(327, 'VILCABAMBA', 34, 0);
+INSERT INTO `tblDistrito` VALUES(328, 'VIRUNDO', 34, 0);
+INSERT INTO `tblDistrito` VALUES(329, 'CURASCO', 34, 0);
+INSERT INTO `tblDistrito` VALUES(330, 'AREQUIPA', 35, 0);
+INSERT INTO `tblDistrito` VALUES(331, 'ALTO SELVA ALEGRE', 35, 0);
+INSERT INTO `tblDistrito` VALUES(332, 'CAYMA', 35, 0);
+INSERT INTO `tblDistrito` VALUES(333, 'CERRO COLORADO', 35, 0);
+INSERT INTO `tblDistrito` VALUES(334, 'CHARACATO', 35, 0);
+INSERT INTO `tblDistrito` VALUES(335, 'CHIGUATA', 35, 0);
+INSERT INTO `tblDistrito` VALUES(336, 'JACOBO HUNTER', 35, 0);
+INSERT INTO `tblDistrito` VALUES(337, 'LA JOYA', 35, 0);
+INSERT INTO `tblDistrito` VALUES(338, 'MARIANO MELGAR', 35, 0);
+INSERT INTO `tblDistrito` VALUES(339, 'MIRAFLORES', 35, 0);
+INSERT INTO `tblDistrito` VALUES(340, 'MOLLEBAYA', 35, 0);
+INSERT INTO `tblDistrito` VALUES(341, 'PAUCARPATA', 35, 0);
+INSERT INTO `tblDistrito` VALUES(342, 'POCSI', 35, 0);
+INSERT INTO `tblDistrito` VALUES(343, 'POLOBAYA', 35, 0);
+INSERT INTO `tblDistrito` VALUES(344, 'QUEQUEÑA', 35, 0);
+INSERT INTO `tblDistrito` VALUES(345, 'SABANDIA', 35, 0);
+INSERT INTO `tblDistrito` VALUES(346, 'SACHACA', 35, 0);
+INSERT INTO `tblDistrito` VALUES(347, 'SAN JUAN DE SIGUAS', 35, 0);
+INSERT INTO `tblDistrito` VALUES(348, 'SAN JUAN DE TARUCANI', 35, 0);
+INSERT INTO `tblDistrito` VALUES(349, 'SANTA ISABEL DE SIGUAS', 35, 0);
+INSERT INTO `tblDistrito` VALUES(350, 'SANTA RITA DE SIGUAS', 35, 0);
+INSERT INTO `tblDistrito` VALUES(351, 'SOCABAYA', 35, 0);
+INSERT INTO `tblDistrito` VALUES(352, 'TIABAYA', 35, 0);
+INSERT INTO `tblDistrito` VALUES(353, 'UCHUMAYO', 35, 0);
+INSERT INTO `tblDistrito` VALUES(354, 'VITOR', 35, 0);
+INSERT INTO `tblDistrito` VALUES(355, 'YANAHUARA', 35, 0);
+INSERT INTO `tblDistrito` VALUES(356, 'YARABAMBA', 35, 0);
+INSERT INTO `tblDistrito` VALUES(357, 'YURA', 35, 0);
+INSERT INTO `tblDistrito` VALUES(358, 'JOSE LUIS BUSTAMANTE Y RIVERO', 35, 0);
+INSERT INTO `tblDistrito` VALUES(359, 'CAMANA', 36, 0);
+INSERT INTO `tblDistrito` VALUES(360, 'JOSE MARIA QUIMPER', 36, 0);
+INSERT INTO `tblDistrito` VALUES(361, 'MARIANO NICOLAS VALCARCEL', 36, 0);
+INSERT INTO `tblDistrito` VALUES(362, 'MARISCAL CACERES', 36, 0);
+INSERT INTO `tblDistrito` VALUES(363, 'NICOLAS DE PIEROLA', 36, 0);
+INSERT INTO `tblDistrito` VALUES(364, 'OCOÑA', 36, 0);
+INSERT INTO `tblDistrito` VALUES(365, 'QUILCA', 36, 0);
+INSERT INTO `tblDistrito` VALUES(366, 'SAMUEL PASTOR', 36, 0);
+INSERT INTO `tblDistrito` VALUES(367, 'CARAVELI', 37, 0);
+INSERT INTO `tblDistrito` VALUES(368, 'ACARI', 37, 0);
+INSERT INTO `tblDistrito` VALUES(369, 'ATICO', 37, 0);
+INSERT INTO `tblDistrito` VALUES(370, 'ATIQUIPA', 37, 0);
+INSERT INTO `tblDistrito` VALUES(371, 'BELLA UNION', 37, 0);
+INSERT INTO `tblDistrito` VALUES(372, 'CAHUACHO', 37, 0);
+INSERT INTO `tblDistrito` VALUES(373, 'CHALA', 37, 0);
+INSERT INTO `tblDistrito` VALUES(374, 'CHAPARRA', 37, 0);
+INSERT INTO `tblDistrito` VALUES(375, 'HUANUHUANU', 37, 0);
+INSERT INTO `tblDistrito` VALUES(376, 'JAQUI', 37, 0);
+INSERT INTO `tblDistrito` VALUES(377, 'LOMAS', 37, 0);
+INSERT INTO `tblDistrito` VALUES(378, 'QUICACHA', 37, 0);
+INSERT INTO `tblDistrito` VALUES(379, 'YAUCA', 37, 0);
+INSERT INTO `tblDistrito` VALUES(380, 'APLAO', 38, 0);
+INSERT INTO `tblDistrito` VALUES(381, 'ANDAGUA', 38, 0);
+INSERT INTO `tblDistrito` VALUES(382, 'AYO', 38, 0);
+INSERT INTO `tblDistrito` VALUES(383, 'CHACHAS', 38, 0);
+INSERT INTO `tblDistrito` VALUES(384, 'CHILCAYMARCA', 38, 0);
+INSERT INTO `tblDistrito` VALUES(385, 'CHOCO', 38, 0);
+INSERT INTO `tblDistrito` VALUES(386, 'HUANCARQUI', 38, 0);
+INSERT INTO `tblDistrito` VALUES(387, 'MACHAGUAY', 38, 0);
+INSERT INTO `tblDistrito` VALUES(388, 'ORCOPAMPA', 38, 0);
+INSERT INTO `tblDistrito` VALUES(389, 'PAMPACOLCA', 38, 0);
+INSERT INTO `tblDistrito` VALUES(390, 'TIPAN', 38, 0);
+INSERT INTO `tblDistrito` VALUES(391, 'UÑÓN', 38, 0);
+INSERT INTO `tblDistrito` VALUES(392, 'URACA', 38, 0);
+INSERT INTO `tblDistrito` VALUES(393, 'VIRACO', 38, 0);
+INSERT INTO `tblDistrito` VALUES(394, 'CHIVAY', 39, 0);
+INSERT INTO `tblDistrito` VALUES(395, 'ACHOMA', 39, 0);
+INSERT INTO `tblDistrito` VALUES(396, 'CABANACONDE', 39, 0);
+INSERT INTO `tblDistrito` VALUES(397, 'CALLALLI', 39, 0);
+INSERT INTO `tblDistrito` VALUES(398, 'CAYLLOMA', 39, 0);
+INSERT INTO `tblDistrito` VALUES(399, 'COPORAQUE', 39, 0);
+INSERT INTO `tblDistrito` VALUES(400, 'HUAMBO', 39, 0);
+INSERT INTO `tblDistrito` VALUES(401, 'HUANCA', 39, 0);
+INSERT INTO `tblDistrito` VALUES(402, 'ICHUPAMPA', 39, 0);
+INSERT INTO `tblDistrito` VALUES(403, 'LARI', 39, 0);
+INSERT INTO `tblDistrito` VALUES(404, 'LLUTA', 39, 0);
+INSERT INTO `tblDistrito` VALUES(405, 'MACA', 39, 0);
+INSERT INTO `tblDistrito` VALUES(406, 'MADRIGAL', 39, 0);
+INSERT INTO `tblDistrito` VALUES(407, 'SAN ANTONIO DE CHUCA', 39, 0);
+INSERT INTO `tblDistrito` VALUES(408, 'SIBAYO', 39, 0);
+INSERT INTO `tblDistrito` VALUES(409, 'TAPAY', 39, 0);
+INSERT INTO `tblDistrito` VALUES(410, 'TISCO', 39, 0);
+INSERT INTO `tblDistrito` VALUES(411, 'TUTI', 39, 0);
+INSERT INTO `tblDistrito` VALUES(412, 'YANQUE', 39, 0);
+INSERT INTO `tblDistrito` VALUES(413, 'MAJES', 39, 0);
+INSERT INTO `tblDistrito` VALUES(414, 'CHUQUIBAMBA', 40, 0);
+INSERT INTO `tblDistrito` VALUES(415, 'ANDARAY', 40, 0);
+INSERT INTO `tblDistrito` VALUES(416, 'CAYARANI', 40, 0);
+INSERT INTO `tblDistrito` VALUES(417, 'CHICHAS', 40, 0);
+INSERT INTO `tblDistrito` VALUES(418, 'IRAY', 40, 0);
+INSERT INTO `tblDistrito` VALUES(419, 'RIO GRANDE', 40, 0);
+INSERT INTO `tblDistrito` VALUES(420, 'SALAMANCA', 40, 0);
+INSERT INTO `tblDistrito` VALUES(421, 'YANAQUIHUA', 40, 0);
+INSERT INTO `tblDistrito` VALUES(422, 'MOLLENDO', 41, 0);
+INSERT INTO `tblDistrito` VALUES(423, 'COCACHACRA', 41, 0);
+INSERT INTO `tblDistrito` VALUES(424, 'DEAN VALDIVIA', 41, 0);
+INSERT INTO `tblDistrito` VALUES(425, 'ISLAY', 41, 0);
+INSERT INTO `tblDistrito` VALUES(426, 'MEJIA', 41, 0);
+INSERT INTO `tblDistrito` VALUES(427, 'PUNTA DE BOMBON', 41, 0);
+INSERT INTO `tblDistrito` VALUES(428, 'COTAHUASI', 42, 0);
+INSERT INTO `tblDistrito` VALUES(429, 'ALCA', 42, 0);
+INSERT INTO `tblDistrito` VALUES(430, 'CHARCANA', 42, 0);
+INSERT INTO `tblDistrito` VALUES(431, 'HUAYNACOTAS', 42, 0);
+INSERT INTO `tblDistrito` VALUES(432, 'PAMPAMARCA', 42, 0);
+INSERT INTO `tblDistrito` VALUES(433, 'PUYCA', 42, 0);
+INSERT INTO `tblDistrito` VALUES(434, 'QUECHUALLA', 42, 0);
+INSERT INTO `tblDistrito` VALUES(435, 'SAYLA', 42, 0);
+INSERT INTO `tblDistrito` VALUES(436, 'TAURIA', 42, 0);
+INSERT INTO `tblDistrito` VALUES(437, 'TOMEPAMPA', 42, 0);
+INSERT INTO `tblDistrito` VALUES(438, 'TORO', 42, 0);
+INSERT INTO `tblDistrito` VALUES(439, 'AYACUCHO', 43, 0);
+INSERT INTO `tblDistrito` VALUES(440, 'ACOCRO', 43, 0);
+INSERT INTO `tblDistrito` VALUES(441, 'ACOS VINCHOS', 43, 0);
+INSERT INTO `tblDistrito` VALUES(442, 'CARMEN ALTO', 43, 0);
+INSERT INTO `tblDistrito` VALUES(443, 'CHIARA', 43, 0);
+INSERT INTO `tblDistrito` VALUES(444, 'OCROS', 43, 0);
+INSERT INTO `tblDistrito` VALUES(445, 'PACAYCASA', 43, 0);
+INSERT INTO `tblDistrito` VALUES(446, 'QUINUA', 43, 0);
+INSERT INTO `tblDistrito` VALUES(447, 'SAN JOSE DE TICLLAS', 43, 0);
+INSERT INTO `tblDistrito` VALUES(448, 'SAN JUAN BAUTISTA', 43, 0);
+INSERT INTO `tblDistrito` VALUES(449, 'SANTIAGO DE PISCHA', 43, 0);
+INSERT INTO `tblDistrito` VALUES(450, 'SOCOS', 43, 0);
+INSERT INTO `tblDistrito` VALUES(451, 'TAMBILLO', 43, 0);
+INSERT INTO `tblDistrito` VALUES(452, 'VINCHOS', 43, 0);
+INSERT INTO `tblDistrito` VALUES(453, 'JESUS NAZARENO', 43, 0);
+INSERT INTO `tblDistrito` VALUES(454, 'CANGALLO', 44, 0);
+INSERT INTO `tblDistrito` VALUES(455, 'CHUSCHI', 44, 0);
+INSERT INTO `tblDistrito` VALUES(456, 'LOS MOROCHUCOS', 44, 0);
+INSERT INTO `tblDistrito` VALUES(457, 'MARIA PARADO DE BELLIDO', 44, 0);
+INSERT INTO `tblDistrito` VALUES(458, 'PARAS', 44, 0);
+INSERT INTO `tblDistrito` VALUES(459, 'TOTOS', 44, 0);
+INSERT INTO `tblDistrito` VALUES(460, 'SANCOS', 45, 0);
+INSERT INTO `tblDistrito` VALUES(461, 'CARAPO', 45, 0);
+INSERT INTO `tblDistrito` VALUES(462, 'SACSAMARCA', 45, 0);
+INSERT INTO `tblDistrito` VALUES(463, 'SANTIAGO DE LUCANAMARCA', 45, 0);
+INSERT INTO `tblDistrito` VALUES(464, 'HUANTA', 46, 0);
+INSERT INTO `tblDistrito` VALUES(465, 'AYAHUANCO', 46, 0);
+INSERT INTO `tblDistrito` VALUES(466, 'HUAMANGUILLA', 46, 0);
+INSERT INTO `tblDistrito` VALUES(467, 'IGUAIN', 46, 0);
+INSERT INTO `tblDistrito` VALUES(468, 'LURICOCHA', 46, 0);
+INSERT INTO `tblDistrito` VALUES(469, 'SANTILLANA', 46, 0);
+INSERT INTO `tblDistrito` VALUES(470, 'SIVIA', 46, 0);
+INSERT INTO `tblDistrito` VALUES(471, 'LLOCHEGUA', 46, 0);
+INSERT INTO `tblDistrito` VALUES(472, 'SAN MIGUEL', 47, 0);
+INSERT INTO `tblDistrito` VALUES(473, 'ANCO', 47, 0);
+INSERT INTO `tblDistrito` VALUES(474, 'AYNA', 47, 0);
+INSERT INTO `tblDistrito` VALUES(475, 'CHILCAS', 47, 0);
+INSERT INTO `tblDistrito` VALUES(476, 'CHUNGUI', 47, 0);
+INSERT INTO `tblDistrito` VALUES(477, 'LUIS CARRANZA', 47, 0);
+INSERT INTO `tblDistrito` VALUES(478, 'SANTA ROSA', 47, 0);
+INSERT INTO `tblDistrito` VALUES(479, 'TAMBO', 47, 0);
+INSERT INTO `tblDistrito` VALUES(480, 'PUQUIO', 48, 0);
+INSERT INTO `tblDistrito` VALUES(481, 'AUCARA', 48, 0);
+INSERT INTO `tblDistrito` VALUES(482, 'CABANA', 48, 0);
+INSERT INTO `tblDistrito` VALUES(483, 'CARMEN SALCEDO', 48, 0);
+INSERT INTO `tblDistrito` VALUES(484, 'CHAVIÑA', 48, 0);
+INSERT INTO `tblDistrito` VALUES(485, 'CHIPAO', 48, 0);
+INSERT INTO `tblDistrito` VALUES(486, 'HUAC-HUAS', 48, 0);
+INSERT INTO `tblDistrito` VALUES(487, 'LARAMATE', 48, 0);
+INSERT INTO `tblDistrito` VALUES(488, 'LEONCIO PRADO', 48, 0);
+INSERT INTO `tblDistrito` VALUES(489, 'LLAUTA', 48, 0);
+INSERT INTO `tblDistrito` VALUES(490, 'LUCANAS', 48, 0);
+INSERT INTO `tblDistrito` VALUES(491, 'OCAÑA', 48, 0);
+INSERT INTO `tblDistrito` VALUES(492, 'OTOCA', 48, 0);
+INSERT INTO `tblDistrito` VALUES(493, 'SAISA', 48, 0);
+INSERT INTO `tblDistrito` VALUES(494, 'SAN CRISTOBAL', 48, 0);
+INSERT INTO `tblDistrito` VALUES(495, 'SAN JUAN', 48, 0);
+INSERT INTO `tblDistrito` VALUES(496, 'SAN PEDRO', 48, 0);
+INSERT INTO `tblDistrito` VALUES(497, 'SAN PEDRO DE PALCO', 48, 0);
+INSERT INTO `tblDistrito` VALUES(498, 'SANCOS', 48, 0);
+INSERT INTO `tblDistrito` VALUES(499, 'SANTA ANA DE HUAYCAHUACHO', 48, 0);
+INSERT INTO `tblDistrito` VALUES(500, 'SANTA LUCIA', 48, 0);
+INSERT INTO `tblDistrito` VALUES(501, 'CORACORA', 49, 0);
+INSERT INTO `tblDistrito` VALUES(502, 'CHUMPI', 49, 0);
+INSERT INTO `tblDistrito` VALUES(503, 'CORONEL CASTA&Ntilde;EDA', 49, 0);
+INSERT INTO `tblDistrito` VALUES(504, 'PACAPAUSA', 49, 0);
+INSERT INTO `tblDistrito` VALUES(505, 'PULLO', 49, 0);
+INSERT INTO `tblDistrito` VALUES(506, 'PUYUSCA', 49, 0);
+INSERT INTO `tblDistrito` VALUES(507, 'SAN FRANCISCO DE RAVACAYCO', 49, 0);
+INSERT INTO `tblDistrito` VALUES(508, 'UPAHUACHO', 49, 0);
+INSERT INTO `tblDistrito` VALUES(509, 'PAUSA', 50, 0);
+INSERT INTO `tblDistrito` VALUES(510, 'COLTA', 50, 0);
+INSERT INTO `tblDistrito` VALUES(511, 'CORCULLA', 50, 0);
+INSERT INTO `tblDistrito` VALUES(512, 'LAMPA', 50, 0);
+INSERT INTO `tblDistrito` VALUES(513, 'MARCABAMBA', 50, 0);
+INSERT INTO `tblDistrito` VALUES(514, 'OYOLO', 50, 0);
+INSERT INTO `tblDistrito` VALUES(515, 'PARARCA', 50, 0);
+INSERT INTO `tblDistrito` VALUES(516, 'SAN JAVIER DE ALPABAMBA', 50, 0);
+INSERT INTO `tblDistrito` VALUES(517, 'SAN JOSE DE USHUA', 50, 0);
+INSERT INTO `tblDistrito` VALUES(518, 'SARA SARA', 50, 0);
+INSERT INTO `tblDistrito` VALUES(519, 'QUEROBAMBA', 51, 0);
+INSERT INTO `tblDistrito` VALUES(520, 'BELEN', 51, 0);
+INSERT INTO `tblDistrito` VALUES(521, 'CHALCOS', 51, 0);
+INSERT INTO `tblDistrito` VALUES(522, 'CHILCAYOC', 51, 0);
+INSERT INTO `tblDistrito` VALUES(523, 'HUACAÑA', 51, 0);
+INSERT INTO `tblDistrito` VALUES(524, 'MORCOLLA', 51, 0);
+INSERT INTO `tblDistrito` VALUES(525, 'PAICO', 51, 0);
+INSERT INTO `tblDistrito` VALUES(526, 'SAN PEDRO DE LARCAY', 51, 0);
+INSERT INTO `tblDistrito` VALUES(527, 'SAN SALVADOR DE QUIJE', 51, 0);
+INSERT INTO `tblDistrito` VALUES(528, 'SANTIAGO DE PAUCARAY', 51, 0);
+INSERT INTO `tblDistrito` VALUES(529, 'SORAS', 51, 0);
+INSERT INTO `tblDistrito` VALUES(530, 'HUANCAPI', 52, 0);
+INSERT INTO `tblDistrito` VALUES(531, 'ALCAMENCA', 52, 0);
+INSERT INTO `tblDistrito` VALUES(532, 'APONGO', 52, 0);
+INSERT INTO `tblDistrito` VALUES(533, 'ASQUIPATA', 52, 0);
+INSERT INTO `tblDistrito` VALUES(534, 'CANARIA', 52, 0);
+INSERT INTO `tblDistrito` VALUES(535, 'CAYARA', 52, 0);
+INSERT INTO `tblDistrito` VALUES(536, 'COLCA', 52, 0);
+INSERT INTO `tblDistrito` VALUES(537, 'HUAMANQUIQUIA', 52, 0);
+INSERT INTO `tblDistrito` VALUES(538, 'HUANCARAYLLA', 52, 0);
+INSERT INTO `tblDistrito` VALUES(539, 'HUAYA', 52, 0);
+INSERT INTO `tblDistrito` VALUES(540, 'SARHUA', 52, 0);
+INSERT INTO `tblDistrito` VALUES(541, 'VILCANCHOS', 52, 0);
+INSERT INTO `tblDistrito` VALUES(542, 'VILCAS HUAMAN', 53, 0);
+INSERT INTO `tblDistrito` VALUES(543, 'ACCOMARCA', 53, 0);
+INSERT INTO `tblDistrito` VALUES(544, 'CARHUANCA', 53, 0);
+INSERT INTO `tblDistrito` VALUES(545, 'CONCEPCION', 53, 0);
+INSERT INTO `tblDistrito` VALUES(546, 'HUAMBALPA', 53, 0);
+INSERT INTO `tblDistrito` VALUES(547, 'INDEPENDENCIA', 53, 0);
+INSERT INTO `tblDistrito` VALUES(548, 'SAURAMA', 53, 0);
+INSERT INTO `tblDistrito` VALUES(549, 'VISCHONGO', 53, 0);
+INSERT INTO `tblDistrito` VALUES(550, 'CAJAMARCA', 54, 0);
+INSERT INTO `tblDistrito` VALUES(551, 'CAJAMARCA', 54, 0);
+INSERT INTO `tblDistrito` VALUES(552, 'ASUNCION', 54, 0);
+INSERT INTO `tblDistrito` VALUES(553, 'CHETILLA', 54, 0);
+INSERT INTO `tblDistrito` VALUES(554, 'COSPAN', 54, 0);
+INSERT INTO `tblDistrito` VALUES(555, 'ENCAÑADA', 54, 0);
+INSERT INTO `tblDistrito` VALUES(556, 'JESUS', 54, 0);
+INSERT INTO `tblDistrito` VALUES(557, 'LLACANORA', 54, 0);
+INSERT INTO `tblDistrito` VALUES(558, 'LOS BAÑOS DEL INCA', 54, 0);
+INSERT INTO `tblDistrito` VALUES(559, 'MAGDALENA', 54, 0);
+INSERT INTO `tblDistrito` VALUES(560, 'MATARA', 54, 0);
+INSERT INTO `tblDistrito` VALUES(561, 'NAMORA', 54, 0);
+INSERT INTO `tblDistrito` VALUES(562, 'SAN JUAN', 54, 0);
+INSERT INTO `tblDistrito` VALUES(563, 'CAJABAMBA', 55, 0);
+INSERT INTO `tblDistrito` VALUES(564, 'CACHACHI', 55, 0);
+INSERT INTO `tblDistrito` VALUES(565, 'CONDEBAMBA', 55, 0);
+INSERT INTO `tblDistrito` VALUES(566, 'SITACOCHA', 55, 0);
+INSERT INTO `tblDistrito` VALUES(567, 'CELENDIN', 56, 0);
+INSERT INTO `tblDistrito` VALUES(568, 'CHUMUCH', 56, 0);
+INSERT INTO `tblDistrito` VALUES(569, 'CORTEGANA', 56, 0);
+INSERT INTO `tblDistrito` VALUES(570, 'HUASMIN', 56, 0);
+INSERT INTO `tblDistrito` VALUES(571, 'JORGE CHAVEZ', 56, 0);
+INSERT INTO `tblDistrito` VALUES(572, 'JOSE GALVEZ', 56, 0);
+INSERT INTO `tblDistrito` VALUES(573, 'MIGUEL IGLESIAS', 56, 0);
+INSERT INTO `tblDistrito` VALUES(574, 'OXAMARCA', 56, 0);
+INSERT INTO `tblDistrito` VALUES(575, 'SOROCHUCO', 56, 0);
+INSERT INTO `tblDistrito` VALUES(576, 'SUCRE', 56, 0);
+INSERT INTO `tblDistrito` VALUES(577, 'UTCO', 56, 0);
+INSERT INTO `tblDistrito` VALUES(578, 'LA LIBERTAD DE PALLAN', 56, 0);
+INSERT INTO `tblDistrito` VALUES(579, 'CHOTA', 57, 0);
+INSERT INTO `tblDistrito` VALUES(580, 'ANGUIA', 57, 0);
+INSERT INTO `tblDistrito` VALUES(581, 'CHADIN', 57, 0);
+INSERT INTO `tblDistrito` VALUES(582, 'CHIGUIRIP', 57, 0);
+INSERT INTO `tblDistrito` VALUES(583, 'CHIMBAN', 57, 0);
+INSERT INTO `tblDistrito` VALUES(584, 'CHOROPAMPA', 57, 0);
+INSERT INTO `tblDistrito` VALUES(585, 'COCHABAMBA', 57, 0);
+INSERT INTO `tblDistrito` VALUES(586, 'CONCHAN', 57, 0);
+INSERT INTO `tblDistrito` VALUES(587, 'HUAMBOS', 57, 0);
+INSERT INTO `tblDistrito` VALUES(588, 'LAJAS', 57, 0);
+INSERT INTO `tblDistrito` VALUES(589, 'LLAMA', 57, 0);
+INSERT INTO `tblDistrito` VALUES(590, 'MIRACOSTA', 57, 0);
+INSERT INTO `tblDistrito` VALUES(591, 'PACCHA', 57, 0);
+INSERT INTO `tblDistrito` VALUES(592, 'PION', 57, 0);
+INSERT INTO `tblDistrito` VALUES(593, 'QUEROCOTO', 57, 0);
+INSERT INTO `tblDistrito` VALUES(594, 'SAN JUAN DE LICUPIS', 57, 0);
+INSERT INTO `tblDistrito` VALUES(595, 'TACABAMBA', 57, 0);
+INSERT INTO `tblDistrito` VALUES(596, 'TOCMOCHE', 57, 0);
+INSERT INTO `tblDistrito` VALUES(597, 'CHALAMARCA', 57, 0);
+INSERT INTO `tblDistrito` VALUES(598, 'CONTUMAZA', 58, 0);
+INSERT INTO `tblDistrito` VALUES(599, 'CHILETE', 58, 0);
+INSERT INTO `tblDistrito` VALUES(600, 'CUPISNIQUE', 58, 0);
+INSERT INTO `tblDistrito` VALUES(601, 'GUZMANGO', 58, 0);
+INSERT INTO `tblDistrito` VALUES(602, 'SAN BENITO', 58, 0);
+INSERT INTO `tblDistrito` VALUES(603, 'SANTA CRUZ DE TOLED', 58, 0);
+INSERT INTO `tblDistrito` VALUES(604, 'TANTARICA', 58, 0);
+INSERT INTO `tblDistrito` VALUES(605, 'YONAN', 58, 0);
+INSERT INTO `tblDistrito` VALUES(606, 'CUTERVO', 59, 0);
+INSERT INTO `tblDistrito` VALUES(607, 'CALLAYUC', 59, 0);
+INSERT INTO `tblDistrito` VALUES(608, 'CHOROS', 59, 0);
+INSERT INTO `tblDistrito` VALUES(609, 'CUJILLO', 59, 0);
+INSERT INTO `tblDistrito` VALUES(610, 'LA RAMADA', 59, 0);
+INSERT INTO `tblDistrito` VALUES(611, 'PIMPINGOS', 59, 0);
+INSERT INTO `tblDistrito` VALUES(612, 'QUEROCOTILLO', 59, 0);
+INSERT INTO `tblDistrito` VALUES(613, 'SAN ANDRES DE CUTERVO', 59, 0);
+INSERT INTO `tblDistrito` VALUES(614, 'SAN JUAN DE CUTERVO', 59, 0);
+INSERT INTO `tblDistrito` VALUES(615, 'SAN LUIS DE LUCMA', 59, 0);
+INSERT INTO `tblDistrito` VALUES(616, 'SANTA CRUZ', 59, 0);
+INSERT INTO `tblDistrito` VALUES(617, 'SANTO DOMINGO DE LA CAPILLA', 59, 0);
+INSERT INTO `tblDistrito` VALUES(618, 'SANTO TOMAS', 59, 0);
+INSERT INTO `tblDistrito` VALUES(619, 'SOCOTA', 59, 0);
+INSERT INTO `tblDistrito` VALUES(620, 'TORIBIO CASANOVA', 59, 0);
+INSERT INTO `tblDistrito` VALUES(621, 'BAMBAMARCA', 60, 0);
+INSERT INTO `tblDistrito` VALUES(622, 'CHUGUR', 60, 0);
+INSERT INTO `tblDistrito` VALUES(623, 'HUALGAYOC', 60, 0);
+INSERT INTO `tblDistrito` VALUES(624, 'JAEN', 61, 0);
+INSERT INTO `tblDistrito` VALUES(625, 'BELLAVISTA', 61, 0);
+INSERT INTO `tblDistrito` VALUES(626, 'CHONTALI', 61, 0);
+INSERT INTO `tblDistrito` VALUES(627, 'COLASAY', 61, 0);
+INSERT INTO `tblDistrito` VALUES(628, 'HUABAL', 61, 0);
+INSERT INTO `tblDistrito` VALUES(629, 'LAS PIRIAS', 61, 0);
+INSERT INTO `tblDistrito` VALUES(630, 'POMAHUACA', 61, 0);
+INSERT INTO `tblDistrito` VALUES(631, 'PUCARA', 61, 0);
+INSERT INTO `tblDistrito` VALUES(632, 'SALLIQUE', 61, 0);
+INSERT INTO `tblDistrito` VALUES(633, 'SAN FELIPE', 61, 0);
+INSERT INTO `tblDistrito` VALUES(634, 'SAN JOSE DEL ALTO', 61, 0);
+INSERT INTO `tblDistrito` VALUES(635, 'SANTA ROSA', 61, 0);
+INSERT INTO `tblDistrito` VALUES(636, 'SAN IGNACIO', 62, 0);
+INSERT INTO `tblDistrito` VALUES(637, 'CHIRINOS', 62, 0);
+INSERT INTO `tblDistrito` VALUES(638, 'HUARANGO', 62, 0);
+INSERT INTO `tblDistrito` VALUES(639, 'LA COIPA', 62, 0);
+INSERT INTO `tblDistrito` VALUES(640, 'NAMBALLE', 62, 0);
+INSERT INTO `tblDistrito` VALUES(641, 'SAN JOSE DE LOURDES', 62, 0);
+INSERT INTO `tblDistrito` VALUES(642, 'TABACONAS', 62, 0);
+INSERT INTO `tblDistrito` VALUES(643, 'PEDRO GALVEZ', 63, 0);
+INSERT INTO `tblDistrito` VALUES(644, 'CHANCAY', 63, 0);
+INSERT INTO `tblDistrito` VALUES(645, 'EDUARDO VILLANUEVA', 63, 0);
+INSERT INTO `tblDistrito` VALUES(646, 'GREGORIO PITA', 63, 0);
+INSERT INTO `tblDistrito` VALUES(647, 'ICHOCAN', 63, 0);
+INSERT INTO `tblDistrito` VALUES(648, 'JOSE MANUEL QUIROZ', 63, 0);
+INSERT INTO `tblDistrito` VALUES(649, 'JOSE SABOGAL', 63, 0);
+INSERT INTO `tblDistrito` VALUES(650, 'SAN MIGUEL', 64, 0);
+INSERT INTO `tblDistrito` VALUES(651, 'SAN MIGUEL', 64, 0);
+INSERT INTO `tblDistrito` VALUES(652, 'BOLIVAR', 64, 0);
+INSERT INTO `tblDistrito` VALUES(653, 'CALQUIS', 64, 0);
+INSERT INTO `tblDistrito` VALUES(654, 'CATILLUC', 64, 0);
+INSERT INTO `tblDistrito` VALUES(655, 'EL PRADO', 64, 0);
+INSERT INTO `tblDistrito` VALUES(656, 'LA FLORIDA', 64, 0);
+INSERT INTO `tblDistrito` VALUES(657, 'LLAPA', 64, 0);
+INSERT INTO `tblDistrito` VALUES(658, 'NANCHOC', 64, 0);
+INSERT INTO `tblDistrito` VALUES(659, 'NIEPOS', 64, 0);
+INSERT INTO `tblDistrito` VALUES(660, 'SAN GREGORIO', 64, 0);
+INSERT INTO `tblDistrito` VALUES(661, 'SAN SILVESTRE DE COCHAN', 64, 0);
+INSERT INTO `tblDistrito` VALUES(662, 'TONGOD', 64, 0);
+INSERT INTO `tblDistrito` VALUES(663, 'UNION AGUA BLANCA', 64, 0);
+INSERT INTO `tblDistrito` VALUES(664, 'SAN PABLO', 65, 0);
+INSERT INTO `tblDistrito` VALUES(665, 'SAN BERNARDINO', 65, 0);
+INSERT INTO `tblDistrito` VALUES(666, 'SAN LUIS', 65, 0);
+INSERT INTO `tblDistrito` VALUES(667, 'TUMBADEN', 65, 0);
+INSERT INTO `tblDistrito` VALUES(668, 'SANTA CRUZ', 66, 0);
+INSERT INTO `tblDistrito` VALUES(669, 'ANDABAMBA', 66, 0);
+INSERT INTO `tblDistrito` VALUES(670, 'CATACHE', 66, 0);
+INSERT INTO `tblDistrito` VALUES(671, 'CHANCAYBAÑOS', 66, 0);
+INSERT INTO `tblDistrito` VALUES(672, 'LA ESPERANZA', 66, 0);
+INSERT INTO `tblDistrito` VALUES(673, 'NINABAMBA', 66, 0);
+INSERT INTO `tblDistrito` VALUES(674, 'PULAN', 66, 0);
+INSERT INTO `tblDistrito` VALUES(675, 'SAUCEPAMPA', 66, 0);
+INSERT INTO `tblDistrito` VALUES(676, 'SEXI', 66, 0);
+INSERT INTO `tblDistrito` VALUES(677, 'UTICYACU', 66, 0);
+INSERT INTO `tblDistrito` VALUES(678, 'YAUYUCAN', 66, 0);
+INSERT INTO `tblDistrito` VALUES(679, 'CALLAO', 67, 0);
+INSERT INTO `tblDistrito` VALUES(680, 'BELLAVISTA', 67, 0);
+INSERT INTO `tblDistrito` VALUES(681, 'CARMEN DE LA LEGUA REYNOSO', 67, 0);
+INSERT INTO `tblDistrito` VALUES(682, 'LA PERLA', 67, 0);
+INSERT INTO `tblDistrito` VALUES(683, 'LA PUNTA', 67, 0);
+INSERT INTO `tblDistrito` VALUES(684, 'VENTANILLA', 67, 0);
+INSERT INTO `tblDistrito` VALUES(685, 'CUSCO', 67, 0);
+INSERT INTO `tblDistrito` VALUES(686, 'CCORCA', 67, 0);
+INSERT INTO `tblDistrito` VALUES(687, 'POROY', 67, 0);
+INSERT INTO `tblDistrito` VALUES(688, 'SAN JERONIMO', 67, 0);
+INSERT INTO `tblDistrito` VALUES(689, 'SAN SEBASTIAN', 67, 0);
+INSERT INTO `tblDistrito` VALUES(690, 'SANTIAGO', 67, 0);
+INSERT INTO `tblDistrito` VALUES(691, 'SAYLLA', 67, 0);
+INSERT INTO `tblDistrito` VALUES(692, 'WANCHAQ', 67, 0);
+INSERT INTO `tblDistrito` VALUES(693, 'ACOMAYO', 68, 0);
+INSERT INTO `tblDistrito` VALUES(694, 'ACOPIA', 68, 0);
+INSERT INTO `tblDistrito` VALUES(695, 'ACOS', 68, 0);
+INSERT INTO `tblDistrito` VALUES(696, 'MOSOC LLACTA', 68, 0);
+INSERT INTO `tblDistrito` VALUES(697, 'POMACANCHI', 68, 0);
+INSERT INTO `tblDistrito` VALUES(698, 'RONDOCAN', 68, 0);
+INSERT INTO `tblDistrito` VALUES(699, 'SANGARARA', 68, 0);
+INSERT INTO `tblDistrito` VALUES(700, 'ANTA', 69, 0);
+INSERT INTO `tblDistrito` VALUES(701, 'ANCAHUASI', 69, 0);
+INSERT INTO `tblDistrito` VALUES(702, 'CACHIMAYO', 69, 0);
+INSERT INTO `tblDistrito` VALUES(703, 'CHINCHAYPUJIO', 69, 0);
+INSERT INTO `tblDistrito` VALUES(704, 'HUAROCONDO', 69, 0);
+INSERT INTO `tblDistrito` VALUES(705, 'LIMATAMBO', 69, 0);
+INSERT INTO `tblDistrito` VALUES(706, 'MOLLEPATA', 69, 0);
+INSERT INTO `tblDistrito` VALUES(707, 'PUCYURA', 69, 0);
+INSERT INTO `tblDistrito` VALUES(708, 'ZURITE', 69, 0);
+INSERT INTO `tblDistrito` VALUES(709, 'CALCA', 70, 0);
+INSERT INTO `tblDistrito` VALUES(710, 'COYA', 70, 0);
+INSERT INTO `tblDistrito` VALUES(711, 'LAMAY', 70, 0);
+INSERT INTO `tblDistrito` VALUES(712, 'LARES', 70, 0);
+INSERT INTO `tblDistrito` VALUES(713, 'PISAC', 70, 0);
+INSERT INTO `tblDistrito` VALUES(714, 'SAN SALVADOR', 70, 0);
+INSERT INTO `tblDistrito` VALUES(715, 'TARAY', 70, 0);
+INSERT INTO `tblDistrito` VALUES(716, 'YANATILE', 70, 0);
+INSERT INTO `tblDistrito` VALUES(717, 'YANAOCA', 71, 0);
+INSERT INTO `tblDistrito` VALUES(718, 'CHECCA', 71, 0);
+INSERT INTO `tblDistrito` VALUES(719, 'KUNTURKANKI', 71, 0);
+INSERT INTO `tblDistrito` VALUES(720, 'LANGUI', 71, 0);
+INSERT INTO `tblDistrito` VALUES(721, 'LAYO', 71, 0);
+INSERT INTO `tblDistrito` VALUES(722, 'PAMPAMARCA', 71, 0);
+INSERT INTO `tblDistrito` VALUES(723, 'QUEHUE', 71, 0);
+INSERT INTO `tblDistrito` VALUES(724, 'TUPAC AMARU', 71, 0);
+INSERT INTO `tblDistrito` VALUES(725, 'SICUANI', 72, 0);
+INSERT INTO `tblDistrito` VALUES(726, 'CHECACUPE', 72, 0);
+INSERT INTO `tblDistrito` VALUES(727, 'COMBAPATA', 72, 0);
+INSERT INTO `tblDistrito` VALUES(728, 'MARANGANI', 72, 0);
+INSERT INTO `tblDistrito` VALUES(729, 'PITUMARCA', 72, 0);
+INSERT INTO `tblDistrito` VALUES(730, 'SAN PABLO', 72, 0);
+INSERT INTO `tblDistrito` VALUES(731, 'SAN PEDRO', 72, 0);
+INSERT INTO `tblDistrito` VALUES(732, 'TINTA', 72, 0);
+INSERT INTO `tblDistrito` VALUES(733, 'SANTO TOMAS', 73, 0);
+INSERT INTO `tblDistrito` VALUES(734, 'CAPACMARCA', 73, 0);
+INSERT INTO `tblDistrito` VALUES(735, 'CHAMACA', 73, 0);
+INSERT INTO `tblDistrito` VALUES(736, 'COLQUEMARCA', 73, 0);
+INSERT INTO `tblDistrito` VALUES(737, 'LIVITACA', 73, 0);
+INSERT INTO `tblDistrito` VALUES(738, 'LLUSCO', 73, 0);
+INSERT INTO `tblDistrito` VALUES(739, 'QUIÑOTA', 73, 0);
+INSERT INTO `tblDistrito` VALUES(740, 'VELILLE', 73, 0);
+INSERT INTO `tblDistrito` VALUES(741, 'ESPINAR', 74, 0);
+INSERT INTO `tblDistrito` VALUES(742, 'CONDOROMA', 74, 0);
+INSERT INTO `tblDistrito` VALUES(743, 'COPORAQUE', 74, 0);
+INSERT INTO `tblDistrito` VALUES(744, 'OCORURO', 74, 0);
+INSERT INTO `tblDistrito` VALUES(745, 'PALLPATA', 74, 0);
+INSERT INTO `tblDistrito` VALUES(746, 'PICHIGUA', 74, 0);
+INSERT INTO `tblDistrito` VALUES(747, 'SUYCKUTAMBO', 74, 0);
+INSERT INTO `tblDistrito` VALUES(748, 'ALTO PICHIGUA', 74, 0);
+INSERT INTO `tblDistrito` VALUES(749, 'SANTA ANA', 75, 0);
+INSERT INTO `tblDistrito` VALUES(750, 'ECHARATE', 75, 0);
+INSERT INTO `tblDistrito` VALUES(751, 'HUAYOPATA', 75, 0);
+INSERT INTO `tblDistrito` VALUES(752, 'MARANURA', 75, 0);
+INSERT INTO `tblDistrito` VALUES(753, 'OCOBAMBA', 75, 0);
+INSERT INTO `tblDistrito` VALUES(754, 'QUELLOUNO', 75, 0);
+INSERT INTO `tblDistrito` VALUES(755, 'KIMBIRI', 75, 0);
+INSERT INTO `tblDistrito` VALUES(756, 'SANTA TERESA', 75, 0);
+INSERT INTO `tblDistrito` VALUES(757, 'VILCABAMBA', 75, 0);
+INSERT INTO `tblDistrito` VALUES(758, 'PICHARI', 75, 0);
+INSERT INTO `tblDistrito` VALUES(759, 'PARURO', 76, 0);
+INSERT INTO `tblDistrito` VALUES(760, 'ACCHA', 76, 0);
+INSERT INTO `tblDistrito` VALUES(761, 'CCAPI', 76, 0);
+INSERT INTO `tblDistrito` VALUES(762, 'COLCHA', 76, 0);
+INSERT INTO `tblDistrito` VALUES(763, 'HUANOQUITE', 76, 0);
+INSERT INTO `tblDistrito` VALUES(764, 'OMACHA', 76, 0);
+INSERT INTO `tblDistrito` VALUES(765, 'PACCARITAMBO', 76, 0);
+INSERT INTO `tblDistrito` VALUES(766, 'PILLPINTO', 76, 0);
+INSERT INTO `tblDistrito` VALUES(767, 'YAURISQUE', 76, 0);
+INSERT INTO `tblDistrito` VALUES(768, 'PAUCARTAMBO', 77, 0);
+INSERT INTO `tblDistrito` VALUES(769, 'CAICAY', 77, 0);
+INSERT INTO `tblDistrito` VALUES(770, 'CHALLABAMBA', 77, 0);
+INSERT INTO `tblDistrito` VALUES(771, 'COLQUEPATA', 77, 0);
+INSERT INTO `tblDistrito` VALUES(772, 'HUANCARANI', 77, 0);
+INSERT INTO `tblDistrito` VALUES(773, 'KOSÑIPATA', 77, 0);
+INSERT INTO `tblDistrito` VALUES(774, 'URCOS', 78, 0);
+INSERT INTO `tblDistrito` VALUES(775, 'ANDAHUAYLILLAS', 78, 0);
+INSERT INTO `tblDistrito` VALUES(776, 'CAMANTI', 78, 0);
+INSERT INTO `tblDistrito` VALUES(777, 'CCARHUAYO', 78, 0);
+INSERT INTO `tblDistrito` VALUES(778, 'CCATCA', 78, 0);
+INSERT INTO `tblDistrito` VALUES(779, 'CUSIPATA', 78, 0);
+INSERT INTO `tblDistrito` VALUES(780, 'HUARO', 78, 0);
+INSERT INTO `tblDistrito` VALUES(781, 'LUCRE', 78, 0);
+INSERT INTO `tblDistrito` VALUES(782, 'MARCAPATA', 78, 0);
+INSERT INTO `tblDistrito` VALUES(783, 'OCONGATE', 78, 0);
+INSERT INTO `tblDistrito` VALUES(784, 'OROPESA', 78, 0);
+INSERT INTO `tblDistrito` VALUES(785, 'QUIQUIJANA', 78, 0);
+INSERT INTO `tblDistrito` VALUES(786, 'URUBAMBA', 79, 0);
+INSERT INTO `tblDistrito` VALUES(787, 'CHINCHERO', 79, 0);
+INSERT INTO `tblDistrito` VALUES(788, 'HUAYLLABAMBA', 79, 0);
+INSERT INTO `tblDistrito` VALUES(789, 'MACHUPICCHU', 79, 0);
+INSERT INTO `tblDistrito` VALUES(790, 'MARAS', 79, 0);
+INSERT INTO `tblDistrito` VALUES(791, 'OLLANTAYTAMBO', 79, 0);
+INSERT INTO `tblDistrito` VALUES(792, 'YUCAY', 79, 0);
+INSERT INTO `tblDistrito` VALUES(793, 'HUANCAVELICA', 80, 0);
+INSERT INTO `tblDistrito` VALUES(794, 'ACOBAMBILLA', 80, 0);
+INSERT INTO `tblDistrito` VALUES(795, 'ACORIA', 80, 0);
+INSERT INTO `tblDistrito` VALUES(796, 'CONAYCA', 80, 0);
+INSERT INTO `tblDistrito` VALUES(797, 'CUENCA', 80, 0);
+INSERT INTO `tblDistrito` VALUES(798, 'HUACHOCOLPA', 80, 0);
+INSERT INTO `tblDistrito` VALUES(799, 'HUAYLLAHUARA', 80, 0);
+INSERT INTO `tblDistrito` VALUES(800, 'IZCUCHACA', 80, 0);
+INSERT INTO `tblDistrito` VALUES(801, 'LARIA', 80, 0);
+INSERT INTO `tblDistrito` VALUES(802, 'MANTA', 80, 0);
+INSERT INTO `tblDistrito` VALUES(803, 'MARISCAL CACERES', 80, 0);
+INSERT INTO `tblDistrito` VALUES(804, 'MOYA', 80, 0);
+INSERT INTO `tblDistrito` VALUES(805, 'NUEVO OCCORO', 80, 0);
+INSERT INTO `tblDistrito` VALUES(806, 'PALCA', 80, 0);
+INSERT INTO `tblDistrito` VALUES(807, 'PILCHACA', 80, 0);
+INSERT INTO `tblDistrito` VALUES(808, 'VILCA', 80, 0);
+INSERT INTO `tblDistrito` VALUES(809, 'YAULI', 80, 0);
+INSERT INTO `tblDistrito` VALUES(810, 'ASCENSION', 80, 0);
+INSERT INTO `tblDistrito` VALUES(811, 'HUANDO', 80, 0);
+INSERT INTO `tblDistrito` VALUES(812, 'ACOBAMBA', 81, 0);
+INSERT INTO `tblDistrito` VALUES(813, 'ANDABAMBA', 81, 0);
+INSERT INTO `tblDistrito` VALUES(814, 'ANTA', 81, 0);
+INSERT INTO `tblDistrito` VALUES(815, 'CAJA', 81, 0);
+INSERT INTO `tblDistrito` VALUES(816, 'MARCAS', 81, 0);
+INSERT INTO `tblDistrito` VALUES(817, 'PAUCARA', 81, 0);
+INSERT INTO `tblDistrito` VALUES(818, 'POMACOCHA', 81, 0);
+INSERT INTO `tblDistrito` VALUES(819, 'ROSARIO', 81, 0);
+INSERT INTO `tblDistrito` VALUES(820, 'LIRCAY', 82, 0);
+INSERT INTO `tblDistrito` VALUES(821, 'ANCHONGA', 82, 0);
+INSERT INTO `tblDistrito` VALUES(822, 'CALLANMARCA', 82, 0);
+INSERT INTO `tblDistrito` VALUES(823, 'CCOCHACCASA', 82, 0);
+INSERT INTO `tblDistrito` VALUES(824, 'CHINCHO', 82, 0);
+INSERT INTO `tblDistrito` VALUES(825, 'CONGALLA', 82, 0);
+INSERT INTO `tblDistrito` VALUES(826, 'HUANCA-HUANCA', 82, 0);
+INSERT INTO `tblDistrito` VALUES(827, 'HUAYLLAY GRANDE', 82, 0);
+INSERT INTO `tblDistrito` VALUES(828, 'JULCAMARCA', 82, 0);
+INSERT INTO `tblDistrito` VALUES(829, 'SAN ANTONIO DE ANTAPARCO', 82, 0);
+INSERT INTO `tblDistrito` VALUES(830, 'SANTO TOMAS DE PATA', 82, 0);
+INSERT INTO `tblDistrito` VALUES(831, 'SECCLLA', 82, 0);
+INSERT INTO `tblDistrito` VALUES(832, 'CASTROVIRREYNA', 83, 0);
+INSERT INTO `tblDistrito` VALUES(833, 'ARMA', 83, 0);
+INSERT INTO `tblDistrito` VALUES(834, 'AURAHUA', 83, 0);
+INSERT INTO `tblDistrito` VALUES(835, 'CAPILLAS', 83, 0);
+INSERT INTO `tblDistrito` VALUES(836, 'CHUPAMARCA', 83, 0);
+INSERT INTO `tblDistrito` VALUES(837, 'COCAS', 83, 0);
+INSERT INTO `tblDistrito` VALUES(838, 'HUACHOS', 83, 0);
+INSERT INTO `tblDistrito` VALUES(839, 'HUAMATAMBO', 83, 0);
+INSERT INTO `tblDistrito` VALUES(840, 'MOLLEPAMPA', 83, 0);
+INSERT INTO `tblDistrito` VALUES(841, 'SAN JUAN', 83, 0);
+INSERT INTO `tblDistrito` VALUES(842, 'SANTA ANA', 83, 0);
+INSERT INTO `tblDistrito` VALUES(843, 'TANTARA', 83, 0);
+INSERT INTO `tblDistrito` VALUES(844, 'TICRAPO', 83, 0);
+INSERT INTO `tblDistrito` VALUES(845, 'CHURCAMPA', 84, 0);
+INSERT INTO `tblDistrito` VALUES(846, 'ANCO', 84, 0);
+INSERT INTO `tblDistrito` VALUES(847, 'CHINCHIHUASI', 84, 0);
+INSERT INTO `tblDistrito` VALUES(848, 'EL CARMEN', 84, 0);
+INSERT INTO `tblDistrito` VALUES(849, 'LA MERCED', 84, 0);
+INSERT INTO `tblDistrito` VALUES(850, 'LOCROJA', 84, 0);
+INSERT INTO `tblDistrito` VALUES(851, 'PAUCARBAMBA', 84, 0);
+INSERT INTO `tblDistrito` VALUES(852, 'SAN MIGUEL DE MAYOCC', 84, 0);
+INSERT INTO `tblDistrito` VALUES(853, 'SAN PEDRO DE CORIS', 84, 0);
+INSERT INTO `tblDistrito` VALUES(854, 'PACHAMARCA', 84, 0);
+INSERT INTO `tblDistrito` VALUES(855, 'HUAYTARA', 85, 0);
+INSERT INTO `tblDistrito` VALUES(856, 'AYAVI', 85, 0);
+INSERT INTO `tblDistrito` VALUES(857, 'CORDOVA', 85, 0);
+INSERT INTO `tblDistrito` VALUES(858, 'HUAYACUNDO ARMA', 85, 0);
+INSERT INTO `tblDistrito` VALUES(859, 'LARAMARCA', 85, 0);
+INSERT INTO `tblDistrito` VALUES(860, 'OCOYO', 85, 0);
+INSERT INTO `tblDistrito` VALUES(861, 'PILPICHACA', 85, 0);
+INSERT INTO `tblDistrito` VALUES(862, 'QUERCO', 85, 0);
+INSERT INTO `tblDistrito` VALUES(863, 'QUITO-ARMA', 85, 0);
+INSERT INTO `tblDistrito` VALUES(864, 'SAN ANTONIO DE CUSICANCHA', 85, 0);
+INSERT INTO `tblDistrito` VALUES(865, 'SAN FRANCISCO DE SANGAYAICO', 85, 0);
+INSERT INTO `tblDistrito` VALUES(866, 'SAN ISIDRO', 85, 0);
+INSERT INTO `tblDistrito` VALUES(867, 'SANTIAGO DE CHOCORVOS', 85, 0);
+INSERT INTO `tblDistrito` VALUES(868, 'SANTIAGO DE QUIRAHUARA', 85, 0);
+INSERT INTO `tblDistrito` VALUES(869, 'SANTO DOMINGO DE CAPILLAS', 85, 0);
+INSERT INTO `tblDistrito` VALUES(870, 'TAMBO', 85, 0);
+INSERT INTO `tblDistrito` VALUES(871, 'PAMPAS', 86, 0);
+INSERT INTO `tblDistrito` VALUES(872, 'ACOSTAMBO', 86, 0);
+INSERT INTO `tblDistrito` VALUES(873, 'ACRAQUIA', 86, 0);
+INSERT INTO `tblDistrito` VALUES(874, 'AHUAYCHA', 86, 0);
+INSERT INTO `tblDistrito` VALUES(875, 'COLCABAMBA', 86, 0);
+INSERT INTO `tblDistrito` VALUES(876, 'DANIEL HERNANDEZ', 86, 0);
+INSERT INTO `tblDistrito` VALUES(877, 'HUACHOCOLPA', 86, 0);
+INSERT INTO `tblDistrito` VALUES(878, 'HUARIBAMBA', 86, 0);
+INSERT INTO `tblDistrito` VALUES(879, 'ÑAHUIMPUQUIO', 86, 0);
+INSERT INTO `tblDistrito` VALUES(880, 'PAZOS', 86, 0);
+INSERT INTO `tblDistrito` VALUES(881, 'QUISHUAR', 86, 0);
+INSERT INTO `tblDistrito` VALUES(882, 'SALCABAMBA', 86, 0);
+INSERT INTO `tblDistrito` VALUES(883, 'SALCAHUASI', 86, 0);
+INSERT INTO `tblDistrito` VALUES(884, 'SAN MARCOS DE ROCCHAC', 86, 0);
+INSERT INTO `tblDistrito` VALUES(885, 'SURCUBAMBA', 86, 0);
+INSERT INTO `tblDistrito` VALUES(886, 'TINTAY PUNCU', 86, 0);
+INSERT INTO `tblDistrito` VALUES(887, 'HUANUCO', 87, 0);
+INSERT INTO `tblDistrito` VALUES(888, 'AMARILIS', 87, 0);
+INSERT INTO `tblDistrito` VALUES(889, 'CHINCHAO', 87, 0);
+INSERT INTO `tblDistrito` VALUES(890, 'CHURUBAMBA', 87, 0);
+INSERT INTO `tblDistrito` VALUES(891, 'MARGOS', 87, 0);
+INSERT INTO `tblDistrito` VALUES(892, 'QUISQUI', 87, 0);
+INSERT INTO `tblDistrito` VALUES(893, 'SAN FRANCISCO DE CAYRAN', 87, 0);
+INSERT INTO `tblDistrito` VALUES(894, 'SAN PEDRO DE CHAULAN', 87, 0);
+INSERT INTO `tblDistrito` VALUES(895, 'SANTA MARIA DEL VALLE', 87, 0);
+INSERT INTO `tblDistrito` VALUES(896, 'YARUMAYO', 87, 0);
+INSERT INTO `tblDistrito` VALUES(897, 'PILLCO MARCA', 87, 0);
+INSERT INTO `tblDistrito` VALUES(898, 'AMBO', 88, 0);
+INSERT INTO `tblDistrito` VALUES(899, 'CAYNA', 88, 0);
+INSERT INTO `tblDistrito` VALUES(900, 'COLPAS', 88, 0);
+INSERT INTO `tblDistrito` VALUES(901, 'CONCHAMARCA', 88, 0);
+INSERT INTO `tblDistrito` VALUES(902, 'HUACAR', 88, 0);
+INSERT INTO `tblDistrito` VALUES(903, 'SAN FRANCISCO', 88, 0);
+INSERT INTO `tblDistrito` VALUES(904, 'SAN RAFAEL', 88, 0);
+INSERT INTO `tblDistrito` VALUES(905, 'TOMAY KICHWA', 88, 0);
+INSERT INTO `tblDistrito` VALUES(906, 'LA UNION', 89, 0);
+INSERT INTO `tblDistrito` VALUES(907, 'CHUQUIS', 89, 0);
+INSERT INTO `tblDistrito` VALUES(908, 'MARIAS', 89, 0);
+INSERT INTO `tblDistrito` VALUES(909, 'PACHAS', 89, 0);
+INSERT INTO `tblDistrito` VALUES(910, 'QUIVILLA', 89, 0);
+INSERT INTO `tblDistrito` VALUES(911, 'RIPAN', 89, 0);
+INSERT INTO `tblDistrito` VALUES(912, 'SHUNQUI', 89, 0);
+INSERT INTO `tblDistrito` VALUES(913, 'SILLAPATA', 89, 0);
+INSERT INTO `tblDistrito` VALUES(914, 'YANAS', 89, 0);
+INSERT INTO `tblDistrito` VALUES(915, 'HUACAYBAMBA', 90, 0);
+INSERT INTO `tblDistrito` VALUES(916, 'CANCHABAMBA', 90, 0);
+INSERT INTO `tblDistrito` VALUES(917, 'COCHABAMBA', 90, 0);
+INSERT INTO `tblDistrito` VALUES(918, 'PINRA', 90, 0);
+INSERT INTO `tblDistrito` VALUES(919, 'LLATA', 91, 0);
+INSERT INTO `tblDistrito` VALUES(920, 'ARANCAY', 91, 0);
+INSERT INTO `tblDistrito` VALUES(921, 'CHAVIN DE PARIARCA', 91, 0);
+INSERT INTO `tblDistrito` VALUES(922, 'JACAS GRANDE', 91, 0);
+INSERT INTO `tblDistrito` VALUES(923, 'JIRCAN', 91, 0);
+INSERT INTO `tblDistrito` VALUES(924, 'MIRAFLORES', 91, 0);
+INSERT INTO `tblDistrito` VALUES(925, 'MONZON', 91, 0);
+INSERT INTO `tblDistrito` VALUES(926, 'PUNCHAO', 91, 0);
+INSERT INTO `tblDistrito` VALUES(927, 'PU&Ntilde;OS', 91, 0);
+INSERT INTO `tblDistrito` VALUES(928, 'SINGA', 91, 0);
+INSERT INTO `tblDistrito` VALUES(929, 'TANTAMAYO', 91, 0);
+INSERT INTO `tblDistrito` VALUES(930, 'RUPA-RUPA', 92, 0);
+INSERT INTO `tblDistrito` VALUES(931, 'DANIEL ALOMIA ROBLES', 92, 0);
+INSERT INTO `tblDistrito` VALUES(932, 'HERMILIO VALDIZAN', 92, 0);
+INSERT INTO `tblDistrito` VALUES(933, 'JOSE CRESPO Y CASTILLO', 92, 0);
+INSERT INTO `tblDistrito` VALUES(934, 'LUYANDO', 92, 0);
+INSERT INTO `tblDistrito` VALUES(935, 'MARIANO DAMASO BERAUN', 92, 0);
+INSERT INTO `tblDistrito` VALUES(936, 'HUACRACHUCO', 93, 0);
+INSERT INTO `tblDistrito` VALUES(937, 'CHOLON', 93, 0);
+INSERT INTO `tblDistrito` VALUES(938, 'SAN BUENAVENTURA', 93, 0);
+INSERT INTO `tblDistrito` VALUES(939, 'PANAO', 94, 0);
+INSERT INTO `tblDistrito` VALUES(940, 'CHAGLLA', 94, 0);
+INSERT INTO `tblDistrito` VALUES(941, 'MOLINO', 94, 0);
+INSERT INTO `tblDistrito` VALUES(942, 'UMARI', 94, 0);
+INSERT INTO `tblDistrito` VALUES(943, 'PUERTO INCA', 95, 0);
+INSERT INTO `tblDistrito` VALUES(944, 'CODO DEL POZUZO', 95, 0);
+INSERT INTO `tblDistrito` VALUES(945, 'HONORIA', 95, 0);
+INSERT INTO `tblDistrito` VALUES(946, 'TOURNAVISTA', 95, 0);
+INSERT INTO `tblDistrito` VALUES(947, 'YUYAPICHIS', 95, 0);
+INSERT INTO `tblDistrito` VALUES(948, 'JESUS', 96, 0);
+INSERT INTO `tblDistrito` VALUES(949, 'BAÑOS', 96, 0);
+INSERT INTO `tblDistrito` VALUES(950, 'JIVIA', 96, 0);
+INSERT INTO `tblDistrito` VALUES(951, 'QUEROPALCA', 96, 0);
+INSERT INTO `tblDistrito` VALUES(952, 'RONDOS', 96, 0);
+INSERT INTO `tblDistrito` VALUES(953, 'SAN FRANCISCO DE ASIS', 96, 0);
+INSERT INTO `tblDistrito` VALUES(954, 'SAN MIGUEL DE CAURI', 96, 0);
+INSERT INTO `tblDistrito` VALUES(955, 'CHAVINILLO', 97, 0);
+INSERT INTO `tblDistrito` VALUES(956, 'CAHUAC', 97, 0);
+INSERT INTO `tblDistrito` VALUES(957, 'CHACABAMBA', 97, 0);
+INSERT INTO `tblDistrito` VALUES(958, 'APARICIO POMARES', 97, 0);
+INSERT INTO `tblDistrito` VALUES(959, 'JACAS CHICO', 97, 0);
+INSERT INTO `tblDistrito` VALUES(960, 'OBAS', 97, 0);
+INSERT INTO `tblDistrito` VALUES(961, 'PAMPAMARCA', 97, 0);
+INSERT INTO `tblDistrito` VALUES(962, 'CHORAS', 97, 0);
+INSERT INTO `tblDistrito` VALUES(963, 'ICA', 98, 0);
+INSERT INTO `tblDistrito` VALUES(964, 'LA TINGUIÑA', 98, 0);
+INSERT INTO `tblDistrito` VALUES(965, 'LOS AQUIJES', 98, 0);
+INSERT INTO `tblDistrito` VALUES(966, 'OCUCAJE', 98, 0);
+INSERT INTO `tblDistrito` VALUES(967, 'PACHACUTEC', 98, 0);
+INSERT INTO `tblDistrito` VALUES(968, 'PARCONA', 98, 0);
+INSERT INTO `tblDistrito` VALUES(969, 'PUEBLO NUEVO', 98, 0);
+INSERT INTO `tblDistrito` VALUES(970, 'SALAS', 98, 0);
+INSERT INTO `tblDistrito` VALUES(971, 'SAN JOSE DE LOS MOLINOS', 98, 0);
+INSERT INTO `tblDistrito` VALUES(972, 'SAN JUAN BAUTISTA', 98, 0);
+INSERT INTO `tblDistrito` VALUES(973, 'SANTIAGO', 98, 0);
+INSERT INTO `tblDistrito` VALUES(974, 'SUBTANJALLA', 98, 0);
+INSERT INTO `tblDistrito` VALUES(975, 'TATE', 98, 0);
+INSERT INTO `tblDistrito` VALUES(976, 'YAUCA DEL ROSARIO', 98, 0);
+INSERT INTO `tblDistrito` VALUES(977, 'CHINCHA ALTA', 99, 0);
+INSERT INTO `tblDistrito` VALUES(978, 'ALTO LARAN', 99, 0);
+INSERT INTO `tblDistrito` VALUES(979, 'CHAVIN', 99, 0);
+INSERT INTO `tblDistrito` VALUES(980, 'CHINCHA BAJA', 99, 0);
+INSERT INTO `tblDistrito` VALUES(981, 'EL CARMEN', 99, 0);
+INSERT INTO `tblDistrito` VALUES(982, 'GROCIO PRADO', 99, 0);
+INSERT INTO `tblDistrito` VALUES(983, 'PUEBLO NUEVO', 99, 0);
+INSERT INTO `tblDistrito` VALUES(984, 'SAN JUAN DE YANAC', 99, 0);
+INSERT INTO `tblDistrito` VALUES(985, 'SAN PEDRO DE HUACARPANA', 99, 0);
+INSERT INTO `tblDistrito` VALUES(986, 'SUNAMPE', 99, 0);
+INSERT INTO `tblDistrito` VALUES(987, 'TAMBO DE MORA', 99, 0);
+INSERT INTO `tblDistrito` VALUES(988, 'NAZCA', 100, 0);
+INSERT INTO `tblDistrito` VALUES(989, 'CHANGUILLO', 100, 0);
+INSERT INTO `tblDistrito` VALUES(990, 'EL INGENIO', 100, 0);
+INSERT INTO `tblDistrito` VALUES(991, 'MARCONA', 100, 0);
+INSERT INTO `tblDistrito` VALUES(992, 'VISTA ALEGRE', 100, 0);
+INSERT INTO `tblDistrito` VALUES(993, 'PALPA', 101, 0);
+INSERT INTO `tblDistrito` VALUES(994, 'LLIPATA', 101, 0);
+INSERT INTO `tblDistrito` VALUES(995, 'RIO GRANDE', 101, 0);
+INSERT INTO `tblDistrito` VALUES(996, 'SANTA CRUZ', 101, 0);
+INSERT INTO `tblDistrito` VALUES(997, 'TIBILLO', 101, 0);
+INSERT INTO `tblDistrito` VALUES(998, 'PISCO', 102, 0);
+INSERT INTO `tblDistrito` VALUES(999, 'HUANCANO', 102, 0);
+INSERT INTO `tblDistrito` VALUES(1000, 'HUMAY', 102, 0);
+INSERT INTO `tblDistrito` VALUES(1001, 'INDEPENDENCIA', 102, 0);
+INSERT INTO `tblDistrito` VALUES(1002, 'PARACAS', 102, 0);
+INSERT INTO `tblDistrito` VALUES(1003, 'SAN ANDRES', 102, 0);
+INSERT INTO `tblDistrito` VALUES(1004, 'SAN CLEMENTE', 102, 0);
+INSERT INTO `tblDistrito` VALUES(1005, 'TUPAC AMARU INCA', 102, 0);
+INSERT INTO `tblDistrito` VALUES(1006, 'HUANCAYO', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1007, 'CARHUACALLANGA', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1008, 'CHACAPAMPA', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1009, 'CHICCHE', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1010, 'CHILCA', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1011, 'CHONGOS ALTO', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1012, 'CHUPURO', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1013, 'COLCA', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1014, 'CULLHUAS', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1015, 'EL TAMBO', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1016, 'HUACRAPUQUIO', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1017, 'HUALHUAS', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1018, 'HUANCAN', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1019, 'HUASICANCHA', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1020, 'HUAYUCACHI', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1021, 'INGENIO', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1022, 'PARIAHUANCA', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1023, 'PILCOMAYO', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1024, 'PUCARA', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1025, 'QUICHUAY', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1026, 'QUILCAS', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1027, 'SAN AGUSTIN', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1028, 'SAN JERONIMO DE TUNAN', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1029, 'SAÑO', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1030, 'SAPALLANGA', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1031, 'SICAYA', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1032, 'SANTO DOMINGO DE ACOBAMBA', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1033, 'VIQUES', 103, 0);
+INSERT INTO `tblDistrito` VALUES(1034, 'CONCEPCION', 104, 0);
+INSERT INTO `tblDistrito` VALUES(1035, 'ACO', 104, 0);
+INSERT INTO `tblDistrito` VALUES(1036, 'ANDAMARCA', 104, 0);
+INSERT INTO `tblDistrito` VALUES(1037, 'CHAMBARA', 104, 0);
+INSERT INTO `tblDistrito` VALUES(1038, 'COCHAS', 104, 0);
+INSERT INTO `tblDistrito` VALUES(1039, 'COMAS', 104, 0);
+INSERT INTO `tblDistrito` VALUES(1040, 'HEROINAS TOLEDO', 104, 0);
+INSERT INTO `tblDistrito` VALUES(1041, 'MANZANARES', 104, 0);
+INSERT INTO `tblDistrito` VALUES(1042, 'MARISCAL CASTILLA', 104, 0);
+INSERT INTO `tblDistrito` VALUES(1043, 'MATAHUASI', 104, 0);
+INSERT INTO `tblDistrito` VALUES(1044, 'MITO', 104, 0);
+INSERT INTO `tblDistrito` VALUES(1045, 'NUEVE DE JULIO', 104, 0);
+INSERT INTO `tblDistrito` VALUES(1046, 'ORCOTUNA', 104, 0);
+INSERT INTO `tblDistrito` VALUES(1047, 'SAN JOSE DE QUERO', 104, 0);
+INSERT INTO `tblDistrito` VALUES(1048, 'SANTA ROSA DE OCOPA', 104, 0);
+INSERT INTO `tblDistrito` VALUES(1049, 'CHANCHAMAYO', 105, 0);
+INSERT INTO `tblDistrito` VALUES(1050, 'PERENE', 105, 0);
+INSERT INTO `tblDistrito` VALUES(1051, 'PICHANAQUI', 105, 0);
+INSERT INTO `tblDistrito` VALUES(1052, 'SAN LUIS DE SHUARO', 105, 0);
+INSERT INTO `tblDistrito` VALUES(1053, 'SAN RAMON', 105, 0);
+INSERT INTO `tblDistrito` VALUES(1054, 'VITOC', 105, 0);
+INSERT INTO `tblDistrito` VALUES(1055, 'JAUJA', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1056, 'ACOLLA', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1057, 'APATA', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1058, 'ATAURA', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1059, 'CANCHAYLLO', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1060, 'CURICACA', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1061, 'EL MANTARO', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1062, 'HUAMALI', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1063, 'HUARIPAMPA', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1064, 'HUERTAS', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1065, 'JANJAILLO', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1066, 'JULCAN', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1067, 'LEONOR ORDO&Ntilde;EZ', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1068, 'LLOCLLAPAMPA', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1069, 'MARCO', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1070, 'MASMA', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1071, 'MASMA CHICCHE', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1072, 'MOLINOS', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1073, 'MONOBAMBA', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1074, 'MUQUI', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1075, 'MUQUIYAUYO', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1076, 'PACA', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1077, 'PACCHA', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1078, 'PANCAN', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1079, 'PARCO', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1080, 'POMACANCHA', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1081, 'RICRAN', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1082, 'SAN LORENZO', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1083, 'SAN PEDRO DE CHUNAN', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1084, 'SAUSA', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1085, 'SINCOS', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1086, 'TUNAN MARCA', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1087, 'YAULI', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1088, 'YAUYOS', 106, 0);
+INSERT INTO `tblDistrito` VALUES(1089, 'JUNIN', 107, 0);
+INSERT INTO `tblDistrito` VALUES(1090, 'CARHUAMAYO', 107, 0);
+INSERT INTO `tblDistrito` VALUES(1091, 'ONDORES', 107, 0);
+INSERT INTO `tblDistrito` VALUES(1092, 'ULCUMAYO', 107, 0);
+INSERT INTO `tblDistrito` VALUES(1093, 'SATIPO', 108, 0);
+INSERT INTO `tblDistrito` VALUES(1094, 'COVIRIALI', 108, 0);
+INSERT INTO `tblDistrito` VALUES(1095, 'LLAYLLA', 108, 0);
+INSERT INTO `tblDistrito` VALUES(1096, 'MAZAMARI', 108, 0);
+INSERT INTO `tblDistrito` VALUES(1097, 'PAMPA HERMOSA', 108, 0);
+INSERT INTO `tblDistrito` VALUES(1098, 'PANGOA', 108, 0);
+INSERT INTO `tblDistrito` VALUES(1099, 'RIO NEGRO', 108, 0);
+INSERT INTO `tblDistrito` VALUES(1100, 'RIO TAMBO', 108, 0);
+INSERT INTO `tblDistrito` VALUES(1101, 'TARMA', 109, 0);
+INSERT INTO `tblDistrito` VALUES(1102, 'ACOBAMBA', 109, 0);
+INSERT INTO `tblDistrito` VALUES(1103, 'HUARICOLCA', 109, 0);
+INSERT INTO `tblDistrito` VALUES(1104, 'HUASAHUASI', 109, 0);
+INSERT INTO `tblDistrito` VALUES(1105, 'LA UNION', 109, 0);
+INSERT INTO `tblDistrito` VALUES(1106, 'PALCA', 109, 0);
+INSERT INTO `tblDistrito` VALUES(1107, 'PALCAMAYO', 109, 0);
+INSERT INTO `tblDistrito` VALUES(1108, 'SAN PEDRO DE CAJAS', 109, 0);
+INSERT INTO `tblDistrito` VALUES(1109, 'TAPO', 109, 0);
+INSERT INTO `tblDistrito` VALUES(1110, 'LA OROYA', 110, 0);
+INSERT INTO `tblDistrito` VALUES(1111, 'CHACAPALPA', 110, 0);
+INSERT INTO `tblDistrito` VALUES(1112, 'HUAY-HUAY', 110, 0);
+INSERT INTO `tblDistrito` VALUES(1113, 'MARCAPOMACOCHA', 110, 0);
+INSERT INTO `tblDistrito` VALUES(1114, 'MOROCOCHA', 110, 0);
+INSERT INTO `tblDistrito` VALUES(1115, 'PACCHA', 110, 0);
+INSERT INTO `tblDistrito` VALUES(1116, 'SANTA BARBARA DE CARHUACAYAN', 110, 0);
+INSERT INTO `tblDistrito` VALUES(1117, 'SANTA ROSA DE SACCO', 110, 0);
+INSERT INTO `tblDistrito` VALUES(1118, 'SUITUCANCHA', 110, 0);
+INSERT INTO `tblDistrito` VALUES(1119, 'YAULI', 110, 0);
+INSERT INTO `tblDistrito` VALUES(1120, 'CHUPACA', 111, 0);
+INSERT INTO `tblDistrito` VALUES(1121, 'AHUAC', 111, 0);
+INSERT INTO `tblDistrito` VALUES(1122, 'CHONGOS BAJO', 111, 0);
+INSERT INTO `tblDistrito` VALUES(1123, 'HUACHAC', 111, 0);
+INSERT INTO `tblDistrito` VALUES(1124, 'HUAMANCACA CHICO', 111, 0);
+INSERT INTO `tblDistrito` VALUES(1125, 'SAN JUAN DE ISCOS', 111, 0);
+INSERT INTO `tblDistrito` VALUES(1126, 'SAN JUAN DE JARPA', 111, 0);
+INSERT INTO `tblDistrito` VALUES(1127, 'TRES DE DICIEMBRE', 111, 0);
+INSERT INTO `tblDistrito` VALUES(1128, 'YANACANCHA', 111, 0);
+INSERT INTO `tblDistrito` VALUES(1129, 'TRUJILLO', 112, 0);
+INSERT INTO `tblDistrito` VALUES(1130, 'EL PORVENIR', 112, 0);
+INSERT INTO `tblDistrito` VALUES(1131, 'FLORENCIA DE MORA', 112, 0);
+INSERT INTO `tblDistrito` VALUES(1132, 'HUANCHACO', 112, 0);
+INSERT INTO `tblDistrito` VALUES(1133, 'LA ESPERANZA', 112, 0);
+INSERT INTO `tblDistrito` VALUES(1134, 'LAREDO', 112, 0);
+INSERT INTO `tblDistrito` VALUES(1135, 'MOCHE', 112, 0);
+INSERT INTO `tblDistrito` VALUES(1136, 'POROTO', 112, 0);
+INSERT INTO `tblDistrito` VALUES(1137, 'SALAVERRY', 112, 0);
+INSERT INTO `tblDistrito` VALUES(1138, 'SIMBAL', 112, 0);
+INSERT INTO `tblDistrito` VALUES(1139, 'VICTOR LARCO HERRERA', 112, 0);
+INSERT INTO `tblDistrito` VALUES(1140, 'ASCOPE', 113, 0);
+INSERT INTO `tblDistrito` VALUES(1141, 'CHICAMA', 113, 0);
+INSERT INTO `tblDistrito` VALUES(1142, 'CHOCOPE', 113, 0);
+INSERT INTO `tblDistrito` VALUES(1143, 'MAGDALENA DE CAO', 113, 0);
+INSERT INTO `tblDistrito` VALUES(1144, 'PAIJAN', 113, 0);
+INSERT INTO `tblDistrito` VALUES(1145, 'RAZURI', 113, 0);
+INSERT INTO `tblDistrito` VALUES(1146, 'SANTIAGO DE CAO', 113, 0);
+INSERT INTO `tblDistrito` VALUES(1147, 'CASA GRANDE', 113, 0);
+INSERT INTO `tblDistrito` VALUES(1148, 'BOLIVAR', 114, 0);
+INSERT INTO `tblDistrito` VALUES(1149, 'BAMBAMARCA', 114, 0);
+INSERT INTO `tblDistrito` VALUES(1150, 'CONDORMARCA', 114, 0);
+INSERT INTO `tblDistrito` VALUES(1151, 'LONGOTEA', 114, 0);
+INSERT INTO `tblDistrito` VALUES(1152, 'UCHUMARCA', 114, 0);
+INSERT INTO `tblDistrito` VALUES(1153, 'UCUNCHA', 114, 0);
+INSERT INTO `tblDistrito` VALUES(1154, 'CHEPEN', 115, 0);
+INSERT INTO `tblDistrito` VALUES(1155, 'PACANGA', 115, 0);
+INSERT INTO `tblDistrito` VALUES(1156, 'PUEBLO NUEVO', 115, 0);
+INSERT INTO `tblDistrito` VALUES(1157, 'JULCAN', 116, 0);
+INSERT INTO `tblDistrito` VALUES(1158, 'CALAMARCA', 116, 0);
+INSERT INTO `tblDistrito` VALUES(1159, 'CARABAMBA', 116, 0);
+INSERT INTO `tblDistrito` VALUES(1160, 'HUASO', 116, 0);
+INSERT INTO `tblDistrito` VALUES(1161, 'OTUZCO', 117, 0);
+INSERT INTO `tblDistrito` VALUES(1162, 'AGALLPAMPA', 117, 0);
+INSERT INTO `tblDistrito` VALUES(1163, 'CHARAT', 117, 0);
+INSERT INTO `tblDistrito` VALUES(1164, 'HUARANCHAL', 117, 0);
+INSERT INTO `tblDistrito` VALUES(1165, 'LA CUESTA', 117, 0);
+INSERT INTO `tblDistrito` VALUES(1166, 'MACHE', 117, 0);
+INSERT INTO `tblDistrito` VALUES(1167, 'PARANDAY', 117, 0);
+INSERT INTO `tblDistrito` VALUES(1168, 'SALPO', 117, 0);
+INSERT INTO `tblDistrito` VALUES(1169, 'SINSICAP', 117, 0);
+INSERT INTO `tblDistrito` VALUES(1170, 'USQUIL', 117, 0);
+INSERT INTO `tblDistrito` VALUES(1171, 'SAN PEDRO DE LLOC', 118, 0);
+INSERT INTO `tblDistrito` VALUES(1172, 'GUADALUPE', 118, 0);
+INSERT INTO `tblDistrito` VALUES(1173, 'JEQUETEPEQUE', 118, 0);
+INSERT INTO `tblDistrito` VALUES(1174, 'PACASMAYO', 118, 0);
+INSERT INTO `tblDistrito` VALUES(1175, 'SAN JOSE', 118, 0);
+INSERT INTO `tblDistrito` VALUES(1176, 'TAYABAMBA', 119, 0);
+INSERT INTO `tblDistrito` VALUES(1177, 'BULDIBUYO', 119, 0);
+INSERT INTO `tblDistrito` VALUES(1178, 'CHILLIA', 119, 0);
+INSERT INTO `tblDistrito` VALUES(1179, 'HUANCASPATA', 119, 0);
+INSERT INTO `tblDistrito` VALUES(1180, 'HUAYLILLAS', 119, 0);
+INSERT INTO `tblDistrito` VALUES(1181, 'HUAYO', 119, 0);
+INSERT INTO `tblDistrito` VALUES(1182, 'ONGON', 119, 0);
+INSERT INTO `tblDistrito` VALUES(1183, 'PARCOY', 119, 0);
+INSERT INTO `tblDistrito` VALUES(1184, 'PATAZ', 119, 0);
+INSERT INTO `tblDistrito` VALUES(1185, 'PIAS', 119, 0);
+INSERT INTO `tblDistrito` VALUES(1186, 'SANTIAGO DE CHALLAS', 119, 0);
+INSERT INTO `tblDistrito` VALUES(1187, 'TAURIJA', 119, 0);
+INSERT INTO `tblDistrito` VALUES(1188, 'URPAY', 119, 0);
+INSERT INTO `tblDistrito` VALUES(1189, 'HUAMACHUCO', 120, 0);
+INSERT INTO `tblDistrito` VALUES(1190, 'CHUGAY', 120, 0);
+INSERT INTO `tblDistrito` VALUES(1191, 'COCHORCO', 120, 0);
+INSERT INTO `tblDistrito` VALUES(1192, 'CURGOS', 120, 0);
+INSERT INTO `tblDistrito` VALUES(1193, 'MARCABAL', 120, 0);
+INSERT INTO `tblDistrito` VALUES(1194, 'SANAGORAN', 120, 0);
+INSERT INTO `tblDistrito` VALUES(1195, 'SARIN', 120, 0);
+INSERT INTO `tblDistrito` VALUES(1196, 'SARTIMBAMBA', 120, 0);
+INSERT INTO `tblDistrito` VALUES(1197, 'SANTIAGO DE CHUCO', 121, 0);
+INSERT INTO `tblDistrito` VALUES(1198, 'ANGASMARCA', 121, 0);
+INSERT INTO `tblDistrito` VALUES(1199, 'CACHICADAN', 121, 0);
+INSERT INTO `tblDistrito` VALUES(1200, 'MOLLEBAMBA', 121, 0);
+INSERT INTO `tblDistrito` VALUES(1201, 'MOLLEPATA', 121, 0);
+INSERT INTO `tblDistrito` VALUES(1202, 'QUIRUVILCA', 121, 0);
+INSERT INTO `tblDistrito` VALUES(1203, 'SANTA CRUZ DE CHUCA', 121, 0);
+INSERT INTO `tblDistrito` VALUES(1204, 'SITABAMBA', 121, 0);
+INSERT INTO `tblDistrito` VALUES(1205, 'GRAN CHIMU', 122, 0);
+INSERT INTO `tblDistrito` VALUES(1206, 'CASCAS', 122, 0);
+INSERT INTO `tblDistrito` VALUES(1207, 'LUCMA', 122, 0);
+INSERT INTO `tblDistrito` VALUES(1208, 'MARMOT', 122, 0);
+INSERT INTO `tblDistrito` VALUES(1209, 'SAYAPULLO', 122, 0);
+INSERT INTO `tblDistrito` VALUES(1210, 'VIRU', 123, 0);
+INSERT INTO `tblDistrito` VALUES(1211, 'CHAO', 123, 0);
+INSERT INTO `tblDistrito` VALUES(1212, 'GUADALUPITO', 123, 0);
+INSERT INTO `tblDistrito` VALUES(1213, 'CHICLAYO', 124, 0);
+INSERT INTO `tblDistrito` VALUES(1214, 'CHONGOYAPE', 124, 0);
+INSERT INTO `tblDistrito` VALUES(1215, 'ETEN', 124, 0);
+INSERT INTO `tblDistrito` VALUES(1216, 'ETEN PUERTO', 124, 0);
+INSERT INTO `tblDistrito` VALUES(1217, 'JOSE LEONARDO ORTIZ', 124, 0);
+INSERT INTO `tblDistrito` VALUES(1218, 'LA VICTORIA', 124, 0);
+INSERT INTO `tblDistrito` VALUES(1219, 'LAGUNAS', 124, 0);
+INSERT INTO `tblDistrito` VALUES(1220, 'MONSEFU', 124, 0);
+INSERT INTO `tblDistrito` VALUES(1221, 'NUEVA ARICA', 124, 0);
+INSERT INTO `tblDistrito` VALUES(1222, 'OYOTUN', 124, 0);
+INSERT INTO `tblDistrito` VALUES(1223, 'PICSI', 124, 0);
+INSERT INTO `tblDistrito` VALUES(1224, 'PIMENTEL', 124, 0);
+INSERT INTO `tblDistrito` VALUES(1225, 'REQUE', 124, 0);
+INSERT INTO `tblDistrito` VALUES(1226, 'SANTA ROSA', 124, 0);
+INSERT INTO `tblDistrito` VALUES(1227, 'SAÑA', 124, 0);
+INSERT INTO `tblDistrito` VALUES(1228, 'CAYALTI', 124, 0);
+INSERT INTO `tblDistrito` VALUES(1229, 'PATAPO', 124, 0);
+INSERT INTO `tblDistrito` VALUES(1230, 'POMALCA', 124, 0);
+INSERT INTO `tblDistrito` VALUES(1231, 'PUCALA', 124, 0);
+INSERT INTO `tblDistrito` VALUES(1232, 'TUMAN', 124, 0);
+INSERT INTO `tblDistrito` VALUES(1233, 'FERREÑAFE', 125, 0);
+INSERT INTO `tblDistrito` VALUES(1234, 'CAÑARIS', 125, 0);
+INSERT INTO `tblDistrito` VALUES(1235, 'INCAHUASI', 125, 0);
+INSERT INTO `tblDistrito` VALUES(1236, 'MANUEL ANTONIO MESONES MURO', 125, 0);
+INSERT INTO `tblDistrito` VALUES(1237, 'PITIPO', 125, 0);
+INSERT INTO `tblDistrito` VALUES(1238, 'PUEBLO NUEVO', 125, 0);
+INSERT INTO `tblDistrito` VALUES(1239, 'LAMBAYEQUE', 126, 0);
+INSERT INTO `tblDistrito` VALUES(1240, 'CHOCHOPE', 126, 0);
+INSERT INTO `tblDistrito` VALUES(1241, 'ILLIMO', 126, 0);
+INSERT INTO `tblDistrito` VALUES(1242, 'JAYANCA', 126, 0);
+INSERT INTO `tblDistrito` VALUES(1243, 'MOCHUMI', 126, 0);
+INSERT INTO `tblDistrito` VALUES(1244, 'MORROPE', 126, 0);
+INSERT INTO `tblDistrito` VALUES(1245, 'MOTUPE', 126, 0);
+INSERT INTO `tblDistrito` VALUES(1246, 'OLMOS', 126, 0);
+INSERT INTO `tblDistrito` VALUES(1247, 'PACORA', 126, 0);
+INSERT INTO `tblDistrito` VALUES(1248, 'SALAS', 126, 0);
+INSERT INTO `tblDistrito` VALUES(1249, 'SAN JOSE', 126, 0);
+INSERT INTO `tblDistrito` VALUES(1250, 'TUCUME', 126, 0);
+INSERT INTO `tblDistrito` VALUES(1251, 'LIMA', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1252, 'ANCON', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1253, 'ATE', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1254, 'BARRANCO', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1255, 'BREÑA', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1256, 'CARABAYLLO', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1257, 'CHACLACAYO', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1258, 'CHORRILLOS', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1259, 'CIENEGUILLA', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1260, 'COMAS', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1261, 'EL AGUSTINO', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1262, 'INDEPENDENCIA', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1263, 'JESUS MARIA', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1264, 'LA MOLINA', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1265, 'LA VICTORIA', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1266, 'LINCE', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1267, 'LOS OLIVOS', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1268, 'LURIGANCHO', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1269, 'LURIN', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1270, 'MAGDALENA DEL MAR', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1271, 'MAGDALENA VIEJA', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1272, 'MIRAFLORES', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1273, 'PACHACAMAC', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1274, 'PUCUSANA', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1275, 'PUENTE PIEDRA', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1276, 'PUNTA HERMOSA', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1277, 'PUNTA NEGRA', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1278, 'RIMAC', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1279, 'SAN BARTOLO', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1280, 'SAN BORJA', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1281, 'SAN ISIDRO', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1282, 'SAN JUAN DE LURIGANCHO', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1283, 'SAN JUAN DE MIRAFLORES', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1284, 'SAN LUIS', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1285, 'SAN MARTIN DE PORRES', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1286, 'SAN MIGUEL', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1287, 'SANTA ANITA', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1288, 'SANTA MARIA DEL MAR', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1289, 'SANTA ROSA', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1290, 'SANTIAGO DE SURCO', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1291, 'SURQUILLO', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1292, 'VILLA EL SALVADOR', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1293, 'VILLA MARIA DEL TRIUNFO', 127, 1);
+INSERT INTO `tblDistrito` VALUES(1294, 'BARRANCA', 128, 0);
+INSERT INTO `tblDistrito` VALUES(1295, 'PARAMONGA', 128, 0);
+INSERT INTO `tblDistrito` VALUES(1296, 'PATIVILCA', 128, 0);
+INSERT INTO `tblDistrito` VALUES(1297, 'SUPE', 128, 0);
+INSERT INTO `tblDistrito` VALUES(1298, 'SUPE PUERTO', 128, 0);
+INSERT INTO `tblDistrito` VALUES(1299, 'CAJATAMBO', 129, 0);
+INSERT INTO `tblDistrito` VALUES(1300, 'COPA', 129, 0);
+INSERT INTO `tblDistrito` VALUES(1301, 'GORGOR', 129, 0);
+INSERT INTO `tblDistrito` VALUES(1302, 'HUANCAPON', 129, 0);
+INSERT INTO `tblDistrito` VALUES(1303, 'MANAS', 129, 0);
+INSERT INTO `tblDistrito` VALUES(1304, 'CANTA', 130, 0);
+INSERT INTO `tblDistrito` VALUES(1305, 'ARAHUAY', 130, 0);
+INSERT INTO `tblDistrito` VALUES(1306, 'HUAMANTANGA', 130, 0);
+INSERT INTO `tblDistrito` VALUES(1307, 'HUAROS', 130, 0);
+INSERT INTO `tblDistrito` VALUES(1308, 'LACHAQUI', 130, 0);
+INSERT INTO `tblDistrito` VALUES(1309, 'SAN BUENAVENTURA', 130, 0);
+INSERT INTO `tblDistrito` VALUES(1310, 'SANTA ROSA DE QUIVES', 130, 0);
+INSERT INTO `tblDistrito` VALUES(1311, 'SAN VICENTE DE CAÑETE', 131, 0);
+INSERT INTO `tblDistrito` VALUES(1312, 'ASIA', 131, 0);
+INSERT INTO `tblDistrito` VALUES(1313, 'CALANGO', 131, 0);
+INSERT INTO `tblDistrito` VALUES(1314, 'CERRO AZUL', 131, 0);
+INSERT INTO `tblDistrito` VALUES(1315, 'CHILCA', 131, 0);
+INSERT INTO `tblDistrito` VALUES(1316, 'COAYLLO', 131, 0);
+INSERT INTO `tblDistrito` VALUES(1317, 'IMPERIAL', 131, 0);
+INSERT INTO `tblDistrito` VALUES(1318, 'LUNAHUANA', 131, 0);
+INSERT INTO `tblDistrito` VALUES(1319, 'MALA', 131, 0);
+INSERT INTO `tblDistrito` VALUES(1320, 'NUEVO IMPERIAL', 131, 0);
+INSERT INTO `tblDistrito` VALUES(1321, 'PACARAN', 131, 0);
+INSERT INTO `tblDistrito` VALUES(1322, 'QUILMANA', 131, 0);
+INSERT INTO `tblDistrito` VALUES(1323, 'SAN ANTONIO', 131, 0);
+INSERT INTO `tblDistrito` VALUES(1324, 'SAN LUIS', 131, 0);
+INSERT INTO `tblDistrito` VALUES(1325, 'SANTA CRUZ DE FLORES', 131, 0);
+INSERT INTO `tblDistrito` VALUES(1326, 'ZUÑIGA', 131, 0);
+INSERT INTO `tblDistrito` VALUES(1327, 'HUARAL', 132, 0);
+INSERT INTO `tblDistrito` VALUES(1328, 'ATAVILLOS ALTO', 132, 0);
+INSERT INTO `tblDistrito` VALUES(1329, 'ATAVILLOS BAJO', 132, 0);
+INSERT INTO `tblDistrito` VALUES(1330, 'AUCALLAMA', 132, 0);
+INSERT INTO `tblDistrito` VALUES(1331, 'CHANCAY', 132, 0);
+INSERT INTO `tblDistrito` VALUES(1332, 'IHUARI', 132, 0);
+INSERT INTO `tblDistrito` VALUES(1333, 'LAMPIAN', 132, 0);
+INSERT INTO `tblDistrito` VALUES(1334, 'PACARAOS', 132, 0);
+INSERT INTO `tblDistrito` VALUES(1335, 'SAN MIGUEL DE ACOS', 132, 0);
+INSERT INTO `tblDistrito` VALUES(1336, 'SANTA CRUZ DE ANDAMARCA', 132, 0);
+INSERT INTO `tblDistrito` VALUES(1337, 'SUMBILCA', 132, 0);
+INSERT INTO `tblDistrito` VALUES(1338, 'VEINTISIETE DE NOVIEMBRE', 132, 0);
+INSERT INTO `tblDistrito` VALUES(1339, 'MATUCANA', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1340, 'ANTIOQUIA', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1341, 'CALLAHUANCA', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1342, 'CARAMPOMA', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1343, 'CHICLA', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1344, 'CUENCA', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1345, 'HUACHUPAMPA', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1346, 'HUANZA', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1347, 'HUAROCHIRI', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1348, 'LAHUAYTAMBO', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1349, 'LANGA', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1350, 'LARAOS', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1351, 'MARIATANA', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1352, 'RICARDO PALMA', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1353, 'SAN ANDRES DE TUPICOCHA', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1354, 'SAN ANTONIO', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1355, 'SAN BARTOLOME', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1356, 'SAN DAMIAN', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1357, 'SAN JUAN DE IRIS', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1358, 'SAN JUAN DE TANTARANCHE', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1359, 'SAN LORENZO DE QUINTI', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1360, 'SAN MATEO', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1361, 'SAN MATEO DE OTAO', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1362, 'SAN PEDRO DE CASTA', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1363, 'SAN PEDRO DE HUANCAYRE', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1364, 'SANGALLAYA', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1365, 'SANTA CRUZ DE COCACHACRA', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1366, 'SANTA EULALIA', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1367, 'SANTIAGO DE ANCHUCAYA', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1368, 'SANTIAGO DE TUNA', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1369, 'SANTO DOMINGO DE LOS OLLEROS', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1370, 'SURCO', 133, 0);
+INSERT INTO `tblDistrito` VALUES(1371, 'HUACHO', 134, 0);
+INSERT INTO `tblDistrito` VALUES(1372, 'AMBAR', 134, 0);
+INSERT INTO `tblDistrito` VALUES(1373, 'CALETA DE CARQUIN', 134, 0);
+INSERT INTO `tblDistrito` VALUES(1374, 'CHECRAS', 134, 0);
+INSERT INTO `tblDistrito` VALUES(1375, 'HUALMAY', 134, 0);
+INSERT INTO `tblDistrito` VALUES(1376, 'HUAURA', 134, 0);
+INSERT INTO `tblDistrito` VALUES(1377, 'LEONCIO PRADO', 134, 0);
+INSERT INTO `tblDistrito` VALUES(1378, 'PACCHO', 134, 0);
+INSERT INTO `tblDistrito` VALUES(1379, 'SANTA LEONOR', 134, 0);
+INSERT INTO `tblDistrito` VALUES(1380, 'SANTA MARIA', 134, 0);
+INSERT INTO `tblDistrito` VALUES(1381, 'SAYAN', 134, 0);
+INSERT INTO `tblDistrito` VALUES(1382, 'VEGUETA', 134, 0);
+INSERT INTO `tblDistrito` VALUES(1383, 'OYON', 135, 0);
+INSERT INTO `tblDistrito` VALUES(1384, 'ANDAJES', 135, 0);
+INSERT INTO `tblDistrito` VALUES(1385, 'CAUJUL', 135, 0);
+INSERT INTO `tblDistrito` VALUES(1386, 'COCHAMARCA', 135, 0);
+INSERT INTO `tblDistrito` VALUES(1387, 'NAVAN', 135, 0);
+INSERT INTO `tblDistrito` VALUES(1388, 'PACHANGARA', 135, 0);
+INSERT INTO `tblDistrito` VALUES(1389, 'YAUYOS', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1390, 'ALIS', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1391, 'AYAUCA', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1392, 'AYAVIRI', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1393, 'AZANGARO', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1394, 'CACRA', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1395, 'CARANIA', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1396, 'CATAHUASI', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1397, 'CHOCOS', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1398, 'COCHAS', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1399, 'COLONIA', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1400, 'HONGOS', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1401, 'HUAMPARA', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1402, 'HUANCAYA', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1403, 'HUANGASCAR', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1404, 'HUANTAN', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1405, 'HUAÑEC', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1406, 'LARAOS', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1407, 'LINCHA', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1408, 'MADEAN', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1409, 'MIRAFLORES', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1410, 'OMAS', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1411, 'PUTINZA', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1412, 'QUINCHES', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1413, 'QUINOCAY', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1414, 'SAN JOAQUIN', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1415, 'SAN PEDRO DE PILAS', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1416, 'TANTA', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1417, 'TAURIPAMPA', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1418, 'TOMAS', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1419, 'TUPE', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1420, 'VIÑAC', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1421, 'VITIS', 136, 0);
+INSERT INTO `tblDistrito` VALUES(1422, 'IQUITOS', 137, 0);
+INSERT INTO `tblDistrito` VALUES(1423, 'ALTO NANAY', 137, 0);
+INSERT INTO `tblDistrito` VALUES(1424, 'FERNANDO LORES', 137, 0);
+INSERT INTO `tblDistrito` VALUES(1425, 'INDIANA', 137, 0);
+INSERT INTO `tblDistrito` VALUES(1426, 'LAS AMAZONAS', 137, 0);
+INSERT INTO `tblDistrito` VALUES(1427, 'MAZAN', 137, 0);
+INSERT INTO `tblDistrito` VALUES(1428, 'NAPO', 137, 0);
+INSERT INTO `tblDistrito` VALUES(1429, 'PUNCHANA', 137, 0);
+INSERT INTO `tblDistrito` VALUES(1430, 'PUTUMAYO', 137, 0);
+INSERT INTO `tblDistrito` VALUES(1431, 'TORRES CAUSANA', 137, 0);
+INSERT INTO `tblDistrito` VALUES(1432, 'BELEN', 137, 0);
+INSERT INTO `tblDistrito` VALUES(1433, 'SAN JUAN BAUTISTA', 137, 0);
+INSERT INTO `tblDistrito` VALUES(1434, 'YURIMAGUAS', 138, 0);
+INSERT INTO `tblDistrito` VALUES(1435, 'BALSAPUERTO', 138, 0);
+INSERT INTO `tblDistrito` VALUES(1436, 'BARRANCA', 138, 0);
+INSERT INTO `tblDistrito` VALUES(1437, 'CAHUAPANAS', 138, 0);
+INSERT INTO `tblDistrito` VALUES(1438, 'JEBEROS', 138, 0);
+INSERT INTO `tblDistrito` VALUES(1439, 'LAGUNAS', 138, 0);
+INSERT INTO `tblDistrito` VALUES(1440, 'MANSERICHE', 138, 0);
+INSERT INTO `tblDistrito` VALUES(1441, 'MORONA', 138, 0);
+INSERT INTO `tblDistrito` VALUES(1442, 'PASTAZA', 138, 0);
+INSERT INTO `tblDistrito` VALUES(1443, 'SANTA CRUZ', 138, 0);
+INSERT INTO `tblDistrito` VALUES(1444, 'TENIENTE CESAR LOPEZ ROJAS', 138, 0);
+INSERT INTO `tblDistrito` VALUES(1445, 'NAUTA', 139, 0);
+INSERT INTO `tblDistrito` VALUES(1446, 'PARINARI', 139, 0);
+INSERT INTO `tblDistrito` VALUES(1447, 'TIGRE', 139, 0);
+INSERT INTO `tblDistrito` VALUES(1448, 'TROMPETEROS', 139, 0);
+INSERT INTO `tblDistrito` VALUES(1449, 'URARINAS', 139, 0);
+INSERT INTO `tblDistrito` VALUES(1450, 'RAMON CASTILLA', 140, 0);
+INSERT INTO `tblDistrito` VALUES(1451, 'PEBAS', 140, 0);
+INSERT INTO `tblDistrito` VALUES(1452, 'YAVARI', 140, 0);
+INSERT INTO `tblDistrito` VALUES(1453, 'SAN PABLO', 140, 0);
+INSERT INTO `tblDistrito` VALUES(1454, 'REQUENA', 141, 0);
+INSERT INTO `tblDistrito` VALUES(1455, 'ALTO TAPICHE', 141, 0);
+INSERT INTO `tblDistrito` VALUES(1456, 'CAPELO', 141, 0);
+INSERT INTO `tblDistrito` VALUES(1457, 'EMILIO SAN MARTIN', 141, 0);
+INSERT INTO `tblDistrito` VALUES(1458, 'MAQUIA', 141, 0);
+INSERT INTO `tblDistrito` VALUES(1459, 'PUINAHUA', 141, 0);
+INSERT INTO `tblDistrito` VALUES(1460, 'SAQUENA', 141, 0);
+INSERT INTO `tblDistrito` VALUES(1461, 'SOPLIN', 141, 0);
+INSERT INTO `tblDistrito` VALUES(1462, 'TAPICHE', 141, 0);
+INSERT INTO `tblDistrito` VALUES(1463, 'JENARO HERRERA', 141, 0);
+INSERT INTO `tblDistrito` VALUES(1464, 'YAQUERANA', 141, 0);
+INSERT INTO `tblDistrito` VALUES(1465, 'CONTAMANA', 142, 0);
+INSERT INTO `tblDistrito` VALUES(1466, 'INAHUAYA', 142, 0);
+INSERT INTO `tblDistrito` VALUES(1467, 'PADRE MARQUEZ', 142, 0);
+INSERT INTO `tblDistrito` VALUES(1468, 'PAMPA HERMOSA', 142, 0);
+INSERT INTO `tblDistrito` VALUES(1469, 'SARAYACU', 142, 0);
+INSERT INTO `tblDistrito` VALUES(1470, 'VARGAS GUERRA', 142, 0);
+INSERT INTO `tblDistrito` VALUES(1471, 'TAMBOPATA', 143, 0);
+INSERT INTO `tblDistrito` VALUES(1472, 'INAMBARI', 143, 0);
+INSERT INTO `tblDistrito` VALUES(1473, 'LAS PIEDRAS', 143, 0);
+INSERT INTO `tblDistrito` VALUES(1474, 'LABERINTO', 143, 0);
+INSERT INTO `tblDistrito` VALUES(1475, 'MANU', 144, 0);
+INSERT INTO `tblDistrito` VALUES(1476, 'FITZCARRALD', 144, 0);
+INSERT INTO `tblDistrito` VALUES(1477, 'MADRE DE DIOS', 144, 0);
+INSERT INTO `tblDistrito` VALUES(1478, 'HUEPETUHE', 144, 0);
+INSERT INTO `tblDistrito` VALUES(1479, 'IÑAPARI', 145, 0);
+INSERT INTO `tblDistrito` VALUES(1480, 'IBERIA', 145, 0);
+INSERT INTO `tblDistrito` VALUES(1481, 'TAHUAMANU', 145, 0);
+INSERT INTO `tblDistrito` VALUES(1482, 'MOQUEGUA', 146, 0);
+INSERT INTO `tblDistrito` VALUES(1483, 'CARUMAS', 146, 0);
+INSERT INTO `tblDistrito` VALUES(1484, 'CUCHUMBAYA', 146, 0);
+INSERT INTO `tblDistrito` VALUES(1485, 'SAMEGUA', 146, 0);
+INSERT INTO `tblDistrito` VALUES(1486, 'SAN CRISTOBAL', 146, 0);
+INSERT INTO `tblDistrito` VALUES(1487, 'TORATA', 146, 0);
+INSERT INTO `tblDistrito` VALUES(1488, 'OMATE', 147, 0);
+INSERT INTO `tblDistrito` VALUES(1489, 'CHOJATA', 147, 0);
+INSERT INTO `tblDistrito` VALUES(1490, 'COALAQUE', 147, 0);
+INSERT INTO `tblDistrito` VALUES(1491, 'ICHU&Ntilde;A', 147, 0);
+INSERT INTO `tblDistrito` VALUES(1492, 'LA CAPILLA', 147, 0);
+INSERT INTO `tblDistrito` VALUES(1493, 'LLOQUE', 147, 0);
+INSERT INTO `tblDistrito` VALUES(1494, 'MATALAQUE', 147, 0);
+INSERT INTO `tblDistrito` VALUES(1495, 'PUQUINA', 147, 0);
+INSERT INTO `tblDistrito` VALUES(1496, 'QUINISTAQUILLAS', 147, 0);
+INSERT INTO `tblDistrito` VALUES(1497, 'UBINAS', 147, 0);
+INSERT INTO `tblDistrito` VALUES(1498, 'YUNGA', 147, 0);
+INSERT INTO `tblDistrito` VALUES(1499, 'ILO', 148, 0);
+INSERT INTO `tblDistrito` VALUES(1500, 'EL ALGARROBAL', 148, 0);
+INSERT INTO `tblDistrito` VALUES(1501, 'PACOCHA', 148, 0);
+INSERT INTO `tblDistrito` VALUES(1502, 'CHAUPIMARCA', 149, 0);
+INSERT INTO `tblDistrito` VALUES(1503, 'HUACHON', 149, 0);
+INSERT INTO `tblDistrito` VALUES(1504, 'HUARIACA', 149, 0);
+INSERT INTO `tblDistrito` VALUES(1505, 'HUAYLLAY', 149, 0);
+INSERT INTO `tblDistrito` VALUES(1506, 'NINACACA', 149, 0);
+INSERT INTO `tblDistrito` VALUES(1507, 'PALLANCHACRA', 149, 0);
+INSERT INTO `tblDistrito` VALUES(1508, 'PAUCARTAMBO', 149, 0);
+INSERT INTO `tblDistrito` VALUES(1509, 'SAN FCO.DE ASIS DE YARUSYACAN', 149, 0);
+INSERT INTO `tblDistrito` VALUES(1510, 'SIMON BOLIVAR', 149, 0);
+INSERT INTO `tblDistrito` VALUES(1511, 'TICLACAYAN', 149, 0);
+INSERT INTO `tblDistrito` VALUES(1512, 'TINYAHUARCO', 149, 0);
+INSERT INTO `tblDistrito` VALUES(1513, 'VICCO', 149, 0);
+INSERT INTO `tblDistrito` VALUES(1514, 'YANACANCHA', 149, 0);
+INSERT INTO `tblDistrito` VALUES(1515, 'YANAHUANCA', 150, 0);
+INSERT INTO `tblDistrito` VALUES(1516, 'CHACAYAN', 150, 0);
+INSERT INTO `tblDistrito` VALUES(1517, 'GOYLLARISQUIZGA', 150, 0);
+INSERT INTO `tblDistrito` VALUES(1518, 'PAUCAR', 150, 0);
+INSERT INTO `tblDistrito` VALUES(1519, 'SAN PEDRO DE PILLAO', 150, 0);
+INSERT INTO `tblDistrito` VALUES(1520, 'SANTA ANA DE TUSI', 150, 0);
+INSERT INTO `tblDistrito` VALUES(1521, 'TAPUC', 150, 0);
+INSERT INTO `tblDistrito` VALUES(1522, 'VILCABAMBA', 150, 0);
+INSERT INTO `tblDistrito` VALUES(1523, 'OXAPAMPA', 151, 0);
+INSERT INTO `tblDistrito` VALUES(1524, 'CHONTABAMBA', 151, 0);
+INSERT INTO `tblDistrito` VALUES(1525, 'HUANCABAMBA', 151, 0);
+INSERT INTO `tblDistrito` VALUES(1526, 'PALCAZU', 151, 0);
+INSERT INTO `tblDistrito` VALUES(1527, 'POZUZO', 151, 0);
+INSERT INTO `tblDistrito` VALUES(1528, 'PUERTO BERMUDEZ', 151, 0);
+INSERT INTO `tblDistrito` VALUES(1529, 'VILLA RICA', 151, 0);
+INSERT INTO `tblDistrito` VALUES(1530, 'PIURA', 152, 0);
+INSERT INTO `tblDistrito` VALUES(1531, 'CASTILLA', 152, 0);
+INSERT INTO `tblDistrito` VALUES(1532, 'CATACAOS', 152, 0);
+INSERT INTO `tblDistrito` VALUES(1533, 'CURA MORI', 152, 0);
+INSERT INTO `tblDistrito` VALUES(1534, 'EL TALLAN', 152, 0);
+INSERT INTO `tblDistrito` VALUES(1535, 'LA ARENA', 152, 0);
+INSERT INTO `tblDistrito` VALUES(1536, 'LA UNION', 152, 0);
+INSERT INTO `tblDistrito` VALUES(1537, 'LAS LOMAS', 152, 0);
+INSERT INTO `tblDistrito` VALUES(1538, 'TAMBO GRANDE', 152, 0);
+INSERT INTO `tblDistrito` VALUES(1539, 'AYABACA', 153, 0);
+INSERT INTO `tblDistrito` VALUES(1540, 'FRIAS', 153, 0);
+INSERT INTO `tblDistrito` VALUES(1541, 'JILILI', 153, 0);
+INSERT INTO `tblDistrito` VALUES(1542, 'LAGUNAS', 153, 0);
+INSERT INTO `tblDistrito` VALUES(1543, 'MONTERO', 153, 0);
+INSERT INTO `tblDistrito` VALUES(1544, 'PACAIPAMPA', 153, 0);
+INSERT INTO `tblDistrito` VALUES(1545, 'PAIMAS', 153, 0);
+INSERT INTO `tblDistrito` VALUES(1546, 'SAPILLICA', 153, 0);
+INSERT INTO `tblDistrito` VALUES(1547, 'SICCHEZ', 153, 0);
+INSERT INTO `tblDistrito` VALUES(1548, 'SUYO', 153, 0);
+INSERT INTO `tblDistrito` VALUES(1549, 'HUANCABAMBA', 154, 0);
+INSERT INTO `tblDistrito` VALUES(1550, 'CANCHAQUE', 154, 0);
+INSERT INTO `tblDistrito` VALUES(1551, 'EL CARMEN DE LA FRONTERA', 154, 0);
+INSERT INTO `tblDistrito` VALUES(1552, 'HUARMACA', 154, 0);
+INSERT INTO `tblDistrito` VALUES(1553, 'LALAQUIZ', 154, 0);
+INSERT INTO `tblDistrito` VALUES(1554, 'SAN MIGUEL DE EL FAIQUE', 154, 0);
+INSERT INTO `tblDistrito` VALUES(1555, 'SONDOR', 154, 0);
+INSERT INTO `tblDistrito` VALUES(1556, 'SONDORILLO', 154, 0);
+INSERT INTO `tblDistrito` VALUES(1557, 'CHULUCANAS', 155, 0);
+INSERT INTO `tblDistrito` VALUES(1558, 'BUENOS AIRES', 155, 0);
+INSERT INTO `tblDistrito` VALUES(1559, 'CHALACO', 155, 0);
+INSERT INTO `tblDistrito` VALUES(1560, 'LA MATANZA', 155, 0);
+INSERT INTO `tblDistrito` VALUES(1561, 'MORROPON', 155, 0);
+INSERT INTO `tblDistrito` VALUES(1562, 'SALITRAL', 155, 0);
+INSERT INTO `tblDistrito` VALUES(1563, 'SAN JUAN DE BIGOTE', 155, 0);
+INSERT INTO `tblDistrito` VALUES(1564, 'SANTA CATALINA DE MOSSA', 155, 0);
+INSERT INTO `tblDistrito` VALUES(1565, 'SANTO DOMINGO', 155, 0);
+INSERT INTO `tblDistrito` VALUES(1566, 'YAMANGO', 155, 0);
+INSERT INTO `tblDistrito` VALUES(1567, 'PAITA', 156, 0);
+INSERT INTO `tblDistrito` VALUES(1568, 'AMOTAPE', 156, 0);
+INSERT INTO `tblDistrito` VALUES(1569, 'ARENAL', 156, 0);
+INSERT INTO `tblDistrito` VALUES(1570, 'COLAN', 156, 0);
+INSERT INTO `tblDistrito` VALUES(1571, 'LA HUACA', 156, 0);
+INSERT INTO `tblDistrito` VALUES(1572, 'TAMARINDO', 156, 0);
+INSERT INTO `tblDistrito` VALUES(1573, 'VICHAYAL', 156, 0);
+INSERT INTO `tblDistrito` VALUES(1574, 'SULLANA', 157, 0);
+INSERT INTO `tblDistrito` VALUES(1575, 'BELLAVISTA', 157, 0);
+INSERT INTO `tblDistrito` VALUES(1576, 'IGNACIO ESCUDERO', 157, 0);
+INSERT INTO `tblDistrito` VALUES(1577, 'LANCONES', 157, 0);
+INSERT INTO `tblDistrito` VALUES(1578, 'MARCAVELICA', 157, 0);
+INSERT INTO `tblDistrito` VALUES(1579, 'MIGUEL CHECA', 157, 0);
+INSERT INTO `tblDistrito` VALUES(1580, 'QUERECOTILLO', 157, 0);
+INSERT INTO `tblDistrito` VALUES(1581, 'SALITRAL', 157, 0);
+INSERT INTO `tblDistrito` VALUES(1582, 'PARIÑAS', 158, 0);
+INSERT INTO `tblDistrito` VALUES(1583, 'EL ALTO', 158, 0);
+INSERT INTO `tblDistrito` VALUES(1584, 'LA BREA', 158, 0);
+INSERT INTO `tblDistrito` VALUES(1585, 'LOBITOS', 158, 0);
+INSERT INTO `tblDistrito` VALUES(1586, 'LOS ORGANOS', 158, 0);
+INSERT INTO `tblDistrito` VALUES(1587, 'MANCORA', 158, 0);
+INSERT INTO `tblDistrito` VALUES(1588, 'SECHURA', 159, 0);
+INSERT INTO `tblDistrito` VALUES(1589, 'BELLAVISTA DE LA UNION', 159, 0);
+INSERT INTO `tblDistrito` VALUES(1590, 'BERNAL', 159, 0);
+INSERT INTO `tblDistrito` VALUES(1591, 'CRISTO NOS VALGA', 159, 0);
+INSERT INTO `tblDistrito` VALUES(1592, 'VICE', 159, 0);
+INSERT INTO `tblDistrito` VALUES(1593, 'RINCONADA LLICUAR', 159, 0);
+INSERT INTO `tblDistrito` VALUES(1594, 'PUNO', 160, 0);
+INSERT INTO `tblDistrito` VALUES(1595, 'ACORA', 160, 0);
+INSERT INTO `tblDistrito` VALUES(1596, 'AMANTANI', 160, 0);
+INSERT INTO `tblDistrito` VALUES(1597, 'ATUNCOLLA', 160, 0);
+INSERT INTO `tblDistrito` VALUES(1598, 'CAPACHICA', 160, 0);
+INSERT INTO `tblDistrito` VALUES(1599, 'CHUCUITO', 160, 0);
+INSERT INTO `tblDistrito` VALUES(1600, 'COATA', 160, 0);
+INSERT INTO `tblDistrito` VALUES(1601, 'HUATA', 160, 0);
+INSERT INTO `tblDistrito` VALUES(1602, 'MAÑAZO', 160, 0);
+INSERT INTO `tblDistrito` VALUES(1603, 'PAUCARCOLLA', 160, 0);
+INSERT INTO `tblDistrito` VALUES(1604, 'PICHACANI', 160, 0);
+INSERT INTO `tblDistrito` VALUES(1605, 'PLATERIA', 160, 0);
+INSERT INTO `tblDistrito` VALUES(1606, 'SAN ANTONIO', 160, 0);
+INSERT INTO `tblDistrito` VALUES(1607, 'TIQUILLACA', 160, 0);
+INSERT INTO `tblDistrito` VALUES(1608, 'VILQUE', 160, 0);
+INSERT INTO `tblDistrito` VALUES(1609, 'AZANGARO', 161, 0);
+INSERT INTO `tblDistrito` VALUES(1610, 'ACHAYA', 161, 0);
+INSERT INTO `tblDistrito` VALUES(1611, 'ARAPA', 161, 0);
+INSERT INTO `tblDistrito` VALUES(1612, 'ASILLO', 161, 0);
+INSERT INTO `tblDistrito` VALUES(1613, 'CAMINACA', 161, 0);
+INSERT INTO `tblDistrito` VALUES(1614, 'CHUPA', 161, 0);
+INSERT INTO `tblDistrito` VALUES(1615, 'JOSE DOMINGO CHOQUEHUANCA', 161, 0);
+INSERT INTO `tblDistrito` VALUES(1616, 'MUÑANI', 161, 0);
+INSERT INTO `tblDistrito` VALUES(1617, 'POTONI', 161, 0);
+INSERT INTO `tblDistrito` VALUES(1618, 'SAMAN', 161, 0);
+INSERT INTO `tblDistrito` VALUES(1619, 'SAN ANTON', 161, 0);
+INSERT INTO `tblDistrito` VALUES(1620, 'SAN JOSE', 161, 0);
+INSERT INTO `tblDistrito` VALUES(1621, 'SAN JUAN DE SALINAS', 161, 0);
+INSERT INTO `tblDistrito` VALUES(1622, 'SANTIAGO DE PUPUJA', 161, 0);
+INSERT INTO `tblDistrito` VALUES(1623, 'TIRAPATA', 161, 0);
+INSERT INTO `tblDistrito` VALUES(1624, 'MACUSANI', 162, 0);
+INSERT INTO `tblDistrito` VALUES(1625, 'AJOYANI', 162, 0);
+INSERT INTO `tblDistrito` VALUES(1626, 'AYAPATA', 162, 0);
+INSERT INTO `tblDistrito` VALUES(1627, 'COASA', 162, 0);
+INSERT INTO `tblDistrito` VALUES(1628, 'CORANI', 162, 0);
+INSERT INTO `tblDistrito` VALUES(1629, 'CRUCERO', 162, 0);
+INSERT INTO `tblDistrito` VALUES(1630, 'ITUATA', 162, 0);
+INSERT INTO `tblDistrito` VALUES(1631, 'OLLACHEA', 162, 0);
+INSERT INTO `tblDistrito` VALUES(1632, 'SAN GABAN', 162, 0);
+INSERT INTO `tblDistrito` VALUES(1633, 'USICAYOS', 162, 0);
+INSERT INTO `tblDistrito` VALUES(1634, 'JULI', 163, 0);
+INSERT INTO `tblDistrito` VALUES(1635, 'DESAGUADERO', 163, 0);
+INSERT INTO `tblDistrito` VALUES(1636, 'HUACULLANI', 163, 0);
+INSERT INTO `tblDistrito` VALUES(1637, 'KELLUYO', 163, 0);
+INSERT INTO `tblDistrito` VALUES(1638, 'PISACOMA', 163, 0);
+INSERT INTO `tblDistrito` VALUES(1639, 'POMATA', 163, 0);
+INSERT INTO `tblDistrito` VALUES(1640, 'ZEPITA', 163, 0);
+INSERT INTO `tblDistrito` VALUES(1641, 'ILAVE', 164, 0);
+INSERT INTO `tblDistrito` VALUES(1642, 'CAPAZO', 164, 0);
+INSERT INTO `tblDistrito` VALUES(1643, 'PILCUYO', 164, 0);
+INSERT INTO `tblDistrito` VALUES(1644, 'SANTA ROSA', 164, 0);
+INSERT INTO `tblDistrito` VALUES(1645, 'CONDURIRI', 164, 0);
+INSERT INTO `tblDistrito` VALUES(1646, 'HUANCANE', 165, 0);
+INSERT INTO `tblDistrito` VALUES(1647, 'COJATA', 165, 0);
+INSERT INTO `tblDistrito` VALUES(1648, 'HUATASANI', 165, 0);
+INSERT INTO `tblDistrito` VALUES(1649, 'INCHUPALLA', 165, 0);
+INSERT INTO `tblDistrito` VALUES(1650, 'PUSI', 165, 0);
+INSERT INTO `tblDistrito` VALUES(1651, 'ROSASPATA', 165, 0);
+INSERT INTO `tblDistrito` VALUES(1652, 'TARACO', 165, 0);
+INSERT INTO `tblDistrito` VALUES(1653, 'VILQUE CHICO', 165, 0);
+INSERT INTO `tblDistrito` VALUES(1654, 'LAMPA', 166, 0);
+INSERT INTO `tblDistrito` VALUES(1655, 'CABANILLA', 166, 0);
+INSERT INTO `tblDistrito` VALUES(1656, 'CALAPUJA', 166, 0);
+INSERT INTO `tblDistrito` VALUES(1657, 'NICASIO', 166, 0);
+INSERT INTO `tblDistrito` VALUES(1658, 'OCUVIRI', 166, 0);
+INSERT INTO `tblDistrito` VALUES(1659, 'PALCA', 166, 0);
+INSERT INTO `tblDistrito` VALUES(1660, 'PARATIA', 166, 0);
+INSERT INTO `tblDistrito` VALUES(1661, 'PUCARA', 166, 0);
+INSERT INTO `tblDistrito` VALUES(1662, 'SANTA LUCIA', 166, 0);
+INSERT INTO `tblDistrito` VALUES(1663, 'VILAVILA', 166, 0);
+INSERT INTO `tblDistrito` VALUES(1664, 'AYAVIRI', 167, 0);
+INSERT INTO `tblDistrito` VALUES(1665, 'ANTAUTA', 167, 0);
+INSERT INTO `tblDistrito` VALUES(1666, 'CUPI', 167, 0);
+INSERT INTO `tblDistrito` VALUES(1667, 'LLALLI', 167, 0);
+INSERT INTO `tblDistrito` VALUES(1668, 'MACARI', 167, 0);
+INSERT INTO `tblDistrito` VALUES(1669, 'NUÑOA', 167, 0);
+INSERT INTO `tblDistrito` VALUES(1670, 'ORURILLO', 167, 0);
+INSERT INTO `tblDistrito` VALUES(1671, 'SANTA ROSA', 167, 0);
+INSERT INTO `tblDistrito` VALUES(1672, 'UMACHIRI', 167, 0);
+INSERT INTO `tblDistrito` VALUES(1673, 'MOHO', 168, 0);
+INSERT INTO `tblDistrito` VALUES(1674, 'CONIMA', 168, 0);
+INSERT INTO `tblDistrito` VALUES(1675, 'HUAYRAPATA', 168, 0);
+INSERT INTO `tblDistrito` VALUES(1676, 'TILALI', 168, 0);
+INSERT INTO `tblDistrito` VALUES(1677, 'PUTINA', 169, 0);
+INSERT INTO `tblDistrito` VALUES(1678, 'ANANEA', 169, 0);
+INSERT INTO `tblDistrito` VALUES(1679, 'PEDRO VILCA APAZA', 169, 0);
+INSERT INTO `tblDistrito` VALUES(1680, 'QUILCAPUNCU', 169, 0);
+INSERT INTO `tblDistrito` VALUES(1681, 'SINA', 169, 0);
+INSERT INTO `tblDistrito` VALUES(1682, 'JULIACA', 170, 0);
+INSERT INTO `tblDistrito` VALUES(1683, 'CABANA', 170, 0);
+INSERT INTO `tblDistrito` VALUES(1684, 'CABANILLAS', 170, 0);
+INSERT INTO `tblDistrito` VALUES(1685, 'CARACOTO', 170, 0);
+INSERT INTO `tblDistrito` VALUES(1686, 'SANDIA', 171, 0);
+INSERT INTO `tblDistrito` VALUES(1687, 'CUYOCUYO', 171, 0);
+INSERT INTO `tblDistrito` VALUES(1688, 'LIMBANI', 171, 0);
+INSERT INTO `tblDistrito` VALUES(1689, 'PATAMBUCO', 171, 0);
+INSERT INTO `tblDistrito` VALUES(1690, 'PHARA', 171, 0);
+INSERT INTO `tblDistrito` VALUES(1691, 'QUIACA', 171, 0);
+INSERT INTO `tblDistrito` VALUES(1692, 'SAN JUAN DEL ORO', 171, 0);
+INSERT INTO `tblDistrito` VALUES(1693, 'YANAHUAYA', 171, 0);
+INSERT INTO `tblDistrito` VALUES(1694, 'ALTO INAMBARI', 171, 0);
+INSERT INTO `tblDistrito` VALUES(1695, 'YUNGUYO', 172, 0);
+INSERT INTO `tblDistrito` VALUES(1696, 'ANAPIA', 172, 0);
+INSERT INTO `tblDistrito` VALUES(1697, 'COPANI', 172, 0);
+INSERT INTO `tblDistrito` VALUES(1698, 'CUTURAPI', 172, 0);
+INSERT INTO `tblDistrito` VALUES(1699, 'OLLARAYA', 172, 0);
+INSERT INTO `tblDistrito` VALUES(1700, 'TINICACHI', 172, 0);
+INSERT INTO `tblDistrito` VALUES(1701, 'UNICACHI', 172, 0);
+INSERT INTO `tblDistrito` VALUES(1702, 'MOYOBAMBA', 173, 0);
+INSERT INTO `tblDistrito` VALUES(1703, 'CALZADA', 173, 0);
+INSERT INTO `tblDistrito` VALUES(1704, 'HABANA', 173, 0);
+INSERT INTO `tblDistrito` VALUES(1705, 'JEPELACIO', 173, 0);
+INSERT INTO `tblDistrito` VALUES(1706, 'SORITOR', 173, 0);
+INSERT INTO `tblDistrito` VALUES(1707, 'YANTALO', 173, 0);
+INSERT INTO `tblDistrito` VALUES(1708, 'BELLAVISTA', 174, 0);
+INSERT INTO `tblDistrito` VALUES(1709, 'ALTO BIAVO', 174, 0);
+INSERT INTO `tblDistrito` VALUES(1710, 'BAJO BIAVO', 174, 0);
+INSERT INTO `tblDistrito` VALUES(1711, 'HUALLAGA', 174, 0);
+INSERT INTO `tblDistrito` VALUES(1712, 'SAN PABLO', 174, 0);
+INSERT INTO `tblDistrito` VALUES(1713, 'SAN RAFAEL', 174, 0);
+INSERT INTO `tblDistrito` VALUES(1714, 'SAN JOSE DE SISA', 175, 0);
+INSERT INTO `tblDistrito` VALUES(1715, 'AGUA BLANCA', 175, 0);
+INSERT INTO `tblDistrito` VALUES(1716, 'SAN MARTIN', 175, 0);
+INSERT INTO `tblDistrito` VALUES(1717, 'SANTA ROSA', 175, 0);
+INSERT INTO `tblDistrito` VALUES(1718, 'SHATOJA', 175, 0);
+INSERT INTO `tblDistrito` VALUES(1719, 'SAPOSOA', 176, 0);
+INSERT INTO `tblDistrito` VALUES(1720, 'ALTO SAPOSOA', 176, 0);
+INSERT INTO `tblDistrito` VALUES(1721, 'EL ESLABON', 176, 0);
+INSERT INTO `tblDistrito` VALUES(1722, 'PISCOYACU', 176, 0);
+INSERT INTO `tblDistrito` VALUES(1723, 'SACANCHE', 176, 0);
+INSERT INTO `tblDistrito` VALUES(1724, 'TINGO DE SAPOSOA', 176, 0);
+INSERT INTO `tblDistrito` VALUES(1725, 'LAMAS', 177, 0);
+INSERT INTO `tblDistrito` VALUES(1726, 'ALONSO DE ALVARADO', 177, 0);
+INSERT INTO `tblDistrito` VALUES(1727, 'BARRANQUITA', 177, 0);
+INSERT INTO `tblDistrito` VALUES(1728, 'CAYNARACHI', 177, 0);
+INSERT INTO `tblDistrito` VALUES(1729, 'CUÑUMBUQUI', 177, 0);
+INSERT INTO `tblDistrito` VALUES(1730, 'PINTO RECODO', 177, 0);
+INSERT INTO `tblDistrito` VALUES(1731, 'RUMISAPA', 177, 0);
+INSERT INTO `tblDistrito` VALUES(1732, 'SAN ROQUE DE CUMBAZA', 177, 0);
+INSERT INTO `tblDistrito` VALUES(1733, 'SHANAO', 177, 0);
+INSERT INTO `tblDistrito` VALUES(1734, 'TABALOSOS', 177, 0);
+INSERT INTO `tblDistrito` VALUES(1735, 'ZAPATERO', 177, 0);
+INSERT INTO `tblDistrito` VALUES(1736, 'JUANJUI', 178, 0);
+INSERT INTO `tblDistrito` VALUES(1737, 'CAMPANILLA', 178, 0);
+INSERT INTO `tblDistrito` VALUES(1738, 'HUICUNGO', 178, 0);
+INSERT INTO `tblDistrito` VALUES(1739, 'PACHIZA', 178, 0);
+INSERT INTO `tblDistrito` VALUES(1740, 'PAJARILLO', 178, 0);
+INSERT INTO `tblDistrito` VALUES(1741, 'PICOTA', 179, 0);
+INSERT INTO `tblDistrito` VALUES(1742, 'BUENOS AIRES', 179, 0);
+INSERT INTO `tblDistrito` VALUES(1743, 'CASPISAPA', 179, 0);
+INSERT INTO `tblDistrito` VALUES(1744, 'PILLUANA', 179, 0);
+INSERT INTO `tblDistrito` VALUES(1745, 'PUCACACA', 179, 0);
+INSERT INTO `tblDistrito` VALUES(1746, 'SAN CRISTOBAL', 179, 0);
+INSERT INTO `tblDistrito` VALUES(1747, 'SAN HILARION', 179, 0);
+INSERT INTO `tblDistrito` VALUES(1748, 'SHAMBOYACU', 179, 0);
+INSERT INTO `tblDistrito` VALUES(1749, 'TINGO DE PONASA', 179, 0);
+INSERT INTO `tblDistrito` VALUES(1750, 'TRES UNIDOS', 179, 0);
+INSERT INTO `tblDistrito` VALUES(1751, 'RIOJA', 180, 0);
+INSERT INTO `tblDistrito` VALUES(1752, 'AWAJUN', 180, 0);
+INSERT INTO `tblDistrito` VALUES(1753, 'ELIAS SOPLIN VARGAS', 180, 0);
+INSERT INTO `tblDistrito` VALUES(1754, 'NUEVA CAJAMARCA', 180, 0);
+INSERT INTO `tblDistrito` VALUES(1755, 'PARDO MIGUEL', 180, 0);
+INSERT INTO `tblDistrito` VALUES(1756, 'POSIC', 180, 0);
+INSERT INTO `tblDistrito` VALUES(1757, 'SAN FERNANDO', 180, 0);
+INSERT INTO `tblDistrito` VALUES(1758, 'YORONGOS', 180, 0);
+INSERT INTO `tblDistrito` VALUES(1759, 'YURACYACU', 180, 0);
+INSERT INTO `tblDistrito` VALUES(1760, 'TARAPOTO', 181, 0);
+INSERT INTO `tblDistrito` VALUES(1761, 'ALBERTO LEVEAU', 181, 0);
+INSERT INTO `tblDistrito` VALUES(1762, 'CACATACHI', 181, 0);
+INSERT INTO `tblDistrito` VALUES(1763, 'CHAZUTA', 181, 0);
+INSERT INTO `tblDistrito` VALUES(1764, 'CHIPURANA', 181, 0);
+INSERT INTO `tblDistrito` VALUES(1765, 'EL PORVENIR', 181, 0);
+INSERT INTO `tblDistrito` VALUES(1766, 'HUIMBAYOC', 181, 0);
+INSERT INTO `tblDistrito` VALUES(1767, 'JUAN GUERRA', 181, 0);
+INSERT INTO `tblDistrito` VALUES(1768, 'LA BANDA DE SHILCAYO', 181, 0);
+INSERT INTO `tblDistrito` VALUES(1769, 'MORALES', 181, 0);
+INSERT INTO `tblDistrito` VALUES(1770, 'PAPAPLAYA', 181, 0);
+INSERT INTO `tblDistrito` VALUES(1771, 'SAN ANTONIO', 181, 0);
+INSERT INTO `tblDistrito` VALUES(1772, 'SAUCE', 181, 0);
+INSERT INTO `tblDistrito` VALUES(1773, 'SHAPAJA', 181, 0);
+INSERT INTO `tblDistrito` VALUES(1774, 'TOCACHE', 182, 0);
+INSERT INTO `tblDistrito` VALUES(1775, 'NUEVO PROGRESO', 182, 0);
+INSERT INTO `tblDistrito` VALUES(1776, 'POLVORA', 182, 0);
+INSERT INTO `tblDistrito` VALUES(1777, 'SHUNTE', 182, 0);
+INSERT INTO `tblDistrito` VALUES(1778, 'UCHIZA', 182, 0);
+INSERT INTO `tblDistrito` VALUES(1779, 'TACNA', 183, 0);
+INSERT INTO `tblDistrito` VALUES(1780, 'ALTO DE LA ALIANZA', 183, 0);
+INSERT INTO `tblDistrito` VALUES(1781, 'CALANA', 183, 0);
+INSERT INTO `tblDistrito` VALUES(1782, 'CIUDAD NUEVA', 183, 0);
+INSERT INTO `tblDistrito` VALUES(1783, 'INCLAN', 183, 0);
+INSERT INTO `tblDistrito` VALUES(1784, 'PACHIA', 183, 0);
+INSERT INTO `tblDistrito` VALUES(1785, 'PALCA', 183, 0);
+INSERT INTO `tblDistrito` VALUES(1786, 'POCOLLAY', 183, 0);
+INSERT INTO `tblDistrito` VALUES(1787, 'SAMA', 183, 0);
+INSERT INTO `tblDistrito` VALUES(1788, 'CORONEL GREGORIO ALBARRACIN LANCHIPA', 183, 0);
+INSERT INTO `tblDistrito` VALUES(1789, 'CANDARAVE', 184, 0);
+INSERT INTO `tblDistrito` VALUES(1790, 'CAIRANI', 184, 0);
+INSERT INTO `tblDistrito` VALUES(1791, 'CAMILACA', 184, 0);
+INSERT INTO `tblDistrito` VALUES(1792, 'CURIBAYA', 184, 0);
+INSERT INTO `tblDistrito` VALUES(1793, 'HUANUARA', 184, 0);
+INSERT INTO `tblDistrito` VALUES(1794, 'QUILAHUANI', 184, 0);
+INSERT INTO `tblDistrito` VALUES(1795, 'LOCUMBA', 185, 0);
+INSERT INTO `tblDistrito` VALUES(1796, 'ILABAYA', 185, 0);
+INSERT INTO `tblDistrito` VALUES(1797, 'ITE', 185, 0);
+INSERT INTO `tblDistrito` VALUES(1798, 'TARATA', 186, 0);
+INSERT INTO `tblDistrito` VALUES(1799, 'CHUCATAMANI', 186, 0);
+INSERT INTO `tblDistrito` VALUES(1800, 'ESTIQUE', 186, 0);
+INSERT INTO `tblDistrito` VALUES(1801, 'ESTIQUE-PAMPA', 186, 0);
+INSERT INTO `tblDistrito` VALUES(1802, 'SITAJARA', 186, 0);
+INSERT INTO `tblDistrito` VALUES(1803, 'SUSAPAYA', 186, 0);
+INSERT INTO `tblDistrito` VALUES(1804, 'TARUCACHI', 186, 0);
+INSERT INTO `tblDistrito` VALUES(1805, 'TICACO', 186, 0);
+INSERT INTO `tblDistrito` VALUES(1806, 'TUMBES', 187, 0);
+INSERT INTO `tblDistrito` VALUES(1807, 'CORRALES', 187, 0);
+INSERT INTO `tblDistrito` VALUES(1808, 'LA CRUZ', 187, 0);
+INSERT INTO `tblDistrito` VALUES(1809, 'PAMPAS DE HOSPITAL', 187, 0);
+INSERT INTO `tblDistrito` VALUES(1810, 'SAN JACINTO', 187, 0);
+INSERT INTO `tblDistrito` VALUES(1811, 'SAN JUAN DE LA VIRGEN', 187, 0);
+INSERT INTO `tblDistrito` VALUES(1812, 'ZORRITOS', 188, 0);
+INSERT INTO `tblDistrito` VALUES(1813, 'CASITAS', 188, 0);
+INSERT INTO `tblDistrito` VALUES(1814, 'ZARUMILLA', 189, 0);
+INSERT INTO `tblDistrito` VALUES(1815, 'AGUAS VERDES', 189, 0);
+INSERT INTO `tblDistrito` VALUES(1816, 'MATAPALO', 189, 0);
+INSERT INTO `tblDistrito` VALUES(1817, 'PAPAYAL', 189, 0);
+INSERT INTO `tblDistrito` VALUES(1818, 'CALLERIA', 190, 0);
+INSERT INTO `tblDistrito` VALUES(1819, 'CAMPOVERDE', 190, 0);
+INSERT INTO `tblDistrito` VALUES(1820, 'IPARIA', 190, 0);
+INSERT INTO `tblDistrito` VALUES(1821, 'MASISEA', 190, 0);
+INSERT INTO `tblDistrito` VALUES(1822, 'YARINACOCHA', 190, 0);
+INSERT INTO `tblDistrito` VALUES(1823, 'NUEVA REQUENA', 190, 0);
+INSERT INTO `tblDistrito` VALUES(1824, 'RAYMONDI', 191, 0);
+INSERT INTO `tblDistrito` VALUES(1825, 'SEPAHUA', 191, 0);
+INSERT INTO `tblDistrito` VALUES(1826, 'TAHUANIA', 191, 0);
+INSERT INTO `tblDistrito` VALUES(1827, 'YURUA', 191, 0);
+INSERT INTO `tblDistrito` VALUES(1828, 'PADRE ABAD', 192, 0);
+INSERT INTO `tblDistrito` VALUES(1829, 'IRAZOLA', 192, 0);
+INSERT INTO `tblDistrito` VALUES(1830, 'CURIMANA', 192, 0);
+INSERT INTO `tblDistrito` VALUES(1831, 'PURUS', 193, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblHotel`
+--
+
+CREATE TABLE `tblHotel` (
+  `intIdHotel` int(11) NOT NULL AUTO_INCREMENT,
+  `varNombre` varchar(100) NOT NULL,
+  `varRazonSocial` varchar(200) DEFAULT NULL,
+  `varRuc` varchar(11) DEFAULT NULL,
+  `intIdDistrito` int(11) NOT NULL,
+  `varTelefono` varchar(20) DEFAULT NULL,
+  `varDescripcion` varchar(100) DEFAULT NULL,
+  `varDireccion` varchar(200) DEFAULT NULL,
+  `varHorario` varchar(100) DEFAULT NULL,
+  `varImagen` varchar(500) DEFAULT NULL,
+  `varLongitud` varchar(50) DEFAULT NULL,
+  `varLatitud` varchar(50) DEFAULT NULL,
+  `dateFechaInsercion` datetime NOT NULL,
+  `dateFechaActualizacion` datetime NOT NULL,
+  `bitEstado` tinyint(1) NOT NULL,
+  PRIMARY KEY (`intIdHotel`)
+);
+
+--
+-- Dumping data for table `tblHotel`
+--
+
+INSERT INTO `tblHotel` VALUES(1, 'Hotel Sheraton PEN542', 'HOTELES SHERATON DEL PERU SOCIEDAD ANONIMA CERRADA - HOTELES SHERATON DEL PERU S.A.C.', '20100032610', 1286, '(01) 3155000', 'El Sheraton Lima Hotel & Convention Center, conocido simplemente como Hotel Sheraton es un hotel de ', 'Av. Paseo de la Republica Nro. 170', 'Las 24 horas', 'http://webprueba5.comli.com/Imagenes/Hotel/sheraton.jpg', '-77.036901', '-12.057204', '2016-06-15 05:22:00', '2016-06-15 05:22:00', 1);
+INSERT INTO `tblHotel` VALUES(100005, 'Hotel Azul', 'Hotel Azul SAC', '45678945612', 1286, '897458965', 'pacífico', 'Av. Mantaro 455', '24hr.', NULL, '-77.084298', '-12.089903', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1);
+INSERT INTO `tblHotel` VALUES(100006, 'Five Start', 'Five Start SAC', '98745896587', 1286, '985687894', 'no tiene', 'Av. Federico Gallese 458', '24Hr.', NULL, '-77.080840', '-12.091693', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1);
+INSERT INTO `tblHotel` VALUES(100007, 'Hotel Pose y Don', 'Hotel Pose y Don SAC', '58974589658', 1286, '012356874', 'lindo', 'Av. Universitaria 656', '24hr.', NULL, '-77.084090', '-12.087602', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblMenu`
+--
+
+CREATE TABLE `tblMenu` (
+  `intIdMenu` int(11) NOT NULL AUTO_INCREMENT,
+  `varDescripcion` varchar(50) DEFAULT NULL,
+  `bitEstado` tinyint(1) NOT NULL,
+  PRIMARY KEY (`intIdMenu`)
+);
+
+--
+-- Dumping data for table `tblMenu`
+--
+
+INSERT INTO `tblMenu` VALUES(1, 'Todas los hoteles', 1);
+INSERT INTO `tblMenu` VALUES(2, 'Mi Ubicación', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblPais`
+--
+
+CREATE TABLE `tblPais` (
+  `intIdPais` int(11) NOT NULL AUTO_INCREMENT,
+  `intCodPais` int(11) NOT NULL,
+  `varDescripcion` varchar(100) DEFAULT NULL,
+  `varZonaGeografica` varchar(50) DEFAULT NULL,
+  `bitEstado` tinyint(1) NOT NULL,
+  PRIMARY KEY (`intIdPais`)
+);
+
+--
+-- Dumping data for table `tblPais`
+--
+
+INSERT INTO `tblPais` VALUES(1, 51, 'PERÚ', 'Distrito', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblProvincia`
+--
+
+CREATE TABLE `tblProvincia` (
+  `intIdProvincia` int(11) NOT NULL AUTO_INCREMENT,
+  `varDescripcion` varchar(50) DEFAULT NULL,
+  `intIdDepartamento` int(11) NOT NULL,
+  `bitEstado` tinyint(1) NOT NULL,
+  PRIMARY KEY (`intIdProvincia`)
+);
+
+--
+-- Dumping data for table `tblProvincia`
+--
+
+INSERT INTO `tblProvincia` VALUES(1, 'CHACHAPOYAS ', 1, 0);
+INSERT INTO `tblProvincia` VALUES(2, 'BAGUA', 1, 0);
+INSERT INTO `tblProvincia` VALUES(3, 'BONGARA', 1, 0);
+INSERT INTO `tblProvincia` VALUES(4, 'CONDORCANQUI', 1, 0);
+INSERT INTO `tblProvincia` VALUES(5, 'LUYA', 1, 0);
+INSERT INTO `tblProvincia` VALUES(6, 'RODRIGUEZ DE MENDOZA', 1, 0);
+INSERT INTO `tblProvincia` VALUES(7, 'UTCUBAMBA', 1, 0);
+INSERT INTO `tblProvincia` VALUES(8, 'HUARAZ', 2, 0);
+INSERT INTO `tblProvincia` VALUES(9, 'AIJA', 2, 0);
+INSERT INTO `tblProvincia` VALUES(10, 'ANTONIO RAYMONDI', 2, 0);
+INSERT INTO `tblProvincia` VALUES(11, 'ASUNCION', 2, 0);
+INSERT INTO `tblProvincia` VALUES(12, 'BOLOGNESI', 2, 0);
+INSERT INTO `tblProvincia` VALUES(13, 'CARHUAZ', 2, 0);
+INSERT INTO `tblProvincia` VALUES(14, 'CARLOS FERMIN FITZCARRALD', 2, 0);
+INSERT INTO `tblProvincia` VALUES(15, 'CASMA', 2, 0);
+INSERT INTO `tblProvincia` VALUES(16, 'CORONGO', 2, 0);
+INSERT INTO `tblProvincia` VALUES(17, 'HUARI', 2, 0);
+INSERT INTO `tblProvincia` VALUES(18, 'HUARMEY', 2, 0);
+INSERT INTO `tblProvincia` VALUES(19, 'HUAYLAS', 2, 0);
+INSERT INTO `tblProvincia` VALUES(20, 'MARISCAL LUZURIAGA', 2, 0);
+INSERT INTO `tblProvincia` VALUES(21, 'OCROS', 2, 0);
+INSERT INTO `tblProvincia` VALUES(22, 'PALLASCA', 2, 0);
+INSERT INTO `tblProvincia` VALUES(23, 'POMABAMBA', 2, 0);
+INSERT INTO `tblProvincia` VALUES(24, 'RECUAY', 2, 0);
+INSERT INTO `tblProvincia` VALUES(25, 'SANTA', 2, 0);
+INSERT INTO `tblProvincia` VALUES(26, 'SIHUAS', 2, 0);
+INSERT INTO `tblProvincia` VALUES(27, 'YUNGAY', 2, 0);
+INSERT INTO `tblProvincia` VALUES(28, 'ABANCAY', 3, 0);
+INSERT INTO `tblProvincia` VALUES(29, 'ANDAHUAYLAS', 3, 0);
+INSERT INTO `tblProvincia` VALUES(30, 'ANTABAMBA', 3, 0);
+INSERT INTO `tblProvincia` VALUES(31, 'AYMARAES', 3, 0);
+INSERT INTO `tblProvincia` VALUES(32, 'COTABAMBAS', 3, 0);
+INSERT INTO `tblProvincia` VALUES(33, 'CHINCHEROS', 3, 0);
+INSERT INTO `tblProvincia` VALUES(34, 'GRAU', 3, 0);
+INSERT INTO `tblProvincia` VALUES(35, 'AREQUIPA', 4, 0);
+INSERT INTO `tblProvincia` VALUES(36, 'CAMANA', 4, 0);
+INSERT INTO `tblProvincia` VALUES(37, 'CARAVELI', 4, 0);
+INSERT INTO `tblProvincia` VALUES(38, 'CASTILLA', 4, 0);
+INSERT INTO `tblProvincia` VALUES(39, 'CAYLLOMA', 4, 0);
+INSERT INTO `tblProvincia` VALUES(40, 'CONDESUYOS', 4, 0);
+INSERT INTO `tblProvincia` VALUES(41, 'ISLAY', 4, 0);
+INSERT INTO `tblProvincia` VALUES(42, 'LA UNION', 4, 0);
+INSERT INTO `tblProvincia` VALUES(43, 'HUAMANGA', 5, 0);
+INSERT INTO `tblProvincia` VALUES(44, 'CANGALLO', 5, 0);
+INSERT INTO `tblProvincia` VALUES(45, 'HUANCA SANCOS', 5, 0);
+INSERT INTO `tblProvincia` VALUES(46, 'HUANTA', 5, 0);
+INSERT INTO `tblProvincia` VALUES(47, 'LA MAR', 5, 0);
+INSERT INTO `tblProvincia` VALUES(48, 'LUCANAS', 5, 0);
+INSERT INTO `tblProvincia` VALUES(49, 'PARINACOCHAS', 5, 0);
+INSERT INTO `tblProvincia` VALUES(50, 'PAUCAR DEL SARA SARA', 5, 0);
+INSERT INTO `tblProvincia` VALUES(51, 'SUCRE', 5, 0);
+INSERT INTO `tblProvincia` VALUES(52, 'VICTOR FAJARDO', 5, 0);
+INSERT INTO `tblProvincia` VALUES(53, 'VILCAS HUAMAN', 5, 0);
+INSERT INTO `tblProvincia` VALUES(54, 'CAJAMARCA', 6, 0);
+INSERT INTO `tblProvincia` VALUES(55, 'CAJABAMBA', 6, 0);
+INSERT INTO `tblProvincia` VALUES(56, 'CELENDIN', 6, 0);
+INSERT INTO `tblProvincia` VALUES(57, 'CHOTA ', 6, 0);
+INSERT INTO `tblProvincia` VALUES(58, 'CONTUMAZA', 6, 0);
+INSERT INTO `tblProvincia` VALUES(59, 'CUTERVO', 6, 0);
+INSERT INTO `tblProvincia` VALUES(60, 'HUALGAYOC', 6, 0);
+INSERT INTO `tblProvincia` VALUES(61, 'JAEN', 6, 0);
+INSERT INTO `tblProvincia` VALUES(62, 'SAN IGNACIO', 6, 0);
+INSERT INTO `tblProvincia` VALUES(63, 'SAN MARCOS', 6, 0);
+INSERT INTO `tblProvincia` VALUES(64, 'SAN PABLO', 6, 0);
+INSERT INTO `tblProvincia` VALUES(65, 'SANTA CRUZ', 6, 0);
+INSERT INTO `tblProvincia` VALUES(66, 'CALLAO', 7, 0);
+INSERT INTO `tblProvincia` VALUES(67, 'CUSCO', 8, 0);
+INSERT INTO `tblProvincia` VALUES(68, 'ACOMAYO', 8, 0);
+INSERT INTO `tblProvincia` VALUES(69, 'ANTA', 8, 0);
+INSERT INTO `tblProvincia` VALUES(70, 'CALCA', 8, 0);
+INSERT INTO `tblProvincia` VALUES(71, 'CANAS', 8, 0);
+INSERT INTO `tblProvincia` VALUES(72, 'CANCHIS', 8, 0);
+INSERT INTO `tblProvincia` VALUES(73, 'CHUMBIVILCAS', 8, 0);
+INSERT INTO `tblProvincia` VALUES(74, 'ESPINAR', 8, 0);
+INSERT INTO `tblProvincia` VALUES(75, 'LA CONVENCION', 8, 0);
+INSERT INTO `tblProvincia` VALUES(76, 'PARURO', 8, 0);
+INSERT INTO `tblProvincia` VALUES(77, 'PAUCARTAMBO', 8, 0);
+INSERT INTO `tblProvincia` VALUES(78, 'QUISPICANCHI', 8, 0);
+INSERT INTO `tblProvincia` VALUES(79, 'URUBAMBA', 8, 0);
+INSERT INTO `tblProvincia` VALUES(80, 'HUANCAVELICA', 9, 0);
+INSERT INTO `tblProvincia` VALUES(81, 'ACOBAMBA', 9, 0);
+INSERT INTO `tblProvincia` VALUES(82, 'ANGARAES', 9, 0);
+INSERT INTO `tblProvincia` VALUES(83, 'CASTROVIRREYNA', 9, 0);
+INSERT INTO `tblProvincia` VALUES(84, 'CHURCAMPA', 9, 0);
+INSERT INTO `tblProvincia` VALUES(85, 'HUAYTARA', 9, 0);
+INSERT INTO `tblProvincia` VALUES(86, 'TAYACAJA', 9, 0);
+INSERT INTO `tblProvincia` VALUES(87, 'HUANUCO', 10, 0);
+INSERT INTO `tblProvincia` VALUES(88, 'AMBO', 10, 0);
+INSERT INTO `tblProvincia` VALUES(89, 'DOS DE MAYO', 10, 0);
+INSERT INTO `tblProvincia` VALUES(90, 'HUACAYBAMBA', 10, 0);
+INSERT INTO `tblProvincia` VALUES(91, 'HUAMALIES', 10, 0);
+INSERT INTO `tblProvincia` VALUES(92, 'LEONCIO PRADO', 10, 0);
+INSERT INTO `tblProvincia` VALUES(93, 'MARAÑON', 10, 0);
+INSERT INTO `tblProvincia` VALUES(94, 'PACHITEA', 10, 0);
+INSERT INTO `tblProvincia` VALUES(95, 'PUERTO INCA', 10, 0);
+INSERT INTO `tblProvincia` VALUES(96, 'LAURICOCHA', 10, 0);
+INSERT INTO `tblProvincia` VALUES(97, 'YAROWILCA', 10, 0);
+INSERT INTO `tblProvincia` VALUES(98, 'ICA', 11, 0);
+INSERT INTO `tblProvincia` VALUES(99, 'CHINCHA', 11, 0);
+INSERT INTO `tblProvincia` VALUES(100, 'NAZCA', 11, 0);
+INSERT INTO `tblProvincia` VALUES(101, 'PALPA', 11, 0);
+INSERT INTO `tblProvincia` VALUES(102, 'PISCO', 11, 0);
+INSERT INTO `tblProvincia` VALUES(103, 'HUANCAYO', 12, 0);
+INSERT INTO `tblProvincia` VALUES(104, 'CONCEPCION', 12, 0);
+INSERT INTO `tblProvincia` VALUES(105, 'CHANCHAMAYO', 12, 0);
+INSERT INTO `tblProvincia` VALUES(106, 'JAUJA', 12, 0);
+INSERT INTO `tblProvincia` VALUES(107, 'JUNIN', 12, 0);
+INSERT INTO `tblProvincia` VALUES(108, 'SATIPO', 12, 0);
+INSERT INTO `tblProvincia` VALUES(109, 'TARMA', 12, 0);
+INSERT INTO `tblProvincia` VALUES(110, 'YAULI', 12, 0);
+INSERT INTO `tblProvincia` VALUES(111, 'CHUPACA', 12, 0);
+INSERT INTO `tblProvincia` VALUES(112, 'TRUJILLO', 13, 0);
+INSERT INTO `tblProvincia` VALUES(113, 'ASCOPE', 13, 0);
+INSERT INTO `tblProvincia` VALUES(114, 'BOLIVAR', 13, 0);
+INSERT INTO `tblProvincia` VALUES(115, 'CHEPEN', 13, 0);
+INSERT INTO `tblProvincia` VALUES(116, 'JULCAN', 13, 0);
+INSERT INTO `tblProvincia` VALUES(117, 'OTUZCO', 13, 0);
+INSERT INTO `tblProvincia` VALUES(118, 'PACASMAYO', 13, 0);
+INSERT INTO `tblProvincia` VALUES(119, 'PATAZ', 13, 0);
+INSERT INTO `tblProvincia` VALUES(120, 'SANCHEZ CARRION', 13, 0);
+INSERT INTO `tblProvincia` VALUES(121, 'SANTIAGO DE CHUCO', 13, 0);
+INSERT INTO `tblProvincia` VALUES(122, 'GRAN CHIMU', 13, 0);
+INSERT INTO `tblProvincia` VALUES(123, 'VIRU', 13, 0);
+INSERT INTO `tblProvincia` VALUES(124, 'CHICLAYO', 14, 0);
+INSERT INTO `tblProvincia` VALUES(125, 'FERREÑAFE', 14, 0);
+INSERT INTO `tblProvincia` VALUES(126, 'LAMBAYEQUE', 14, 0);
+INSERT INTO `tblProvincia` VALUES(127, 'LIMA', 15, 1);
+INSERT INTO `tblProvincia` VALUES(128, 'BARRANCA', 15, 0);
+INSERT INTO `tblProvincia` VALUES(129, 'CAJATAMBO', 15, 0);
+INSERT INTO `tblProvincia` VALUES(130, 'CANTA', 15, 0);
+INSERT INTO `tblProvincia` VALUES(131, 'CAÑETE', 15, 0);
+INSERT INTO `tblProvincia` VALUES(132, 'HUARAL', 15, 0);
+INSERT INTO `tblProvincia` VALUES(133, 'HUAROCHIRI', 15, 0);
+INSERT INTO `tblProvincia` VALUES(134, 'HUAURA', 15, 0);
+INSERT INTO `tblProvincia` VALUES(135, 'OYON', 15, 0);
+INSERT INTO `tblProvincia` VALUES(136, 'YAUYOS', 15, 0);
+INSERT INTO `tblProvincia` VALUES(137, 'MAYNAS', 16, 0);
+INSERT INTO `tblProvincia` VALUES(138, 'ALTO AMAZONAS', 16, 0);
+INSERT INTO `tblProvincia` VALUES(139, 'LORETO', 16, 0);
+INSERT INTO `tblProvincia` VALUES(140, 'MARISCAL RAMON CASTILLA', 16, 0);
+INSERT INTO `tblProvincia` VALUES(141, 'REQUENA', 16, 0);
+INSERT INTO `tblProvincia` VALUES(142, 'UCAYALI', 16, 0);
+INSERT INTO `tblProvincia` VALUES(143, 'TAMBOPATA', 17, 0);
+INSERT INTO `tblProvincia` VALUES(144, 'MANU', 17, 0);
+INSERT INTO `tblProvincia` VALUES(145, 'TAHUAMANU', 17, 0);
+INSERT INTO `tblProvincia` VALUES(146, 'MARISCAL NIETO', 18, 0);
+INSERT INTO `tblProvincia` VALUES(147, 'GENERAL SANCHEZ CERRO', 18, 0);
+INSERT INTO `tblProvincia` VALUES(148, 'ILO', 18, 0);
+INSERT INTO `tblProvincia` VALUES(149, 'PASCO', 19, 0);
+INSERT INTO `tblProvincia` VALUES(150, 'DANIEL ALCIDES CARRION', 19, 0);
+INSERT INTO `tblProvincia` VALUES(151, 'OXAPAMPA', 19, 0);
+INSERT INTO `tblProvincia` VALUES(152, 'PIURA', 20, 0);
+INSERT INTO `tblProvincia` VALUES(153, 'AYABACA', 20, 0);
+INSERT INTO `tblProvincia` VALUES(154, 'HUANCABAMBA', 20, 0);
+INSERT INTO `tblProvincia` VALUES(155, 'MORROPON', 20, 0);
+INSERT INTO `tblProvincia` VALUES(156, 'PAITA', 20, 0);
+INSERT INTO `tblProvincia` VALUES(157, 'SULLANA', 20, 0);
+INSERT INTO `tblProvincia` VALUES(158, 'TALARA', 20, 0);
+INSERT INTO `tblProvincia` VALUES(159, 'SECHURA', 20, 0);
+INSERT INTO `tblProvincia` VALUES(160, 'PUNO', 21, 0);
+INSERT INTO `tblProvincia` VALUES(161, 'AZANGARO', 21, 0);
+INSERT INTO `tblProvincia` VALUES(162, 'CARABAYA', 21, 0);
+INSERT INTO `tblProvincia` VALUES(163, 'CHUCUITO', 21, 0);
+INSERT INTO `tblProvincia` VALUES(164, 'EL COLLAO', 21, 0);
+INSERT INTO `tblProvincia` VALUES(165, 'HUANCANE', 21, 0);
+INSERT INTO `tblProvincia` VALUES(166, 'LAMPA', 21, 0);
+INSERT INTO `tblProvincia` VALUES(167, 'MELGAR', 21, 0);
+INSERT INTO `tblProvincia` VALUES(168, 'MOHO', 21, 0);
+INSERT INTO `tblProvincia` VALUES(169, 'SAN ANTONIO DE PUTINA', 21, 0);
+INSERT INTO `tblProvincia` VALUES(170, 'SAN ROMAN', 21, 0);
+INSERT INTO `tblProvincia` VALUES(171, 'SANDIA', 21, 0);
+INSERT INTO `tblProvincia` VALUES(172, 'YUNGUYO', 21, 0);
+INSERT INTO `tblProvincia` VALUES(173, 'MOYOBAMBA', 22, 0);
+INSERT INTO `tblProvincia` VALUES(174, 'BELLAVISTA', 22, 0);
+INSERT INTO `tblProvincia` VALUES(175, 'EL DORADO', 22, 0);
+INSERT INTO `tblProvincia` VALUES(176, 'HUALLAGA', 22, 0);
+INSERT INTO `tblProvincia` VALUES(177, 'LAMAS', 22, 0);
+INSERT INTO `tblProvincia` VALUES(178, 'MARISCAL CACERES', 22, 0);
+INSERT INTO `tblProvincia` VALUES(179, 'PICOTA', 22, 0);
+INSERT INTO `tblProvincia` VALUES(180, 'RIOJA', 22, 0);
+INSERT INTO `tblProvincia` VALUES(181, 'SAN MARTIN', 22, 0);
+INSERT INTO `tblProvincia` VALUES(182, 'TOCACHE', 22, 0);
+INSERT INTO `tblProvincia` VALUES(183, 'TACNA', 23, 0);
+INSERT INTO `tblProvincia` VALUES(184, 'CANDARAVE', 23, 0);
+INSERT INTO `tblProvincia` VALUES(185, 'JORGE BASADRE', 23, 0);
+INSERT INTO `tblProvincia` VALUES(186, 'TARATA', 23, 0);
+INSERT INTO `tblProvincia` VALUES(187, 'TUMBES', 24, 0);
+INSERT INTO `tblProvincia` VALUES(188, 'CONTRALMIRANTE VILLAR', 24, 0);
+INSERT INTO `tblProvincia` VALUES(189, 'ZARUMILLA', 24, 0);
+INSERT INTO `tblProvincia` VALUES(190, 'CORONEL PORTILLO', 25, 0);
+INSERT INTO `tblProvincia` VALUES(191, 'ATALAYA', 25, 0);
+INSERT INTO `tblProvincia` VALUES(192, 'PADRE ABAD', 25, 0);
+INSERT INTO `tblProvincia` VALUES(193, 'PURUS', 25, 0);
+
+use proyectohoteleria;
+CREATE TABLE usuario
+(
+idUsuario int auto_increment not null primary key,
+idTipoDocumento int,
+descTipoDocumento varchar(15),
+Nombre varchar(50),
+apePaterno varchar(50),
+apeMaterno varchar(50),
+direccion varchar(100),
+telefono varchar(11),
+idTipoSexo int,
+fechaInicio datetime,
+fechaFin datetime,
+usuario varchar(5),
+clave varchar(10),
+estado int
+);
+commit;
+
+use proyectohoteleria;
+insert into usuario values(1,1,'70979758','Almendra','Garro','Ramon','Av. Brasil 892','992948373',1,'2016-04-25','2016-07-01','agarr','garroramon',1);
+
+use proyectohoteleria;
+DELIMITER //
+create procedure uspIngresarSistema(
+IN v_usuario varchar(5),
+IN v_clave varchar(10))
+begin
+	if exists (select u.usuario,u.clave,u.fechaFin from usuario as u
+		where u.usuario=v_usuario and u.clave=v_clave and u.fechaFin>= date(now())) then
+        Begin
+        
+			select usuario,clave, Nombre, apePaterno, apeMaterno from usuario;
+                
+        END;
+	END if;
+        
+END //
+DELIMITER ;
+ 
+use proyectohoteleria;
+call uspIngresarSistema('agarr','garroramon');
+ 
+ 
+USE `proyectohoteleria`;
+DELIMITER //
+CREATE PROCEDURE `uspAllMenu`()
+BEGIN
+	SELECT * FROM(
+	SELECT m.intIdMenu IdMenu, IFNULL(m.varDescripcion, '') Descripcion
+	FROM tblMenu m
+	WHERE m.bitEstado = 1) Menu
+	ORDER BY IdMenu;
+END//
+
+DELIMITER ;
+
+USE `proyectohoteleria`;
+DELIMITER //
+CREATE PROCEDURE `uspAllHotel`(IN v_IdDistrito int, IN v_Inicio int, IN v_Tamano int)
+BEGIN
+	SELECT h.intIdHotel IdHotel, 
+	IFNULL(h.varNombre,'') Nombre, 
+	IFNULL(h.varDescripcion, '') Descripcion, 
+	IFNULL(h.varTelefono, '') Telefono, 
+	CONCAT(IFNULL(h.varDireccion, ''), ' - ', d.varDescripcion) Direccion, 
+	IFNULL(h.varHorario, '') Horario, 
+	IFNULL(h.varImagen, '') Imagen, 
+	IFNULL(h.varLongitud, 0) Longitud, 
+	IFNULL(h.varLatitud, 0) Latitud,
+	'Si' Reserva
+	FROM  	tblHotel h
+	INNER 	JOIN  tblDistrito d ON h.intIdDistrito = d.intIdDistrito 
+	WHERE  	h.bitEstado = 1 and h.intIdDistrito = v_IdDistrito
+	ORDER BY Nombre, IdHotel
+	Limit v_Inicio, v_Tamano;
+END//
+
+DELIMITER ;
+
+USE `proyectohoteleria`;
+DELIMITER //
+CREATE PROCEDURE `uspAllGpsHotel`(IN v_Longitud decimal(20,6), IN v_Latitud decimal(20,6), IN v_Distancia int, IN v_Tamano int, IN v_Pagina int)
+BEGIN
+DECLARE v_Inicio INT;
+	set v_Inicio = (v_Pagina - 1) * v_Tamano;
+	SELECT * FROM (
+	SELECT h.intIdHotel IdHotel, 
+	IFNULL(h.varNombre,'') Nombre,
+	IFNULL(h.varDescripcion, '') Descripcion,
+	IFNULL(h.varTelefono, '') Telefono, 
+	CONCAT(IFNULL( h.varDireccion,''), ' - ', d.varDescripcion) Direccion,
+	IFNULL(h.varHorario, '') Horario,
+	h.varImagen Imagen,	
+	( 6371 * ACOS( SIN( RADIANS( h.varLatitud ) ) 
+	* SIN( RADIANS( v_Latitud ) ) + COS( RADIANS( h.varLongitud - v_Longitud ) ) * COS( RADIANS( h.varLatitud ) ) 
+	* COS( RADIANS( v_Latitud ) ) ) ) AS DistanciaHotel,
+	h.varLongitud Longitud,
+	h.varLatitud Latitud,
+	'Si' Reserva
+	FROM tblHotel h
+	INNER JOIN  tblDistrito d ON h.intIdDistrito = d.intIdDistrito
+	WHERE  h.bitEstado = 1) HOTEL
+	HAVING DistanciaHotel < v_Distancia
+	ORDER BY Nombre, IdHotel								
+	Limit v_Inicio, v_Tamano;
+END//
+
+DELIMITER ;
+
+USE `proyectohoteleria`;
+DELIMITER //
+CREATE PROCEDURE `uspAllUbigeo`()
+BEGIN
+	SELECT 1 flag,intIdPais Id,varDescripcion Descripcion,intCodPais Codigo,varZonaGeografica ZonaGeografica 
+	FROM proyectohoteleria.tblPais where bitEstado=1
+	UNION
+	SELECT 2,a.intIdDepartamento IdDepartamento, a.varDescripcion Descripcion, a.intIdPais IdPais,' - '
+	FROM proyectohoteleria.tblDepartamento a
+	WHERE a.bitEstado=1
+	UNION
+	SELECT 3, a.intIdProvincia IdProvincia, a.varDescripcion Descripcion, a.intIdDepartamento IdDepartamento,' - '
+	FROM proyectohoteleria.tblProvincia a 
+	WHERE a.bitEstado=1
+	UNION
+	SELECT 4, a.intIdDistrito IdDistrito, a.varDescripcion Descripcion, a.intIdProvincia IdProvincia,' - '
+	FROM proyectohoteleria.tblDistrito a
+	WHERE a.bitEstado=1;
+END//
+
+DELIMITER ;
+ 
+ 
+ 
+ 
+
+

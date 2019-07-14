@@ -1,0 +1,84 @@
+﻿@model Proyecto_Hoteleria.Models.ReservaVM.ListarReservaVM
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/scripts/Reserva.js")"></script>
+    @{
+
+        <script type="text/javascript">
+            var notificacion = notificacion || {};
+            notificacion.Urls = notificacion.Urls || {};
+            notificacion.Urls.baseUrl = '@Url.Action("~")';
+            notificacion.Urls.editarReservaUrl = '@Url.Action("AprobarReserva", "ReservaHabitacion")';
+            notificacion.Urls.searchReservaUrl = '@Url.Action("Buscar", "ReservaHabitacion")';
+            notificacion.Urls.desaprobarReservaUrl = '@Url.Action("DesaprobarReserva", "ReservaHabitacion")';
+        </script>
+    }
+</head>
+
+<div class="page-header">
+    <center><h1>NOTIFICACIONES DE RESERVA</h1></center>
+    <br /> <br /> <br />
+    @*<div>
+        <form id="formAusenciaFiltro" role="form">
+            <div class="col-sm-12">
+                <center>
+                    <div class="form-group form-material">
+                        @Html.Label("descTipoDoc", "Desc. Documento", htmlAttributes: new { @class = "control-label col-sm-2" })
+                        <div class="col-sm-4">
+                            @Html.EditorFor(model => model.Filtro.descTipoDoc, new { htmlAttributes = new { @class = "form-control", @placeholder = "Documento" } })
+                        </div>
+                    </div>
+                </center>
+            </div>
+        </form>
+        <br />
+        <div class="col-sm-12">
+            <br />
+            <div class="text-center">
+                <button id="btnBuscar" class="btn btn-primary" type="button" onclick="">Buscar</button>
+            </div>
+        </div>
+    </div>*@
+
+    <div class="panel-body">
+        <div id="divGrid" class=" col-sm-12">
+            @Html.Partial("GridNotificacion")
+        </div>
+    </div>
+
+    <div class="panel-body">
+        
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+</div>
+
+<script>
+    function aprobar(id) {
+        debugger;
+        var urlAprobarReserva = notificacion.Urls.editarReservaUrl;
+
+        if (confirm("¿Está seguro de aprobar ésta reserva " + id + " ?")) {
+            if (id > 0)
+                window.location.href = urlAprobarReserva + '/' + id;
+        }
+
+    }
+</script>
+<script>
+    function cancelar(id) {
+        debugger;
+        var urlDesaprobarReserva = notificacion.Urls.desaprobarReservaUrl;
+
+        if (confirm("¿Está seguro de realizar esta acción?")) {
+            if (id > 0)
+                window.location.href = urlDesaprobarReserva + '/' + id;
+        }
+
+    }
+</script>

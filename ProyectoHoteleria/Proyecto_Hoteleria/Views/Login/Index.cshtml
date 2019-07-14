@@ -1,0 +1,68 @@
+﻿@model Proyecto_Hoteleria.Models.Login.ListarLoginVM
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_LoginIngresar.cshtml";
+}
+
+<head>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/scripts/Login.js")"></script>    
+    
+    @{ 
+    <script type="text/javascript">
+        var ingreso = ingreso || {};
+        ingreso.Urls = ingreso.Urls || {};
+        ingreso.Urls.baseUrl = '@Url.Action("~")';
+        ingreso.Urls.inicioUrl = '@Url.Action("Index", "Login")';
+        ingreso.Urls.editarReservaUrl = '@Url.Action("Ingreso", "Login")';
+        ingreso.Urls.searchReservaUrl = '@Url.Action("Notificacion", "ReservaHabitacion")';
+    </script>
+     }
+</head>
+
+<div class="page animsition">
+    <div class="panel-body">
+        <br /> <br /> <br />
+        <div id="container_demo">
+            <a class="hiddenanchor" id="toregister"></a>
+            <a class="hiddenanchor" id="tologin"></a>
+            <div id="wrapper">
+                <div id="login" class="animate form">
+                    <h1>Hotel Paraíso</h1>
+                    <br />
+                    
+                    <div class="example-wrap">
+                        <div class="form-group form-material">
+                            <div class="form-group form-material">
+                                @Html.Label("Usuario", "Usuario: ", htmlAttributes: new { @class = "uname" })
+                                    @Html.EditorFor(model => model.Filtro.Usuario, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingrese Usuario", @maxlength = "15" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group form-material">
+                            <div class="form-group form-material">
+                                @Html.Label("Clave", "Contraseña: ", htmlAttributes: new { @class = "youpasswd" })
+                                    @Html.EditorFor(model => model.Filtro.Clave, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingrese Contraseña", @maxlength = "15", @type = "password" } })
+                            </div>
+                        </div>
+
+                        <p class="text-center">
+                            <button id="btnIngresar" class="btn btn-primary" type="button">Ingresar</button>
+                        </p>
+                 </div>
+            </div>
+    </div>
+</div>
+</div>
+<div id="">
+
+</div>
+</div>
+<script>
+    (function () {
+        debugger;
+        iniciar();
+                 })();
+</script>
+
+

@@ -1,0 +1,19 @@
+E:\proyecto_5_DEW\ProyectoHoteleria\Modelo_Entidades\bin\Debug\Modelo_Entidades.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Modelo_Entidades\bin\Debug\Modelo_Entidades.pdb
+E:\proyecto_5_DEW\ProyectoHoteleria\Modelo_Entidades\obj\Debug\Modelo_Entidades.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Modelo_Entidades\obj\Debug\Modelo_Entidades.pdb
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Modelo_Entidades\bin\Debug\Modelo_Entidades.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Modelo_Entidades\bin\Debug\Modelo_Entidades.pdb
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Modelo_Entidades\obj\Debug\Modelo_Entidades.csprojResolveAssemblyReference.cache
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Modelo_Entidades\obj\Debug\Modelo_Entidades.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Modelo_Entidades\obj\Debug\Modelo_Entidades.pdb
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Modelo_Entidades\bin\Debug\Modelo_Entidades.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Modelo_Entidades\bin\Debug\Modelo_Entidades.pdb
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Modelo_Entidades\obj\Debug\Modelo_Entidades.csprojResolveAssemblyReference.cache
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Modelo_Entidades\obj\Debug\Modelo_Entidades.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Modelo_Entidades\obj\Debug\Modelo_Entidades.pdb
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Modelo_Entidades\bin\Debug\Modelo_Entidades.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Modelo_Entidades\bin\Debug\Modelo_Entidades.pdb
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Modelo_Entidades\obj\Debug\Modelo_Entidades.csprojResolveAssemblyReference.cache
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Modelo_Entidades\obj\Debug\Modelo_Entidades.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Modelo_Entidades\obj\Debug\Modelo_Entidades.pdb

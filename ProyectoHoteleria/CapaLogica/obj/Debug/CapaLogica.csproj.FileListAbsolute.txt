@@ -1,0 +1,37 @@
+E:\proyecto_5_DEW\ProyectoHoteleria\CapaLogica\bin\Debug\CapaLogica.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\CapaLogica\bin\Debug\CapaLogica.pdb
+E:\proyecto_5_DEW\ProyectoHoteleria\CapaLogica\bin\Debug\AccesoDatos.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\CapaLogica\bin\Debug\Modelo_Entidades.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\CapaLogica\bin\Debug\MySql.Data.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\CapaLogica\bin\Debug\AccesoDatos.pdb
+E:\proyecto_5_DEW\ProyectoHoteleria\CapaLogica\bin\Debug\Modelo_Entidades.pdb
+E:\proyecto_5_DEW\ProyectoHoteleria\CapaLogica\obj\Debug\CapaLogica.csprojResolveAssemblyReference.cache
+E:\proyecto_5_DEW\ProyectoHoteleria\CapaLogica\obj\Debug\CapaLogica.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\CapaLogica\obj\Debug\CapaLogica.pdb
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\bin\Debug\CapaLogica.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\bin\Debug\CapaLogica.pdb
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\bin\Debug\AccesoDatos.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\bin\Debug\Modelo_Entidades.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\bin\Debug\AccesoDatos.pdb
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\bin\Debug\Modelo_Entidades.pdb
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\obj\Debug\CapaLogica.csprojResolveAssemblyReference.cache
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\obj\Debug\CapaLogica.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\obj\Debug\CapaLogica.pdb
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\bin\Debug\CapaLogica.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\bin\Debug\CapaLogica.pdb
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\bin\Debug\AccesoDatos.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\bin\Debug\Modelo_Entidades.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\bin\Debug\AccesoDatos.pdb
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\bin\Debug\Modelo_Entidades.pdb
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\obj\Debug\CapaLogica.csprojResolveAssemblyReference.cache
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\obj\Debug\CapaLogica.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\obj\Debug\CapaLogica.pdb
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\bin\Debug\CapaLogica.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\bin\Debug\CapaLogica.pdb
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\bin\Debug\AccesoDatos.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\bin\Debug\Modelo_Entidades.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\bin\Debug\AccesoDatos.pdb
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\bin\Debug\Modelo_Entidades.pdb
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\obj\Debug\CapaLogica.csprojResolveAssemblyReference.cache
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\obj\Debug\CapaLogica.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\CapaLogica\obj\Debug\CapaLogica.pdb

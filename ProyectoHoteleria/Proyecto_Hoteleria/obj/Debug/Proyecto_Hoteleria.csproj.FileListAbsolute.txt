@@ -1,0 +1,189 @@
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\csc.exe
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\System.Collections.Immutable.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\System.Reflection.Metadata.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\vbc.exe
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\VBCSCompiler.exe
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\VBCSCompiler.exe.config
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\Proyecto_Hoteleria.dll.config
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\Proyecto_Hoteleria.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\Proyecto_Hoteleria.pdb
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\AutoMapper.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\CapaLogica.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\Microsoft.Web.Infrastructure.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\Modelo_Entidades.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Helpers.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Mvc.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Razor.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Webpages.Deployment.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Webpages.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Webpages.Razor.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\MySql.Data.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\AccesoDatos.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\CapaLogica.pdb
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\Modelo_Entidades.pdb
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\AutoMapper.xml
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Razor.xml
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Webpages.xml
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Webpages.Deployment.xml
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Webpages.Razor.xml
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Helpers.xml
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Mvc.xml
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\AccesoDatos.pdb
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\es\System.Web.Razor.resources.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\es\System.Web.Webpages.resources.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\es\System.Web.Webpages.Deployment.resources.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\es\System.Web.Webpages.Razor.resources.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\es\System.Web.Helpers.resources.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\bin\es\System.Web.Mvc.resources.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\obj\Debug\Proyecto_Hoteleria.csprojResolveAssemblyReference.cache
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\obj\Debug\Proyecto_Hoteleria.dll
+E:\proyecto_5_DEW\ProyectoHoteleria\Proyecto_Hoteleria\obj\Debug\Proyecto_Hoteleria.pdb
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\csc.exe
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\System.Collections.Immutable.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\System.Reflection.Metadata.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\vbc.exe
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\VBCSCompiler.exe
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\VBCSCompiler.exe.config
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\Proyecto_Hoteleria.dll.config
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\Proyecto_Hoteleria.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\Proyecto_Hoteleria.pdb
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\AutoMapper.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\CapaLogica.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\Microsoft.Web.Infrastructure.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\Modelo_Entidades.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Helpers.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Mvc.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Razor.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Webpages.Deployment.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Webpages.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Webpages.Razor.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\MySql.Data.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\AccesoDatos.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\CapaLogica.pdb
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\Modelo_Entidades.pdb
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\AutoMapper.xml
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Razor.xml
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Webpages.xml
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Webpages.Deployment.xml
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Webpages.Razor.xml
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Helpers.xml
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Mvc.xml
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\AccesoDatos.pdb
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\es\System.Web.Razor.resources.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\es\System.Web.Webpages.resources.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\es\System.Web.Webpages.Deployment.resources.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\es\System.Web.Webpages.Razor.resources.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\es\System.Web.Helpers.resources.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\es\System.Web.Mvc.resources.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\obj\Debug\Proyecto_Hoteleria.csprojResolveAssemblyReference.cache
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\obj\Debug\Proyecto_Hoteleria.dll
+D:\Escritorio\PROYECTOS\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\obj\Debug\Proyecto_Hoteleria.pdb
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\csc.exe
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\System.Collections.Immutable.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\System.Reflection.Metadata.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\vbc.exe
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\VBCSCompiler.exe
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\VBCSCompiler.exe.config
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\Proyecto_Hoteleria.dll.config
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\Proyecto_Hoteleria.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\Proyecto_Hoteleria.pdb
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\AutoMapper.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\CapaLogica.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\Microsoft.Web.Infrastructure.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\Modelo_Entidades.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Helpers.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Mvc.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Razor.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Webpages.Deployment.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Webpages.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Webpages.Razor.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\MySql.Data.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\AccesoDatos.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\CapaLogica.pdb
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\Modelo_Entidades.pdb
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\AutoMapper.xml
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Razor.xml
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Webpages.xml
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Webpages.Deployment.xml
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Webpages.Razor.xml
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Helpers.xml
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Mvc.xml
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\AccesoDatos.pdb
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\es\System.Web.Razor.resources.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\es\System.Web.Webpages.resources.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\es\System.Web.Webpages.Deployment.resources.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\es\System.Web.Webpages.Razor.resources.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\es\System.Web.Helpers.resources.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\es\System.Web.Mvc.resources.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\obj\Debug\Proyecto_Hoteleria.csprojResolveAssemblyReference.cache
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\obj\Debug\Proyecto_Hoteleria.dll
+D:\Escritorio\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\obj\Debug\Proyecto_Hoteleria.pdb
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\csc.exe
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\System.Collections.Immutable.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\System.Reflection.Metadata.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\vbc.exe
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\VBCSCompiler.exe
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\roslyn\VBCSCompiler.exe.config
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\Proyecto_Hoteleria.dll.config
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\Proyecto_Hoteleria.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\Proyecto_Hoteleria.pdb
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\AutoMapper.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\CapaLogica.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\Microsoft.Web.Infrastructure.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\Modelo_Entidades.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Helpers.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Mvc.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Razor.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Webpages.Deployment.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Webpages.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Webpages.Razor.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\MySql.Data.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\AccesoDatos.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\CapaLogica.pdb
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\Modelo_Entidades.pdb
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\AutoMapper.xml
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Razor.xml
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Webpages.xml
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Webpages.Deployment.xml
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Webpages.Razor.xml
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Helpers.xml
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\System.Web.Mvc.xml
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\AccesoDatos.pdb
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\es\System.Web.Razor.resources.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\es\System.Web.Webpages.resources.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\es\System.Web.Webpages.Deployment.resources.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\es\System.Web.Webpages.Razor.resources.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\es\System.Web.Helpers.resources.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\bin\es\System.Web.Mvc.resources.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\obj\Debug\Proyecto_Hoteleria.csprojResolveAssemblyReference.cache
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\obj\Debug\Proyecto_Hoteleria.dll
+D:\Escritorio\Escritorio 2\PROYECTOS\Proyectos Todos\Desarrollo para entorno web\2016-1\LPIII-39\Hoteleria\ProyectoHoteleria\Proyecto_Hoteleria\obj\Debug\Proyecto_Hoteleria.pdb

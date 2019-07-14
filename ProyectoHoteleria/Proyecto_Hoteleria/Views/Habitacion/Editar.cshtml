@@ -1,0 +1,57 @@
+﻿@model Proyecto_Hoteleria.Models.EditarHabitacionVM
+@{
+    ViewBag.Title = "Habitacion";
+    Layout = null;
+}
+<div class="page-content">
+    <div class="panel">
+        <div class="panel-body container-fluid">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                    <div class="example-wrap">
+                        @using (@Html.BeginForm("Editar", "Habitacion", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "frmEditHabitacion" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => model.Item.NroHanitacion)
+                            <div class="form-group form-material">
+                                @Html.Label("TipoHabitacion", "TipoHabitacion", htmlAttributes: new { @class = "control-label col-sm-2" })
+                                <div class="col-sm-4">
+                                    @Html.DropDownListFor(model => model.Item.idTipoHabitacion, Model.TipoHabitacion, new { @class = "form-control" })
+                                </div>
+
+                                @Html.Label("TipoServicio", "TipoServicio", htmlAttributes: new { @class = "control-label col-sm-2" })
+                                <div class="col-sm-4">
+                                    @Html.DropDownListFor(model => model.Item.idtipoServicio, Model.TipoServicio, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="form-group form-material">
+                                @Html.Label("Precio", "Precio", htmlAttributes: new { @class = "control-label col-sm-2" })
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(model => model.Item.precio, new { htmlAttributes = new { @class = "form-control", @placeholder = "Precio", @onkeypress = "return soloNumeros(event)", @onpaste = "return false" } })
+                                </div>
+
+                                @Html.Label("Cantidad Camas", "Cantidad Camas", htmlAttributes: new { @class = "control-label col-sm-2" })
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(model => model.Item.cantCamas, new { htmlAttributes = new { @class = "form-control", @placeholder = "Cantidad Camas", @onkeypress = "return soloNumeros(event)", @onpaste = "return false" } })
+                                </div>
+                            </div>
+
+                            <div class="form-group form-material">
+                                <div class="col-sm-9 col-sm-offset-4">
+                                    <button type="submit" id="btnGrabar" class="btn btn-primary" onclick="return grabar();">Save </button>
+                                    <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    (function () {
+        iniciarEditarHabitacion();
+    })();
+</script>
